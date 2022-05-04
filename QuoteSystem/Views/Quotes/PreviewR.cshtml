@@ -1,0 +1,280 @@
+﻿@model QuoteSystem.Models.Quote
+@{
+    ViewData["Title"] = "Residential";
+}
+
+<style>
+
+    .preview {
+        border: 1px solid black;
+        margin: 20px;
+        padding: 20px;
+        
+        width: 8.5in;
+        height: 11in;
+    }
+
+    .preview-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .prev-item {
+        display: flex;
+        max-height: 22px;
+    }
+
+    .prev-item span {
+        margin-right: 6px;
+    }
+
+    .prev-value {
+        border-bottom: 1px solid gray;
+        min-width: 100px;
+        max-width: 100%;
+    }
+
+    .prev-check {
+        margin: 1px 10px;
+    }
+
+    .number {
+        text-align: right;
+    }
+
+    .last-col {
+        display: flex;
+        justify-content: right;
+    }
+
+    .image {
+        text-align: center;
+    }
+
+    
+
+    .old {
+        margin-top: 300px;
+    }
+
+
+    /* New */
+    .grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .grid-3 {  
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .owned {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    .right {
+        display: flex;
+        justify-content: right;
+    }
+
+    .contact {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin: 20px 20px 0px 20px;
+    }
+
+    .contact .phone {
+        border-bottom: 2px solid black;
+    }
+
+    .contact .contact-phone {
+        font-weight: bold;
+    }
+
+    .bb-2 {
+        border-bottom: 2px solid black;
+    }
+
+    .font-small {
+        font-size: 0.875rem;
+    }
+
+    .font-med {
+        font-size: 1.25rem;
+    }
+
+    .font-large {
+        font-size: 1.5rem;
+    }
+
+    .text-red {
+        color: red;
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+
+    /* Customer info table */
+
+    .customer-info {  
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+
+    .customer-info table {
+        width: 100%;
+    }
+
+    .customer-info thead td {
+        text-align: center;
+        font-size: 1.25rem;
+        background-color: lightgray;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .customer-info tbody td {
+        padding: 10px;
+    }
+
+    .customer-info tbody .prev-value {
+        width: 100%;
+    }
+
+    /* Sales Rep */
+
+    .sales-rep {
+        margin: 10px 10%;
+    }
+
+    .sales-rep table {
+        width: 100%;
+    }
+
+    .sales-rep .prev-value {
+        width: 90%;
+    }
+
+</style>
+
+<div class="preview-wrapper">
+    <div class="preview">
+    <div class="header">
+        <div class="grid grid-3">
+            <div class="prev-item">
+                <span>@Html.DisplayNameFor(item => Model.QuoteNumber)</span>
+                <div class="prev-value number">@Html.DisplayFor(item => Model.QuoteNumber)</div>
+            </div>
+            <div class="image">
+                <img src="https://www.klearview.ca/wp-content/uploads/2018/08/kv-ca-logo.png" />
+            </div>
+            <div class="right">
+                <div>
+                    <div class="prev-item">
+                        <span>@Html.DisplayNameFor(item => Model.Accepted)</span>
+                        <div class="prev-check">@Html.DisplayFor(item => Model.Accepted)</div>
+                    </div>
+                    <div class="prev-item">
+                        <span>@Html.DisplayNameFor(item => Model.Date):</span>
+                        <div class="prev-value number">@Html.DisplayFor(item => Model.Date)</div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <div class="contact bb-2 grid grid-3">
+            <div>
+                <div class="contact-loaction">BURLINGTON</div>
+                <div class="contact-phone">905-634-2882</div>
+            </div>
+            <div>
+                <div class="contact-loaction">MILTON</div>
+                <div class="contact-phone">905-878-9889</div>
+            </div>
+            <div>
+                <div class="contact-loaction">OAKVILLE</div>
+                <div class="contact-phone">905-845-7680</div>
+            </div>
+        </div>
+        <div class="grid owned text-center">
+            <div></div>
+            <div class="font-med">Locally owned and operated</div>
+            <div class="font-small text-start">o/b 2112190 Ontario Inc.</div>
+        </div>
+        <div class="text-red grid grid-2 font-large">
+            <div class="text-end"><a>www.klearview.ca</a></div>
+            <div class="text-start"><a>info@klearview.ca</a></div>
+        </div>
+    </div>
+
+    <div class="text-center text-bold font-large">ESTIMATE SHEET</div>
+    <div class="customer-info">
+        <table>
+            <colgroup>
+               <col span="1" style="width: 140px;">
+               <col span="1" style="width: auto;">
+               <col span="1" style="width: 120px;">
+               <col span="1" style="width: auto;">
+            </colgroup>
+            <thead>
+                <tr><td colspan="4">CUSTOMER INFO</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Name):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Address):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.City):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.City)</div></td>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.PostalCode):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.PostalCode)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Phone):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Cell):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Email):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sales-rep">
+        <table>
+            <colgroup>
+               <col span="1" style="width: 130px;">
+               <col span="1" style="width: 180px;">
+               <col span="1" style="width: 80px;">
+               <col span="1" style="width: auto;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.Date) of Estimate:</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.Date)</div></td>
+                    <td>@Html.DisplayNameFor(item => Model.SalesRep):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.SalesRep)</div></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center font-small">
+                        <em>Estimate good for 30 days from above date</em>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</div>

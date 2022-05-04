@@ -1,0 +1,33 @@
+﻿@model IEnumerable<QuoteSystem.Models.Quote>
+
+@{
+    ViewData["Title"] = "Quotes";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.QuoteNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.CustomerInfo.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.CustomerInfo.FullAddress)</th>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
+            <th>@Html.DisplayNameFor(model => model.Accepted)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.QuoteNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.FullAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Accepted)</td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+</table>

@@ -1,0 +1,261 @@
+﻿@model QuoteSystem.Models.Quote
+@{
+    ViewData["Title"] = "Residential";
+}
+
+<form asp-action="Index">
+
+    <div class="group">
+        <span class="group-label">Quote Infromation</span>
+        <div class="row">
+            <div class="form-group col-md">
+                <label asp-for="QuoteNumber" class="control-label"></label>
+                <input asp-for="QuoteNumber" class="form-control">
+                <span asp-validation-for="QuoteNumber" class="text-danger"></span>
+            </div>            
+            <div class="form-group col-md">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="date">
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Accepted" class="form-check-input">  
+                <label asp-for="Accepted" class="form-check-label"></label>
+                <span asp-validation-for="Accepted" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="group">
+        <span class="group-label">Customer Infromation</span>
+        <div class="form-group">
+            <label asp-for="CustomerInfo.Name" class="control-label"></label>
+            <input asp-for="CustomerInfo.Name" class="form-control">
+            <span asp-validation-for="CustomerInfo.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomerInfo.Address" class="control-label"></label>
+            <input asp-for="CustomerInfo.Address" class="form-control">
+            <span asp-validation-for="CustomerInfo.Address" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="form-group col-md">
+                <label asp-for="CustomerInfo.City" class="control-label"></label>
+                <input asp-for="CustomerInfo.City" class="form-control">
+                <span asp-validation-for="CustomerInfo.City" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="CustomerInfo.PostalCode" class="control-label"></label>
+                <input asp-for="CustomerInfo.PostalCode" class="form-control">
+                <span asp-validation-for="CustomerInfo.PostalCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md">
+                <label asp-for="CustomerInfo.Phone" class="control-label"></label>
+                <input asp-for="CustomerInfo.Phone" class="form-control" type="tel">
+                <span asp-validation-for="CustomerInfo.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="CustomerInfo.Cell" class="control-label"></label>
+                <input asp-for="CustomerInfo.Cell" class="form-control" type="tel">
+                <span asp-validation-for="CustomerInfo.Cell" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomerInfo.Email" class="control-label"></label>
+            <input asp-for="CustomerInfo.Email" class="form-control" type="email">
+            <span asp-validation-for="CustomerInfo.Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="group">
+        <span class="group-label">Sales Rep</span>
+        <div class="form-group mt-3">
+            <label asp-for="SalesRep" class="control-label"></label>
+            <input asp-for="SalesRep" class="form-control">
+            <span asp-validation-for="SalesRep" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="group estimate">
+        <span class="group-label">Estimate</span>
+
+        <p>
+            Only fill prices for services that are going to be done for this job.
+        </p>
+        
+        <div class="sub">
+            <span class="sub-label">Window Cleaning</span>
+
+            <div class="sub mt-3">
+                <span class="sub-label">Exterior</span>
+                <div class="form-group">
+                    <div>
+                        <label asp-for="Estimate.Exterior.ExteriorPrice" class="control-label"></label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.Exterior.ExteriorPrice" class="form-control" type="number" min="0" >    
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.Exterior.ExteriorPrice" class="text-danger"></span>
+
+                <div class="form-group">
+                    <label asp-for="Estimate.Exterior.ScreensPrice" class="control-label"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.Exterior.ScreensPrice" class="form-control" type="number" min="0" >
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.Exterior.ScreensPrice" class="text-danger"></span>
+
+                <div class="form-group">
+                    <label asp-for="Estimate.Exterior.HighWindowsPrice" class="control-label"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.Exterior.HighWindowsPrice" class="form-control" type="number" min="0" >
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.Exterior.HighWindowsPrice" class="text-danger"></span>
+
+            </div>
+            
+
+            <div class="sub mt-3">
+                <span class="sub-label">Exterior and Interior</span>
+                <div class="form-group">
+                    <div>
+                        <label asp-for="Estimate.ExteriorAndInterior.Total" class="control-label"></label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.ExteriorAndInterior.Total" class="form-control" type="number" min="0" >       
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.ExteriorAndInterior.Total" class="text-danger"></span>
+
+                <label asp-for="Estimate.ExteriorAndInterior.Basements.Price" class="control-label row-label mt-2"></label>
+                <div class="check-row"> 
+                     <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input asp-for="Estimate.ExteriorAndInterior.Basements.Price" class="form-control" type="number" min="0" >
+                        </div>
+                    </div>
+                    <div class="form-group inline-check">
+                        <input asp-for="Estimate.ExteriorAndInterior.Basements.WalkoutOnly" class="form-check-input">  
+                        <label asp-for="Estimate.ExteriorAndInterior.Basements.WalkoutOnly" class="form-check-label"></label>
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.ExteriorAndInterior.Basements.Price" class="text-danger"></span>
+
+                <label asp-for="Estimate.ExteriorAndInterior.Skylights.Price" class="control-label row-label mt-2"></label>
+                <div class="check-row">    
+                     <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input asp-for="Estimate.ExteriorAndInterior.Skylights.Price" class="form-control">           
+                        </div>
+                    </div>
+                    <div class="form-group inline-check">
+                        <input asp-for="Estimate.ExteriorAndInterior.Skylights.InAndOut" class="form-check-input">  
+                        <label asp-for="Estimate.ExteriorAndInterior.Skylights.InAndOut" class="form-check-label"></label>
+                    </div>
+                    <div class="form-group inline-check">
+                        <input asp-for="Estimate.ExteriorAndInterior.Skylights.Out" class="form-check-input">  
+                        <label asp-for="Estimate.ExteriorAndInterior.Skylights.Out" class="form-check-label"></label>
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.ExteriorAndInterior.Skylights.Price" class="text-danger"></span>
+
+                <div class="form-group">
+                    <div>
+                        <label asp-for="Estimate.ExteriorAndInterior.DeckGlassPrice" class="control-label"></label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.ExteriorAndInterior.DeckGlassPrice" class="form-control" type="number" min="0" >
+                        
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.ExteriorAndInterior.DeckGlassPrice" class="text-danger"></span>
+            </div>
+            <div class="sub mt-3">
+                <span class="sub-label">Siding Cleaning</span>
+
+                <div class="form-group">
+                    <div>
+                        <label asp-for="Estimate.SidingPrice" class="control-label"></label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.SidingPrice" class="form-control" type="number" min="0" >                
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.SidingPrice" class="text-danger"></span>
+            </div>
+            <div class="sub mt-3">
+                <span class="sub-label">Eavestrough Clearing</span>
+
+                <div class="form-group">
+                    <div>
+                        <label asp-for="Estimate.EvestroughPrice" class="control-label"></label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input asp-for="Estimate.EvestroughPrice" class="form-control" type="number" min="0" >
+                    </div>
+                </div>
+                <span asp-validation-for="Estimate.EvestroughPrice" class="text-danger"></span>
+            </div>
+        </div>
+
+        
+    </div>
+    
+    <div class="group">
+        <span class="group-label">@Html.DisplayNameFor(model => Model.Description)</span>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="group">
+        <span class="group-label">@Html.DisplayNameFor(model => Model.Notes)</span>
+        <div class="form-group">
+            <textarea asp-for="Notes" class="form-control" rows="10"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group buttons">
+        <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-secondary">Preview</button>
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

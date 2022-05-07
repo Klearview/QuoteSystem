@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using FRCScouting_API.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<ApiSettings> _apiSettings;
+@{
+    string googleMapsApi = _apiSettings.Value.GoogleMapsUrl!
+        .Replace("{GoogleMapsKey}", _apiSettings.Value.GoogleMapsKey!);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,6 +18,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="@googleMapsApi"></script>
 </head>
 <body>
     <header>

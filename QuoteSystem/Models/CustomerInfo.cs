@@ -12,13 +12,6 @@ namespace QuoteSystem.Models
         [Required]
         public string? Address { get; set; }
 
-        [Required]
-        public string? City { get; set; }
-
-        [Required]
-        [Display(Name = "Postal Code")]
-        public string? PostalCode { get; set; }
-
         [Phone]
         public string? Phone { get; set; }
 
@@ -31,14 +24,5 @@ namespace QuoteSystem.Models
         [EmailAddress]
         public string? Email { get; set; }
 
-        [XmlIgnore]
-        [Display(Name = "Full Address")]
-        public string? FullAddress
-        {
-            get
-            {
-                return $"{Address} {City}, {PostalCode}";
-            }
-        }
     }
 }

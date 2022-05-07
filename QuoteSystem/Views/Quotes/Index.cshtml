@@ -7,11 +7,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.QuoteNumber)</th>
             <th>@Html.DisplayNameFor(model => model.CustomerInfo.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.CustomerInfo.FullAddress)</th>
-            <th>@Html.DisplayNameFor(model => model.Date)</th>
-            <th>@Html.DisplayNameFor(model => model.Accepted)</th>
+            <th>@Html.DisplayNameFor(model => model.CustomerInfo.Address)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.SentAt)</th>
         </tr>
     </thead>
     <tbody>
@@ -20,11 +20,11 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.QuoteNumber)</td>
                     <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.FullAddress)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Accepted)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SentAt)</td>
                 </tr>
             }
         }

@@ -51,12 +51,13 @@
         text-align: center;
     }
 
-    
-
     .old {
         margin-top: 300px;
     }
 
+    .web {
+        line-height: 1.375rem;
+    }
 
     /* New */
     .grid {
@@ -100,18 +101,6 @@
         border-bottom: 2px solid black;
     }
 
-    .font-small {
-        font-size: 0.875rem;
-    }
-
-    .font-med {
-        font-size: 1.25rem;
-    }
-
-    .font-large {
-        font-size: 1.5rem;
-    }
-
     .text-red {
         color: red;
     }
@@ -140,6 +129,7 @@
 
     .customer-info tbody td {
         padding: 10px;
+        line-height: 1rem;
     }
 
     .customer-info tbody .prev-value {
@@ -150,6 +140,7 @@
 
     .sales-rep {
         margin: 10px 10%;
+        line-height: 1rem;
     }
 
     .sales-rep table {
@@ -160,121 +151,268 @@
         width: 90%;
     }
 
+    /* Job Description */
+
+    .job-description {
+        border-top: 2px solid black;
+    }
+
+    /* Estimate */
+
+    .estimate {
+        border: 2px solid black;
+        height: 100%;
+    }
+
+    .estimate-top {
+        margin-top: 4px;
+        line-height: 1rem;
+    }
+
+    .estimate-items {
+        line-height: 1rem;
+        width: calc(100% - 16px);
+        margin: -12px 8px 8px 12px;
+    }
+
+    .estimate-items td {
+        padding-bottom: 2px;
+        font-size: 0.75rem;
+    }
+
+    .estimate-items span {
+        font-size: 0.875rem;
+    }
+    
+    .estimate-item-title {
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .estimate-item-subtitle {
+        font-size: 1rem;
+    }
+
+    .estimate-subsection-top td {
+        padding-top: 2px;
+    }
+
+    .estimate-subsection-bot {
+        border-bottom: 1px solid lightgray;
+    }
+
+    /* Multi Service */
+
+    .multi-service {
+        line-height: 0.875rem;
+    }
+
+    .multi-service-title {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
 </style>
 
 <div class="preview-wrapper">
     <div class="preview">
-    <div class="header">
-        <div class="grid grid-3">
-            <div class="prev-item">
-                <span>@Html.DisplayNameFor(item => Model.QuoteNumber)</span>
-                <div class="prev-value number">@Html.DisplayFor(item => Model.QuoteNumber)</div>
-            </div>
-            <div class="image">
-                <img src="https://www.klearview.ca/wp-content/uploads/2018/08/kv-ca-logo.png" />
-            </div>
-            <div class="right">
+        <div class="header">
+                <div class="image">
+                    <img src="https://www.klearview.ca/wp-content/uploads/2018/08/kv-ca-logo.png" />
+                </div>
+            <div class="contact bb-2 grid grid-3">
                 <div>
-                    <div class="prev-item">
-                        <span>@Html.DisplayNameFor(item => Model.Accepted)</span>
-                        <div class="prev-check">@Html.DisplayFor(item => Model.Accepted)</div>
-                    </div>
-                    <div class="prev-item">
-                        <span>@Html.DisplayNameFor(item => Model.Date):</span>
-                        <div class="prev-value number">@Html.DisplayFor(item => Model.Date)</div>
-                    </div>
-                </div>   
+                    <div class="contact-loaction">BURLINGTON</div>
+                    <div class="contact-phone">905-634-2882</div>
+                </div>
+                <div>
+                    <div class="contact-loaction">MILTON</div>
+                    <div class="contact-phone">905-878-9889</div>
+                </div>
+                <div>
+                    <div class="contact-loaction">OAKVILLE</div>
+                    <div class="contact-phone">905-845-7680</div>
+                </div>
+            </div>
+            <div class="grid owned text-center">
+                <div></div>
+                <div class="text-md">Locally owned and operated</div>
+                <div class="text-sm text-start">o/b 2112190 Ontario Inc.</div>
+            </div>
+            <div class="text-red grid grid-2 text-lg web">
+                <div class="text-end"><a>www.klearview.ca</a></div>
+                <div class="text-start"><a>info@klearview.ca</a></div>
             </div>
         </div>
-        <div class="contact bb-2 grid grid-3">
-            <div>
-                <div class="contact-loaction">BURLINGTON</div>
-                <div class="contact-phone">905-634-2882</div>
-            </div>
-            <div>
-                <div class="contact-loaction">MILTON</div>
-                <div class="contact-phone">905-878-9889</div>
-            </div>
-            <div>
-                <div class="contact-loaction">OAKVILLE</div>
-                <div class="contact-phone">905-845-7680</div>
-            </div>
-        </div>
-        <div class="grid owned text-center">
-            <div></div>
-            <div class="font-med">Locally owned and operated</div>
-            <div class="font-small text-start">o/b 2112190 Ontario Inc.</div>
-        </div>
-        <div class="text-red grid grid-2 font-large">
-            <div class="text-end"><a>www.klearview.ca</a></div>
-            <div class="text-start"><a>info@klearview.ca</a></div>
-        </div>
-    </div>
 
-    <div class="text-center text-bold font-large">ESTIMATE SHEET</div>
-    <div class="customer-info">
-        <table>
-            <colgroup>
-               <col span="1" style="width: 140px;">
-               <col span="1" style="width: auto;">
-               <col span="1" style="width: 120px;">
-               <col span="1" style="width: auto;">
-            </colgroup>
-            <thead>
-                <tr><td colspan="4">CUSTOMER INFO</td></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Name):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Address):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.City):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.City)</div></td>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.PostalCode):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.PostalCode)</div></td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Phone):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Cell):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Email):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="sales-rep">
-        <table>
-            <colgroup>
-               <col span="1" style="width: 130px;">
-               <col span="1" style="width: 180px;">
-               <col span="1" style="width: 80px;">
-               <col span="1" style="width: auto;">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <td>@Html.DisplayNameFor(item => Model.Date) of Estimate:</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.Date)</div></td>
-                    <td>@Html.DisplayNameFor(item => Model.SalesRep):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.SalesRep)</div></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-center font-small">
-                        <em>Estimate good for 30 days from above date</em>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+        <div class="text-center text-bold text-lg">ESTIMATE SHEET</div>
+        <div class="customer-info">
+            <table>
+                <colgroup>
+                   <col span="1" style="width: 140px;">
+                   <col span="1" style="width: auto;">
+                   <col span="1" style="width: 120px;">
+                   <col span="1" style="width: auto;">
+                </colgroup>
+                <thead>
+                    <tr><td colspan="4">CUSTOMER INFORMATION</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Name):</td>
+                        <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Address):</td>
+                        <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Phone):</td>
+                        <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
+                        <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Cell):</td>
+                        <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Email):</td>
+                        <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="sales-rep">
+            <table>
+                <colgroup>
+                   <col span="1" style="width: 130px;">
+                   <col span="1" style="width: 180px;">
+                   <col span="1" style="width: 80px;">
+                   <col span="1" style="width: auto;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => Model.QuoteInfo.DateOfEstimate) of Estimate:</td>
+                        <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.DateOfEstimate)</div></td>
+                        <td>@Html.DisplayNameFor(item => Model.QuoteInfo.SalesRep):</td>
+                        <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.SalesRep)</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center text-sm">
+                            <em>Estimate good for 30 days from above date</em>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*
+        <div class="grid grid-2 last">
+            <div class="job-description">
+                <div class="text-center text-md">Job Description: (see notes)</div>
+            </div>
+            <div class="estimate">
+                <div class="text-center estimate-top">
+                    <span class="text-bold text-lg">ESTIMATE</span>
+                    <p class="text-red text-xs">TAXES NOT INCLUDED</p>
+                </div>
+                <table class="estimate-items">
+                    <colgroup>
+                       <col span="1" style="width: 20px;">
+                       <col span="1" style="width: auto;">
+                       <col span="1" style="width: 100px;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><span class="estimate-item-title">WINDOW CLEANING</span></td>   
+                            <td></td>
+                        </tr>
+                        <tr class="estimate-subsection-top">
+                            <td>@Html.DisplayFor(item => Model.Estimate.Exterior.ExteriorPrice.HasValue)</td>
+                            <td><span class="estimate-item-subtitle">Exterior</span></td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ExteriorPrice)</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Customer needs to remove exterior Screens</td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensRemoved) yes @Html.DisplayFor(item => Model.Estimate.Exterior.ScreensRemoved) no</span></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensPrice.HasValue)</td>
+                            <td>If we need to remove screens, clean, and reinstall them</td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensPrice)</span></td>
+                        </tr>
+                        <tr class="estimate-subsection-bot">
+                            <td>@Html.DisplayFor(item => Model.Estimate.Exterior.HighWindowsPrice.HasValue)</td>
+                            <td>Interior of high windows only</td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.HighWindowsPrice)</span></td>
+                        </tr>
 
-
+                        <tr class="estimate-subsection-top">
+                            <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Total.HasValue)</td>
+                            <td><span class="estimate-item-subtitle">Exterior and Interior</span></td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Total)</span></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.Price.HasValue)</td>
+                            <td>
+                                Basements &emsp;
+                                @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.WalkoutOnly) walkout only
+                            </td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.Price)</span></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Price.HasValue)</td>
+                            <td>
+                                Skylights &emsp;
+                                @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.InAndOut) in/out &emsp;
+                                @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Out) out
+                            </td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Price)</span></td>
+                        </tr>
+                        <tr class="estimate-subsection-bot">
+                            <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.DeckGlassPrice.HasValue)</td>
+                            <td>Deck Glass</td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.DeckGlassPrice) extra</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="estimate-item-title">SIDING CLEANING</span>
+                                <div class="text-xs">(Surface dirt and mild stains only)</div>
+                            </td>   
+                            <td></td>
+                        </tr>
+                        <tr class="estimate-subsection-top estimate-subsection-bot">
+                            <td>@Html.DisplayFor(item => Model.Estimate.SidingPrice.HasValue)</td>
+                            <td><span class="estimate-item-subtitle">Includes siding, fascia, soffits, and exterior of eavestrough</span></td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.SidingPrice)</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="estimate-item-title">EAVESTROUGH CLEANING</span>
+                            </td>   
+                            <td></td>
+                        </tr>
+                        <tr class="estimate-subsection-top estimate-subsection-bot">
+                            <td>@Html.DisplayFor(item => Model.Estimate.SidingPrice.HasValue)</td>
+                            <td>
+                                <div class="estimate-item-subtitle">Clearing out eaves and down spouts</div>
+                                <div>
+                                    (Does not include removal of shingle dust)
+                                    <br/>
+                                    - Extra charge to remove gutter gaurds
+                                </div>
+                            </td>
+                            <td><span>@Html.DisplayFor(item => Model.Estimate.SidingPrice)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center text-xs multi-service">
+                    <div class="multi-service-title">Multi-Service Discount</div>
+                    <div>2 Services $30 off</div>
+                    <div>3 Services $60 off</div>
+                </div>
+            </div>
+        </div>
+        *@
+    </div>
 </div>

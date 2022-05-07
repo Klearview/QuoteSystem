@@ -14,7 +14,7 @@ namespace QuoteSystem.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Quote>()
-                .HasKey(x => x.QuoteNumber);
+                .HasKey(x => x.Id);
         }
     }
 }

@@ -8,32 +8,48 @@ namespace QuoteSystem.Models
     {
         [Key]
         [Required]
-        [Display(Name = "Quote #")]
-        [Column("id")]  
-        public long QuoteNumber { get; set; }
+        public long Id { get; set; }
 
-        [Required]
-        [Column("accepted")]
-        public bool Accepted { get; set; }
 
-        [Required]
+        #region Tracking
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
-        [Column("date")]
-        public DateTime Date { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string? CreatedBy { get; set; }
 
-        [Display(Name = "Sales Rep")]
-        [Column("sales_rep")]
-        public string? SalesRep { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        public DateTime? UpdatedAt { get; set; }
+        public string? UpdatedBy { get; set; }
 
-        [Display(Name = "Job Description")]
-        [Column("description")]
-        public string? Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        public DateTime? SentAt { get; set; }
+        public string? SentBy { get; set; }
+        #endregion
 
-        [Display(Name = "Notes (private)")]
-        [Column("notes")]
-        public string? Notes { get; set; }
+        #region Quote Data
+        [NotMapped]
+        public Estimate Estimate { get; set; }
 
+        [NotMapped]
+        public CustomerInfo CustomerInfo { get; set; }
+
+        [NotMapped]
+        public QuoteInfo QuoteInfo { get; set; }
+        #endregion
+
+
+        public Quote()
+        {
+            Estimate = new Estimate();
+            CustomerInfo = new CustomerInfo();
+            QuoteInfo = new QuoteInfo();
+
+            CreatedAt = DateTime.Now;
+        }
+
+        #region Quote Data XML
         [Column("estimate")]
         public byte[] EstimateXML {
             get
@@ -59,17 +75,18 @@ namespace QuoteSystem.Models
             }
         }
 
-        [NotMapped]
-        public Estimate Estimate { get; set; }
-
-        [NotMapped]
-        public CustomerInfo CustomerInfo { get; set; }
-
-
-        public Quote()
+        [Column("quote_info")]
+        public byte[] QuoteInfoXML
         {
-            Estimate = new Estimate();
-            CustomerInfo = new CustomerInfo();
+            get
+            {
+                return XMLSerializer.SerializeToXml(QuoteInfo);
+            }
+            set
+            {
+                QuoteInfo = XMLSerializer.DeserializeFromXML<QuoteInfo>(value);
+            }
         }
+        #endregion
     }
 }

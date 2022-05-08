@@ -50,7 +50,6 @@ namespace QuoteSystem.Models
         }
 
         #region Quote Data XML
-        [Column("estimate")]
         public byte[] EstimateXML {
             get
             {
@@ -62,7 +61,6 @@ namespace QuoteSystem.Models
             }
         }
 
-        [Column("customer_info")]
         public byte[] CustomerInfoXML
         {
             get
@@ -75,7 +73,6 @@ namespace QuoteSystem.Models
             }
         }
 
-        [Column("quote_info")]
         public byte[] QuoteInfoXML
         {
             get

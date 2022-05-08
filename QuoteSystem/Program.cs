@@ -22,10 +22,14 @@ builder.Services.AddDbContext<AppDataContext>(options =>
     options.UseSqlServer(connectionString)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+builder.Services.AddScoped<IAppDataRepository, AppDataRepository>();
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+// Applicaton Insights
+builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 

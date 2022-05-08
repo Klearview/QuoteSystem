@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuoteSystem.Models;
+using QuoteSystem.Services;
 
 namespace QuoteSystem.Controllers
 {
     public class QuotesController : Controller
     {
-        public IActionResult Index()
-        {
+        private readonly IAppDataRepository _repository;
 
-            return View(temp);
+        public QuotesController(IAppDataRepository repository)
+        {
+            _repository = repository;
+        }
+
+
+        public async Task<IActionResult> Index()
+        {
+            var quotes = await _repository.GetAllQuotesAsync();
+
+            return View(quotes);
         }
 
         public IActionResult EditR()
@@ -18,27 +28,35 @@ namespace QuoteSystem.Controllers
 
         public IActionResult PreviewR()
         {
-            return View(temp);
+            return View(test);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(Quote quote)
+        public async Task<IActionResult> Index(Quote quote)
         {
+            await _repository.AddQuoteAsync(quote);
+            var quotes = await _repository.GetAllQuotesAsync();
 
-            return View(temp);
+            return View(quotes);
         }
 
-        private static readonly List<Quote> temp = new()
+
+        private static readonly Quote test = new()
         {
-            new Quote()
+            CustomerInfo = new()
             {
-                CustomerInfo = new()
-                {
-                    Name = "Noah Tomkins",
-                    Address = "1287 Treeland St, Burlington Ontario",
-                }
+                Name = "Noah Tomkins",
+                Address = "1287 Treeland st Burlington",
+                Phone = "9053202808",
+                Cell = "9053202808",
+                Email = "1tomkinsnoa@gmail.com"
             }
+        };
+
+        private static readonly List<Quote> testList = new()
+        {
+            test
         };
     }
 }

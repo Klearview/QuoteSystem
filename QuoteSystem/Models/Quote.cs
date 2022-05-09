@@ -12,19 +12,28 @@ namespace QuoteSystem.Models
 
 
         #region Tracking
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayFormat(DataFormatString = "{0:MMM d, yyyy}")]
         [DataType(DataType.Date)]
+        [Display(Name = "Created On")]
         public DateTime CreatedAt { get; set; }
+
+        [Display(Name = "Created By")]
         public string? CreatedBy { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayFormat(DataFormatString = "{0:MMM d, yyyy}")]
         [DataType(DataType.Date)]
+        [Display(Name = "Updated On")]
         public DateTime? UpdatedAt { get; set; }
+
+        [Display(Name = "Updated By")]
         public string? UpdatedBy { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayFormat(DataFormatString = "{0:MMM d, yyyy}")]
         [DataType(DataType.Date)]
+        [Display(Name = "Sent On")]
         public DateTime? SentAt { get; set; }
+
+        [Display(Name = "Sent By")]
         public string? SentBy { get; set; }
         #endregion
 

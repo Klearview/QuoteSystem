@@ -31,7 +31,7 @@ namespace QuoteSystem.Services
             }
         }
 
-        public async Task<Quote?> GetQuoteAsync(int id)
+        public async Task<Quote?> GetQuoteAsync(long id)
         {
             try
             {

@@ -1,12 +1,17 @@
 using FRCScouting_API.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using QuoteSystem.Models;
 using QuoteSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Get Api Settings
-var configuration = builder.Configuration;
-builder.Services.Configure<ApiSettings>(configuration.GetSection("Api"));
+services.Configure<ApiSettings>(configuration.GetSection("Api"));
 
 // Bind Api Settings
 var apiSettings = new ApiSettings();
@@ -17,19 +22,32 @@ var connectionString = apiSettings.AppDataContext!
     .Replace("{AppDataContextCredentials}", apiSettings.AppDataContextCredentials);
 
 // Add DB Context
-builder.Services.AddDbContext<AppDataContext>(options =>
+services.AddDbContext<AppDataContext>(options =>
 {
     options.UseSqlServer(connectionString)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
-builder.Services.AddScoped<IAppDataRepository, AppDataRepository>();
+services.AddScoped<IAppDataRepository, AppDataRepository>();
 
-builder.Services.AddControllersWithViews();
+services.AddControllersWithViews();
 
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Applicaton Insights
-builder.Services.AddApplicationInsightsTelemetry();
+services.AddApplicationInsightsTelemetry();
+
+// AUTH
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+    .AddCookie()
+    .AddGoogle(options =>
+    {
+        options.ClientId = configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    });
 
 var app = builder.Build();
 
@@ -51,6 +69,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.UseCookiePolicy();
 
 app.UseEndpoints(endpoints =>
 {

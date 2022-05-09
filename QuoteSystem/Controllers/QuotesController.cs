@@ -13,7 +13,7 @@ namespace QuoteSystem.Controllers
             _repository = repository;
         }
 
-
+        // GET: Quotes
         public async Task<IActionResult> Index()
         {
             var quotes = await _repository.GetAllQuotesAsync();
@@ -21,14 +21,32 @@ namespace QuoteSystem.Controllers
             return View(quotes);
         }
 
-        public IActionResult EditR()
+        // GET: Quotes/Edit/{id}
+        public async Task<IActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null || id <= 0)
+                return View(new Quote());
+
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            if (quote == null)
+                return NotFound();
+
+            return View(quote);
         }
 
-        public IActionResult PreviewR()
+        // GET: Quotes/Preview/{id}
+        public async Task<IActionResult> Preview(long? id)
         {
-            return View(test);
+            if (id == null || id <= 0)
+                return View(new Quote());
+
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            if (quote == null)
+                return NotFound();
+
+            return View(quote);
         }
 
         [HttpPost]

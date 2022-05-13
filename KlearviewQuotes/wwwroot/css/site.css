@@ -1,0 +1,160 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.form-check-input {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form-group {
+    margin-top: 6px;
+}
+
+.group {
+    margin: 25px 0px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.group-label {
+    font-weight: bold;
+    position: relative;
+    top: -25px;
+    background-color: white;
+    padding: 0px 10px;
+}
+
+.sub {
+    margin-left: 10px;
+}
+
+.sub-label {
+    font-weight: 500;
+}
+
+.sub .form-group {
+    margin-left: 20px;
+}
+
+.row-label {
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+
+.inline-check {
+    margin: 10px 0px !important;
+}
+
+.check-row {
+    display: flex;
+}
+
+.estimate .form-control, .estimate .form-group {
+    max-width: 200px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: end;
+}
+
+    .buttons * {
+        margin: 0px 6px;
+    }
+
+.input-group {
+    flex-wrap: nowrap;
+}
+
+.estimate .text-danger {
+    margin-left: 20px;
+}
+
+    .estimate .text-danger::after {
+        content: "\a";
+        white-space: pre;
+    }
+
+@media only screen and (max-width: 500px) {
+    .estimate .inline-check {
+        margin-left: 30px !important;
+    }
+
+    .check-row {
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+
+/* Text Sizes */
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-md {
+    font-size: 1.25rem;
+}
+
+.text-lg {
+    font-size: 1.5rem;
+}
+
+.text-xl {
+    font-size: 2rem;
+}
+
+/* Forms */
+
+.form-floating {
+    margin: 10px 0;
+}
+
+/* Login */
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login {
+    max-width: 100%;
+    min-width: 500px;
+}
+
+.login h1 {
+    text-align: center;
+}
+
+.login div {
+    margin-bottom: 10px;
+}
+
+.login .login-options {
+    margin-top: 20px;
+    text-align: center;
+    line-height: 1rem;
+}

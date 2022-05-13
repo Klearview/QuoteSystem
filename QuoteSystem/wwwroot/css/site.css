@@ -125,3 +125,30 @@ body {
 .text-xl {
     font-size: 2rem;
 }
+
+/* Login */
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login {
+    max-width: 100%;
+    min-width: 500px;
+}
+
+.login h1 {
+    text-align: center;
+}
+
+.login div {
+    margin-bottom: 10px;
+}
+
+.login .login-options {
+    margin-top: 20px;
+    text-align: center;
+    line-height: 1rem;
+}

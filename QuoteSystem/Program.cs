@@ -29,25 +29,17 @@ services.AddDbContext<AppDataContext>(options =>
 });
 services.AddScoped<IAppDataRepository, AppDataRepository>();
 
-services.AddControllersWithViews();
-
-services.AddRazorPages().AddRazorRuntimeCompilation();
-
 // Applicaton Insights
 services.AddApplicationInsightsTelemetry();
 
 // AUTH
-services.AddAuthentication(options =>
+services.AddDbContext<AppIdentityContext>(options =>
 {
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-})
-    .AddCookie()
-    .AddGoogle(options =>
-    {
-        options.ClientId = configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-    });
+    options.UseSqlServer(connectionString);
+});
+services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AppIdentityContext>();
+services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -71,13 +63,12 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseAuthentication();
 
-app.UseCookiePolicy();
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+app.MapRazorPages();
 
 app.Run();

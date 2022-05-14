@@ -9,8 +9,6 @@ namespace KlearviewQuotes.Models.Identity
 
         public string RoleId { get; set; }
 
-        public string[] AddIds { get; set; }
-
-        public string[] DeleteIds { get; set; }
+        public Dictionary<string, bool> UsersInGroup { get; set; }
     }
 }

@@ -5,10 +5,11 @@ namespace KlearviewQuotes.Models.Identity
     public class RoleModification
     {
         [Required]
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
-        public string RoleId { get; set; }
+        [Required]
+        public string? RoleId { get; set; }
 
-        public Dictionary<string, bool> UsersInGroup { get; set; }
+        public string[]? UsersInGroup { get; set; }
     }
 }

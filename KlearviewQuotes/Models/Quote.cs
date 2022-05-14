@@ -8,7 +8,7 @@ namespace KlearviewQuotes.Models
     {
         [Key]
         [Required]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
 
         #region Tracking

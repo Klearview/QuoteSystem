@@ -4,8 +4,9 @@
     ViewData["Title"] = "Residential";
 }
 
-<form asp-action="Index">
-   
+<form asp-action="SubmitEdit">
+    <input type="hidden" asp-for="Id" />
+
     <div class="group">
         <span class="group-label">Customer Infromation</span>
         <div class="form-group">

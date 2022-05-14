@@ -13,11 +13,14 @@
     <tbody>
         @foreach (var role in Model)
         {
-            <tr>
-                <td>@role.Name</td>
-                <td i-role="@role.Id"></td>
-                <td><a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">Edit</a></td>
-            </tr>
+            @if (role.Name != "AlwaysAdmin")
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td i-role="@role.Id"></td>
+                    <td><a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">Edit</a></td>
+                </tr>
+            } 
         }
     </tbody>
 </table>

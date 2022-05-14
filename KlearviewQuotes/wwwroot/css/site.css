@@ -132,6 +132,12 @@ body {
     margin: 10px 0;
 }
 
+.disabled{
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+
 /* Login */
 
 .login-container {
@@ -157,4 +163,8 @@ body {
     margin-top: 20px;
     text-align: center;
     line-height: 1rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block !important;
 }

@@ -1,9 +1,11 @@
 ﻿using KlearviewQuotes.Models;
 using KlearviewQuotes.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KlearviewQuotes.Controllers
 {
+    [Authorize(Roles = "Admin,AlwaysAdmin,QuoteEditor")]
     public class QuotesController : Controller
     {
         private readonly IAppDataRepository _repository;
@@ -25,7 +27,7 @@ namespace KlearviewQuotes.Controllers
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null || id <= 0)
-                return View(new Quote());
+                return NotFound();
 
             var quote = await _repository.GetQuoteAsync(id.Value);
 
@@ -33,6 +35,12 @@ namespace KlearviewQuotes.Controllers
                 return NotFound();
 
             return View(quote);
+        }
+
+        // GET: Quotes/Edit
+        public IActionResult NewQuote()
+        {
+            return View(nameof(Edit), new Quote());
         }
 
         // GET: Quotes/Preview/{id}
@@ -51,12 +59,14 @@ namespace KlearviewQuotes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(Quote quote)
+        public async Task<IActionResult> SubmitEdit(Quote quote)
         {
-            await _repository.AddQuoteAsync(quote);
-            var quotes = await _repository.GetAllQuotesAsync();
+            if (quote.Id == null)
+                await _repository.AddQuoteAsync(quote);
+            else
+                await _repository.UpdateQuoteAsync(quote);
 
-            return View(quotes);
+            return RedirectToAction(nameof(Index));
         }
 
 

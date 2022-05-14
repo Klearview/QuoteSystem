@@ -23,19 +23,21 @@ namespace KlearviewQuotes.Controllers
             return View(_roleManager.Roles);
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRoles()
         {
-            foreach (var role in _roleManager.Roles)
-                await _roleManager.DeleteAsync(role);
-
             foreach (var role in _roles)
             {
-                var result = await _roleManager.CreateAsync(role);
+                try
+                {
+                    var result = await _roleManager.CreateAsync(role);
 
-                if (!result.Succeeded)
-                    Errors(result);
+                    if (!result.Succeeded)
+                        Errors(result);
+                } 
+                catch (Exception ex)
+                {
+                    
+                }            
             }       
 
             return RedirectToAction("Index");
@@ -44,27 +46,25 @@ namespace KlearviewQuotes.Controllers
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
-            var members = new List<IdentityUser>();
-            var nonMembers = new List<IdentityUser>();
+            var usersInGroup = new Dictionary<IdentityUser, bool>();
 
             foreach (var user in _userManager.Users)
             {
-                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
-                list.Add(user);
+                var inGroup = await _userManager.IsInRoleAsync(user, role.Name);
+                usersInGroup.Add(user, inGroup);
             }
 
             return View(new RoleEdit
             {
                 Role = role,
-                Members = members,
-                NonMembers = nonMembers
+                UsersInGroup = usersInGroup
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> EditRole(RoleModification model)
         {
-            IdentityResult result;
+            /*IdentityResult result;
             if (true)
             {
                 foreach (var userId in model.AddIds ?? new string[] { })
@@ -92,7 +92,9 @@ namespace KlearviewQuotes.Controllers
             if (ModelState.IsValid)
                 return RedirectToAction(nameof(Index));
             else
-                return await EditRole(model.RoleId);
+                return await EditRole(model.RoleId);*/
+
+            return RedirectToAction(nameof(Index));
         }
 
         private void Errors(IdentityResult result)
@@ -104,7 +106,8 @@ namespace KlearviewQuotes.Controllers
         private static readonly List<IdentityRole> _roles = new List<IdentityRole>()
         {
             new("Admin"),
-            new("QuoteEditor")
+            new("QuoteEditor"),
+            new("Test")
         };
     }
 }

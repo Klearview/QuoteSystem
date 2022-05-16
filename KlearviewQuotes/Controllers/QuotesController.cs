@@ -34,16 +34,17 @@ namespace KlearviewQuotes.Controllers
             if (quote == null)
                 return NotFound();
 
-            return View(quote);
+            return View(new QuoteEdit(quote));
         }
 
         // GET: Quotes/Edit
         public IActionResult NewQuote()
         {
-            return View(nameof(Edit), new Quote());
+            return View(nameof(Edit), new QuoteEdit());
         }
 
         // GET: Quotes/Preview/{id}
+        [HttpGet]
         public async Task<IActionResult> Preview(long? id)
         {
             if (id == null || id <= 0)
@@ -54,19 +55,37 @@ namespace KlearviewQuotes.Controllers
             if (quote == null)
                 return NotFound();
 
-            return View(quote);
+            //return View(quote);
+            return PartialView("_PreviewModal", quote);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SubmitEdit(Quote quote)
+        public async Task<IActionResult> Edit(QuoteEdit quoteEdit)
+        {
+            quoteEdit.LastOption = quoteEdit.SubmitOption;
+            Quote quote = quoteEdit.Quote;
+
+            switch (quoteEdit.SubmitOption)
+            {
+                case "save":
+                    await SaveQuote(quote);
+                    return RedirectToAction(nameof(Index));
+                case "preview":
+                    await SaveQuote(quote);
+                    return View(quoteEdit);
+                case "cancel":
+                default:
+                    return RedirectToAction(nameof(Index));
+            }
+        }
+
+        private async Task SaveQuote(Quote quote)
         {
             if (quote.Id == null)
                 await _repository.AddQuoteAsync(quote);
             else
                 await _repository.UpdateQuoteAsync(quote);
-
-            return RedirectToAction(nameof(Index));
         }
 
 

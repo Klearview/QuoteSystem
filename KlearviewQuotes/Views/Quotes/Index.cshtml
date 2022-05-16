@@ -4,39 +4,56 @@
     ViewData["Title"] = "Quotes";
 }
 
-<div>
+<div id="modal-container">
 
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.CustomerInfo.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.CustomerInfo.Address)</th>
-            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-            <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
-            <th>@Html.DisplayNameFor(model => model.SentAt)</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(Model != null)
-        {
-            @foreach (var item in Model)
+<div class="table-responsive table-wrapper">
+    <table class="table table-striped">
+        <colgroup>
+            <col style="min-width: 150px" />    
+            <col style="min-width: 200px" />
+            <col style="min-width: 120px" />
+            <col style="min-width: 120px" />
+            <col style="min-width: 120px" />
+            <col style="min-width: 130px" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CustomerInfo.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.CustomerInfo.Address)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+                <th>@Html.DisplayNameFor(model => model.SentAt)</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null)
             {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Address)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
-                    <td>@Html.DisplayFor(modelItem => item.SentAt)</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-                        <a asp-action="Preview" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Preview</a>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Address)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SentAt)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                            @*<a asp-action="Preview" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Preview</a>*@
+
+                            <button 
+                                class="btn btn-sm btn-secondary" 
+                                data-toggle="ajax-modal" 
+                                data-target="#previewQuote"
+                                data-url="@Url.Action("Preview")/@item.Id"
+                            >Preview</button>
+                        </td>
+                    </tr>
+                }
             }
-        }
         
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using KlearviewQuotes.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<ApiSettings> _apiSettings;
+@{
+    string googleMapsApi = _apiSettings.Value.GoogleMapsUrl!
+        .Replace("{GoogleMapsKey}", _apiSettings.Value.GoogleMapsKey!);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +15,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KlearviewQuotes.styles.css" asp-append-version="true" />
+
+    <script src="@googleMapsApi"></script>
 </head>
 <body>
     <header>
@@ -43,8 +53,8 @@
                                     Test
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropDown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Edit">Quote Edit</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Preview">Quote Preview</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Edit" asp-route-id="29">Quote Edit</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Preview" asp-route-id="29">Quote Preview</a>
                                 </div>
                             </li>
                         }
@@ -57,7 +67,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-lg">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

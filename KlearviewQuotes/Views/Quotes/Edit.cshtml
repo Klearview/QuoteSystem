@@ -1,40 +1,45 @@
 ﻿@using System.ComponentModel.DataAnnotations
-@model KlearviewQuotes.Models.Quote
+@model KlearviewQuotes.Models.QuoteEdit
 @{
     ViewData["Title"] = "Residential";
 }
 
-<form asp-action="SubmitEdit">
-    <input type="hidden" asp-for="Id" />
+<div id="modal-container">
+
+</div>
+<p>Last Option: @Model.LastOption</p>
+<form method="post" asp-action="Edit">
+    <input type="hidden" asp-for="Quote.Id" />
+    
 
     <div class="group">
         <span class="group-label">Customer Infromation</span>
         <div class="form-group">
-            <label asp-for="CustomerInfo.Name" class="control-label"></label>
-            <input asp-for="CustomerInfo.Name" class="form-control">
-            <span asp-validation-for="CustomerInfo.Name" class="text-danger"></span>
+            <label asp-for="Quote.CustomerInfo.Name" class="control-label"></label>
+            <input asp-for="Quote.CustomerInfo.Name" class="form-control">
+            <span asp-validation-for="Quote.CustomerInfo.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="CustomerInfo.Address" class="control-label"></label>
-            <input asp-for="CustomerInfo.Address" class="form-control" id="address">
-            <span asp-validation-for="CustomerInfo.Address" class="text-danger"></span>
+            <label asp-for="Quote.CustomerInfo.Address" class="control-label"></label>
+            <input asp-for="Quote.CustomerInfo.Address" class="form-control" id="address">
+            <span asp-validation-for="Quote.CustomerInfo.Address" class="text-danger"></span>
         </div>
         <div class="row">
             <div class="form-group col-md">
-                <label asp-for="CustomerInfo.Phone" class="control-label"></label>
-                <input asp-for="CustomerInfo.Phone" class="form-control" type="tel">
-                <span asp-validation-for="CustomerInfo.Phone" class="text-danger"></span>
+                <label asp-for="Quote.CustomerInfo.Phone" class="control-label"></label>
+                <input asp-for="Quote.CustomerInfo.Phone" class="form-control" type="tel">
+                <span asp-validation-for="Quote.CustomerInfo.Phone" class="text-danger"></span>
             </div>
             <div class="form-group col-md">
-                <label asp-for="CustomerInfo.Cell" class="control-label"></label>
-                <input asp-for="CustomerInfo.Cell" class="form-control" type="tel">
-                <span asp-validation-for="CustomerInfo.Cell" class="text-danger"></span>
+                <label asp-for="Quote.CustomerInfo.Cell" class="control-label"></label>
+                <input asp-for="Quote.CustomerInfo.Cell" class="form-control" type="tel">
+                <span asp-validation-for="Quote.CustomerInfo.Cell" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="CustomerInfo.Email" class="control-label"></label>
-            <input asp-for="CustomerInfo.Email" class="form-control" type="email">
-            <span asp-validation-for="CustomerInfo.Email" class="text-danger"></span>
+            <label asp-for="Quote.CustomerInfo.Email" class="control-label"></label>
+            <input asp-for="Quote.CustomerInfo.Email" class="form-control" type="email">
+            <span asp-validation-for="Quote.CustomerInfo.Email" class="text-danger"></span>
         </div>
     </div>
 
@@ -218,9 +223,9 @@
     </div>*@
 
     <div class="form-group buttons">
-        <button class="btn btn-danger">Cancel</button>
-        <button class="btn btn-secondary">Preview</button>
-        <input type="submit" value="Submit" class="btn btn-primary" />
+        <button type="submit" name="SubmitOption" value="cancel" class="btn btn-danger">Cancel</button>
+        <button type="submit" name="SubmitOption" value="preview" class="btn btn-secondary">Preview</button>
+        <button type="submit" name="SubmitOption" value="save" class="btn btn-primary">Save</button>
     </div>
 
 </form>
@@ -242,5 +247,23 @@
             });
         });
 
+        window.showModal = () => {
+            console.log("hi")
+        }
+
     </script>
+
+    @if (Model.LastOption != null && Model.LastOption == "preview")
+    {
+        <script>
+            let placeholder = $('#modal-container');
+            let url = '@Url.Action("Preview")/@Model.Quote.Id';
+
+            console.log(url)
+            $.get(url).done((data) => {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+        </script>
+    }
 }

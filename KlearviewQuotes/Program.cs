@@ -1,9 +1,13 @@
 using KlearviewQuotes.Data;
+using KlearviewQuotes.Models;
 using KlearviewQuotes.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Get Api Settings
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("Api"));
 
 // Database Connections
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

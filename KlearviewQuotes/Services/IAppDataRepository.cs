@@ -6,7 +6,7 @@ namespace KlearviewQuotes.Services
     {
 
         Task<IList<Quote>?> GetAllQuotesAsync();
-        Task<Quote?> GetQuoteAsync(long id);
+        Task<Quote?> GetQuoteAsync(int id);
 
         Task<bool> AddQuoteAsync(Quote quote);
         Task<bool> UpdateQuoteAsync(Quote quote);

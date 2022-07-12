@@ -24,7 +24,7 @@ namespace KlearviewQuotes.Controllers
         }
 
         // GET: Quotes/Edit/{id}
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || id <= 0)
                 return NotFound();
@@ -45,7 +45,7 @@ namespace KlearviewQuotes.Controllers
 
         // GET: Quotes/Preview/{id}
         [HttpGet]
-        public async Task<IActionResult> Preview(long? id)
+        public async Task<IActionResult> Preview(int? id)
         {
             if (id == null || id <= 0)
                 return View(new Quote());

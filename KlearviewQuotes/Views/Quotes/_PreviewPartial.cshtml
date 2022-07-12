@@ -13,6 +13,12 @@
         
         width: 8.5in;
         height: 11in;
+
+        min-width: 8.5in;
+        min-height: 11in;
+
+        max-width: 8.5in;
+        max-height: 11in;
     }
 
     /*@@media only screen and (max-width: 920px) {
@@ -103,9 +109,7 @@
         border-bottom: 2px solid black;
     }
 
-    .text-red {
-        color: red;
-    }
+    
 
     .text-bold {
         font-weight: bold;
@@ -161,11 +165,6 @@
 
     /* Estimate */
 
-    .estimate {
-        border: 2px solid black;
-        height: 100%;
-    }
-
     .estimate-top {
         margin-top: 4px;
         line-height: 1rem;
@@ -214,45 +213,63 @@
         font-weight: bold;
     }
 
+    .price-wrapper {
+        width: 100px;
+        min-width: 100px;
+    }
+
+    .price {
+        border-bottom: 1px solid gray;
+        width: 100px;
+        height: 22px;
+    }
+
+    .price.text-bold {
+        border-bottom: 2px solid gray;
+    }
+
+    .estimate .form-check {
+        margin-left: 0 !important;
+        pointer-events: none;
+    }
+
+    .sub-text {
+        font-size: 0.75rem;
+        position: relative;
+        top: -10px;
+    }
+
+    .extra {
+        margin-left: -1.5rem;
+    }
+
 </style>
 
-<div class="preview">
+<div class="preview d-flex flex-column">
     <div class="header">
+        <div class="d-flex">
             <div class="image">
                 <img src="../../images/kv-logo.png"/>
+                <br/>
+                <span class="text-xs">o/b 2112190 Ontario Inc.</span>
             </div>
-        <div class="contact bb-2 grid grid-3">
-            <div>
-                <div class="contact-loaction">BURLINGTON</div>
-                <div class="contact-phone">905-634-2882</div>
+            <div class="text-center flex-fill">
+                <span class="font-weight-bold text-lg">905-634-2882</span>
+                <br/>
+                <span>Locally owned and operated</span>
+                <div class="row">
+                    <div class="col text-right text-red text-md"><a>www.klearview.ca</a></div>
+                    <div class="col text-left text-red text-md"><a>info@klearview.ca</a></div>
+                </div>
             </div>
-            <div>
-                <div class="contact-loaction">MILTON</div>
-                <div class="contact-phone">905-878-9889</div>
-            </div>
-            <div>
-                <div class="contact-loaction">OAKVILLE</div>
-                <div class="contact-phone">905-845-7680</div>
-            </div>
-        </div>
-        <div class="grid owned text-center">
-            <div></div>
-            <div class="text-md">Locally owned and operated</div>
-            <div class="text-sm text-start">o/b 2112190 Ontario Inc.</div>
-        </div>
-        <div class="text-red grid grid-2 text-lg web">
-            <div class="text-end"><a>www.klearview.ca</a></div>
-            <div class="text-start"><a>info@klearview.ca</a></div>
         </div>
     </div>
-
-    <div class="text-center text-bold text-lg">ESTIMATE SHEET</div>
     <div class="customer-info">
         <table>
             <colgroup>
                 <col span="1" style="width: 140px;">
                 <col span="1" style="width: auto;">
-                <col span="1" style="width: 120px;">
+                <col span="1" style="width: 50px;">
                 <col span="1" style="width: auto;">
             </colgroup>
             <thead>
@@ -290,7 +307,7 @@
             </colgroup>
             <tbody>
                 <tr>
-                    <td>@Html.DisplayNameFor(item => Model.QuoteInfo.DateOfEstimate) of Estimate:</td>
+                    <td>@Html.DisplayNameFor(item => Model.QuoteInfo.DateOfEstimate):</td>
                     <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.DateOfEstimate)</div></td>
                     <td>@Html.DisplayNameFor(item => Model.QuoteInfo.SalesRep):</td>
                     <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.SalesRep)</div></td>
@@ -303,110 +320,119 @@
             </tbody>
         </table>
     </div>
-    @*
-    <div class="grid grid-2 last">
-        <div class="job-description">
+    <div class="row border-top border-dark flex-fill">
+        <div class="col m-2 d-flex flex-column">
             <div class="text-center text-md">Job Description: (see notes)</div>
+            <div class="mt-2 flex-fill">
+                @Html.DisplayFor(item => Model.QuoteInfo.Description)
+            </div>
+            <div>
+                Notes....
+            </div>
         </div>
-        <div class="estimate">
+        <div class="col-7 m-2 border border-dark d-flex flex-column estimate">
             <div class="text-center estimate-top">
                 <span class="text-bold text-lg">ESTIMATE</span>
                 <p class="text-red text-xs">TAXES NOT INCLUDED</p>
             </div>
-            <table class="estimate-items">
-                <colgroup>
-                    <col span="1" style="width: 20px;">
-                    <col span="1" style="width: auto;">
-                    <col span="1" style="width: 100px;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td><span class="estimate-item-title">WINDOW CLEANING</span></td>   
-                        <td></td>
-                    </tr>
-                    <tr class="estimate-subsection-top">
-                        <td>@Html.DisplayFor(item => Model.Estimate.Exterior.ExteriorPrice.HasValue)</td>
-                        <td><span class="estimate-item-subtitle">Exterior</span></td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ExteriorPrice)</span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Customer needs to remove exterior Screens</td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensRemoved) yes @Html.DisplayFor(item => Model.Estimate.Exterior.ScreensRemoved) no</span></td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensPrice.HasValue)</td>
-                        <td>If we need to remove screens, clean, and reinstall them</td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.ScreensPrice)</span></td>
-                    </tr>
-                    <tr class="estimate-subsection-bot">
-                        <td>@Html.DisplayFor(item => Model.Estimate.Exterior.HighWindowsPrice.HasValue)</td>
-                        <td>Interior of high windows only</td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.Exterior.HighWindowsPrice)</span></td>
-                    </tr>
-
-                    <tr class="estimate-subsection-top">
-                        <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Total.HasValue)</td>
-                        <td><span class="estimate-item-subtitle">Exterior and Interior</span></td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Total)</span></td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.Price.HasValue)</td>
-                        <td>
-                            Basements &emsp;
-                            @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.WalkoutOnly) walkout only
-                        </td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Basements.Price)</span></td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Price.HasValue)</td>
-                        <td>
-                            Skylights &emsp;
-                            @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.InAndOut) in/out &emsp;
-                            @Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Out) out
-                        </td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.Skylights.Price)</span></td>
-                    </tr>
-                    <tr class="estimate-subsection-bot">
-                        <td>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.DeckGlassPrice.HasValue)</td>
-                        <td>Deck Glass</td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.ExteriorAndInterior.DeckGlassPrice) extra</span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <span class="estimate-item-title">SIDING CLEANING</span>
-                            <div class="text-xs">(Surface dirt and mild stains only)</div>
-                        </td>   
-                        <td></td>
-                    </tr>
-                    <tr class="estimate-subsection-top estimate-subsection-bot">
-                        <td>@Html.DisplayFor(item => Model.Estimate.SidingPrice.HasValue)</td>
-                        <td><span class="estimate-item-subtitle">Includes siding, fascia, soffits, and exterior of eavestrough</span></td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.SidingPrice)</span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <span class="estimate-item-title">EAVESTROUGH CLEANING</span>
-                        </td>   
-                        <td></td>
-                    </tr>
-                    <tr class="estimate-subsection-top estimate-subsection-bot">
-                        <td>@Html.DisplayFor(item => Model.Estimate.SidingPrice.HasValue)</td>
-                        <td>
-                            <div class="estimate-item-subtitle">Clearing out eaves and down spouts</div>
-                            <div>
-                                (Does not include removal of shingle dust)
-                                <br/>
-                                - Extra charge to remove gutter gaurds
+            <div class="flex-fill">
+                <div>
+                    <span class="text-bold text-md">Window Cleaning</span>
+                    <div class="indent">
+                        <div>
+                            <div class="d-flex">
+                                <span class="text-bold text-md flex-fill">Exterior</span>
+                                <div class="price-wrapper d-flex">
+                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Exterior.Price)</div>
+                                </div>
                             </div>
-                        </td>
-                        <td><span>@Html.DisplayFor(item => Model.Estimate.SidingPrice)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+                            <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
+                            <div class="indent">
+                                <div class="form-check">
+                                    <input asp-for="Estimate.Exterior.CustomerRemoveExtScreens" class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" asp-for="Estimate.Exterior.CustomerRemoveExtScreens"></label>
+                                </div>
+
+                                <div class="d-flex mr-3">
+                                    <div class="form-check">
+                                        <input asp-for="Estimate.Exterior.WeRemoveExtScreens.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.Exterior.WeRemoveExtScreens"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.Exterior.WeRemoveExtScreens.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <input asp-for="Estimate.Exterior.WeRequireAccessInside" class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" asp-for="Estimate.Exterior.WeRequireAccessInside"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex">
+                                <span class="text-bold text-md flex-fill">Complete Exterior and Interior</span>
+                                <div class="price-wrapper d-flex">
+                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Price)</div>
+                                </div>
+                            </div>
+                            <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
+                            <table class="w-100 indent">
+                                <colgroup>
+                                    <col span="1" style="width: 50%;">
+                                    <col span="1" style="width: 50%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>Included</td>
+                                        <td>Extra</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input asp-for="Estimate.CompleteExtAndInt.Basements.Checked" class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrapper d-flex">
+                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input asp-for="Estimate.CompleteExtAndInt.Skylights.Checked" class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrapper d-flex">
+                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input asp-for="Estimate.CompleteExtAndInt.DeckGlass.Checked" class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.DeckGlass"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrapper d-flex">
+                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
             <div class="text-center text-xs multi-service">
                 <div class="multi-service-title">Multi-Service Discount</div>
                 <div>2 Services $30 off</div>
@@ -414,5 +440,4 @@
             </div>
         </div>
     </div>
-    *@
 </div>

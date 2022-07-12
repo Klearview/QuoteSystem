@@ -8,7 +8,7 @@ namespace KlearviewQuotes.Models
     {
         [Key]
         [Required]
-        public long? Id { get; set; }
+        public int? Id { get; set; }
 
 
         #region Tracking
@@ -59,7 +59,7 @@ namespace KlearviewQuotes.Models
         }
 
         #region Quote Data XML
-        public byte[] EstimateXML {
+        public string EstimateXML {
             get
             {
                 return XMLSerializer.SerializeToXml(Estimate);
@@ -70,7 +70,7 @@ namespace KlearviewQuotes.Models
             }
         }
 
-        public byte[] CustomerInfoXML
+        public string CustomerInfoXML
         {
             get
             {
@@ -82,7 +82,7 @@ namespace KlearviewQuotes.Models
             }
         }
 
-        public byte[] QuoteInfoXML
+        public string QuoteInfoXML
         {
             get
             {

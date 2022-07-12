@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KlearviewQuotes.Controllers
 {
-    [Authorize(Roles = "Admin,AlwaysAdmin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 
@@ -38,11 +38,12 @@ namespace KlearviewQuotes.Controllers
                 {
                     
                 }            
-            }       
+            }
 
             return RedirectToAction("Index");
         }
 
+        
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);

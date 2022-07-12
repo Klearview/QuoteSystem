@@ -32,7 +32,7 @@ namespace KlearviewQuotes.Services
             }
         }
 
-        public async Task<Quote?> GetQuoteAsync(long id)
+        public async Task<Quote?> GetQuoteAsync(int id)
         {
             try
             {

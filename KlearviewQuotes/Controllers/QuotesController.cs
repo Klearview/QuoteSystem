@@ -59,6 +59,21 @@ namespace KlearviewQuotes.Controllers
             return PartialView("_PreviewModal", quote);
         }
 
+        // GET: Quotes/PreviewPrint/{id}
+        [HttpGet]
+        public async Task<ActionResult> Print(int? id)
+        {
+            if (id == null || id <= 0)
+                return NotFound();
+
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            if (quote == null)
+                return NotFound();
+
+            return View("_PreviewPrint", quote);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(QuoteEdit quoteEdit)

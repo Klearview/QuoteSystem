@@ -82,10 +82,25 @@ namespace KlearviewQuotes.Controllers
 
         private async Task SaveQuote(Quote quote)
         {
+            string? username = null;
+
+            if (HttpContext.User.Identity != null)
+                username = HttpContext.User.Identity.Name;
+
             if (quote.Id == null)
+            {
+                quote.CreatedBy = username;
+                quote.CreatedAt = DateTime.Now;
+
                 await _repository.AddQuoteAsync(quote);
+            }
             else
+            {
+                quote.UpdatedBy = username;
+                quote.UpdatedAt = DateTime.Now;
+
                 await _repository.UpdateQuoteAsync(quote);
+            }         
         }
 
 

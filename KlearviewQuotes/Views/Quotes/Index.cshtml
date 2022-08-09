@@ -54,9 +54,12 @@
                     </tr>
                 }
             }
-            <tr>
-                <td colspan="6"><div class="text-center">No Quotes</div></td>
-            </tr>
+            @if(Model == null)
+            {
+                <tr>
+                    <td colspan="6"><div class="text-center">No Quotes</div></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

@@ -70,7 +70,7 @@ namespace KlearviewQuotes.Models
             }
         }
 
-        public string CustomerInfoXML
+        public string CustomerXML
         {
             get
             {

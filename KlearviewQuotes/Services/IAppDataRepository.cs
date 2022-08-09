@@ -11,5 +11,6 @@ namespace KlearviewQuotes.Services
         Task<bool> AddQuoteAsync(Quote quote);
         Task<bool> UpdateQuoteAsync(Quote quote);
 
+        //Task<string> GetUsernameById(string id);
     }
 }

@@ -16,9 +16,22 @@ namespace KlearviewQuotes.Controllers
         }
 
         // GET: Quotes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
             var quotes = await _repository.GetAllQuotesAsync();
+
+            if (quotes == null)
+                return NotFound();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(searchString))
+                    return View(quotes.Where(s => s.CustomerInfo.Contains(searchString)));
+            } 
+            catch
+            {
+                return View(quotes);
+            }
 
             return View(quotes);
         }

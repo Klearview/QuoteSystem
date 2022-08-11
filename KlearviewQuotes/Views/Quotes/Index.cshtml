@@ -9,6 +9,18 @@
 </div>
 
 <a asp-action="NewQuote" class="btn btn-sm btn-primary">New Quote</a>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    <div class="input-group mb-3 w-25">
+      @Html.TextBox("SearchString", null, new { @class = "form-control"})
+          <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+          </div>
+    </div>
+}
+
 <div class="table-responsive table-wrapper">
     <table class="table table-striped">
         <colgroup>

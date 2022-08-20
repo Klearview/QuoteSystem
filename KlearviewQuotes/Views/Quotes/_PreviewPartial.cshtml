@@ -1,6 +1,245 @@
 ﻿@model KlearviewQuotes.Models.Quote
 
-<link rel="stylesheet" href="~/css/preview.css">
+<style>
+    .image img {
+        height: 72px;
+    }
+
+    .preview {
+        border: 1px solid black;
+        margin: 20px;
+        padding: 20px;
+        width: 8.5in;
+        height: 11in;
+    }
+
+    .prev-item {
+        display: flex;
+        max-height: 22px;
+    }
+
+    .prev-item span {
+        margin-right: 6px;
+    }
+
+    .prev-value {
+        border-bottom: 1px solid gray;
+        min-width: 100px;
+        max-width: 100%;
+        height: 17px;
+    }
+
+    .prev-value a {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .prev-check {
+        margin: 1px 10px;
+    }
+
+    .number {
+        text-align: right;
+    }
+
+    .last-col {
+        display: flex;
+        justify-content: right;
+    }
+
+    .image {
+        text-align: center;
+    }
+
+    .old {
+        margin-top: 300px;
+    }
+
+    .web {
+        line-height: 1.375rem;
+    }
+
+    /* New */
+    .grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .owned {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    .right {
+        display: flex;
+        justify-content: right;
+    }
+
+    .contact {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin: 20px 20px 0px 20px;
+    }
+
+    .contact .phone {
+        border-bottom: 2px solid black;
+    }
+
+    .contact .contact-phone {
+        font-weight: bold;
+    }
+
+    .bb-2 {
+        border-bottom: 2px solid black;
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+
+    /* Customer info table */
+
+    .customer-info {
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+
+    .customer-info table {
+        width: 100%;
+    }
+
+    .customer-info thead td {
+        text-align: center;
+        font-size: 1.25rem;
+        background-color: lightgray;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .customer-info tbody td {
+        padding: 10px;
+        line-height: 1rem;
+    }
+
+    .customer-info tbody .prev-value {
+        width: 100%;
+    }
+
+    /* Sales Rep */
+
+    .sales-rep {
+        margin: 10px 10%;
+        line-height: 1rem;
+    }
+
+    .sales-rep table {
+        width: 100%;
+    }
+
+    .sales-rep .prev-value {
+        width: 90%;
+    }
+
+    /* Job Description */
+
+    .job-description {
+        border-top: 2px solid black;
+    }
+
+    /* Estimate */
+
+    .estimate-top {
+        margin-top: 4px;
+        line-height: 1rem;
+    }
+
+    .estimate-items {
+        line-height: 1rem;
+        width: calc(100% - 16px);
+        margin: -12px 8px 8px 12px;
+    }
+
+    .estimate-items td {
+        padding-bottom: 2px;
+        font-size: 0.75rem;
+    }
+
+    .estimate-items span {
+        font-size: 0.875rem;
+    }
+
+    .estimate-item-title {
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .estimate-item-subtitle {
+        font-size: 1rem;
+    }
+
+    .estimate-subsection-top td {
+        padding-top: 2px;
+    }
+
+    .estimate-subsection-bot {
+        border-bottom: 1px solid lightgray;
+    }
+
+    /* Multi Service */
+
+    .multi-service {
+        line-height: 0.875rem;
+    }
+
+    .multi-service-title {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .price-wrapper {
+        width: 100px;
+        min-width: 100px;
+    }
+
+    .price {
+        border-bottom: 1px solid gray;
+        width: 100px;
+        height: 22px;
+    }
+
+    .price.text-bold {
+        border-bottom: 2px solid gray;
+    }
+
+    .estimate .form-check {
+        margin-left: 0 !important;
+        pointer-events: none;
+    }
+
+    .sub-text {
+        font-size: 0.75rem;
+        position: relative;
+        top: -10px;
+    }
+
+    .extra {
+        margin-left: -1.5rem;
+    }
+
+    .notes p {
+        font-size: 0.75rem;
+        text-align: justify;
+        text-justify: inter-word;
+        line-height: 0.9rem;
+    }
+</style>
 
 <div class="preview d-flex flex-column">
     <div class="header">
@@ -83,8 +322,25 @@
             <div class="mt-2 flex-fill">
                 @Html.DisplayFor(item => Model.QuoteInfo.Description)
             </div>
-            <div>
-                Notes....
+            <div class="notes">
+                <div class="note-title">
+                    <b>NOTES:</b>
+                </div>
+                <p>
+                    Price includes wiping sills, tracks and frames.
+                    Extra charge for chemical cleans and extensive
+                    mould, mildew or mud. Does not include inside
+                    of skylights or inner partitions unless specified.
+                    The customer is responsible for removing small
+                    items away from window or off window sill.
+                    We are not responsible for breaking of window
+                    systems that are not working properly due to
+                    age or other factors. Not responsible for
+                    scratches on tempered glass. Not responsible
+                    for any tints or other add-ons to the glass
+                    if not informed by the customer before work
+                    begins. Our company is insured for $5,000,000 Public
+                </p>
             </div>
         </div>
         <div class="col-7 m-2 border border-dark d-flex flex-column estimate">
@@ -105,13 +361,13 @@
                             </div>
                             <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
                             <div class="indent">
-                                <div class="form-check">
+                                <div class="form-check w-75">
                                     <input asp-for="Estimate.Exterior.CustomerRemoveExtScreens" class="form-check-input" type="checkbox">
                                     <label class="form-check-label" asp-for="Estimate.Exterior.CustomerRemoveExtScreens"></label>
                                 </div>
 
-                                <div class="d-flex mr-3">
-                                    <div class="form-check">
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill">
                                         <input asp-for="Estimate.Exterior.WeRemoveExtScreens.Checked" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" asp-for="Estimate.Exterior.WeRemoveExtScreens"></label>
                                     </div>
@@ -134,60 +390,71 @@
                                 </div>
                             </div>
                             <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
-                            <table class="w-100 indent">
-                                <colgroup>
-                                    <col span="1" style="width: 50%;">
-                                    <col span="1" style="width: 50%;">
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <td>Included</td>
-                                        <td>Extra</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input asp-for="Estimate.CompleteExtAndInt.Basements.Checked" class="form-check-input" type="checkbox">
-                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="price-wrapper d-flex">
-                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input asp-for="Estimate.CompleteExtAndInt.Skylights.Checked" class="form-check-input" type="checkbox">
-                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="price-wrapper d-flex">
-                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input asp-for="Estimate.CompleteExtAndInt.DeckGlass.Checked" class="form-check-input" type="checkbox">
-                                                <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.DeckGlass"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="price-wrapper d-flex">
-                                                <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="indent" style="margin-top: -10px; margin-bottom: 6px;">
+                                <div class="d-flex">
+                                    <span class="flex-fill">Included</span>
+                                    <span style="margin-right: 60px">Extra</span>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill mr-2">
+                                        <input asp-for="Estimate.CompleteExtAndInt.Basements.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill">
+                                        <input asp-for="Estimate.CompleteExtAndInt.Skylights.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill">
+                                        <input asp-for="Estimate.CompleteExtAndInt.DeckGlass.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.DeckGlass"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div>
+                    <div class="d-flex">
+                        <span class="text-bold text-md flex-fill">Siding Cleaning</span>
+                        <div class="price-wrapper d-flex">
+                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Siding.Price)</div>
                         </div>
                     </div>
-                    
+                    <div class="indent w-50">
+                        <div style="line-height: 100%; margin-bottom: 10px;">Includes siding, fascia, sofits and exterior of evestrough</div>
+                        <span class="sub-text"><em>(Surface dirt and mild stains only)</em></span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-flex">
+                        <span class="text-bold text-md flex-fill">Eavestrough / Gutter Cleaning</span>
+                        <div class="price-wrapper d-flex">
+                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Eaves.Price)</div>
+                        </div>
+                    </div>
+                    <div class="indent">
+                        <div style="line-height: 100%; margin-bottom: 10px;">Includes out eaves and down spouts</div>
+                        <span class="sub-text"><em>(Does not include removal of shingle dust)</em></span>
+                        <ul><li class="sub-text"><em>Extra charge to remove gutter gaurds</em></li></ul>
+                    </div>
                 </div>
             </div>
             <div class="text-center text-xs multi-service">

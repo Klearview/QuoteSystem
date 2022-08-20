@@ -10,7 +10,7 @@ GO
 CREATE TABLE [dbo].[Quotes](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[EstimateXML] [xml] NULL,
-	[CustomerInfoXML] [xml] NULL,
+	[CustomerXML] [xml] NULL,
 	[QuoteInfoXML] [xml] NULL,
 	[CreatedAt] [datetime2](7) NULL,
 	[CreatedBy] [nvarchar](256) NULL,

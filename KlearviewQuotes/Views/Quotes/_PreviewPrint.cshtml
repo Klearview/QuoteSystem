@@ -12,7 +12,10 @@
 
     .preview {
         border: none !important;
+        margin: 0 !important;
         padding: 0 !important;
+        width: 7.5in !important;
+        height: 10in !important;
     }
 
     header {
@@ -21,6 +24,14 @@
 
     footer {
         display: none;
+    }
+
+    body {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 7.7in !important;
+        height: 10.2in !important;
     }
 
 </style>
@@ -37,7 +48,7 @@
 
             window.onafterprint = () => {
                 setTimeout(function(){ 
-                    window.close();
+                    //window.close();
                 }, 1000)
             }
         })

@@ -150,7 +150,7 @@
     /* Job Description */
 
     .job-description {
-        border-top: 2px solid black;
+        font-size: 0.8rem;
     }
 
     /* Estimate */
@@ -319,7 +319,7 @@
     <div class="row border-top border-dark flex-fill">
         <div class="col m-2 d-flex flex-column">
             <div class="text-center text-md">Job Description: (see notes)</div>
-            <div class="mt-2 flex-fill">
+            <div class="mt-2 flex-fill job-description">
                 @Html.DisplayFor(item => Model.QuoteInfo.Description)
             </div>
             <div class="notes">

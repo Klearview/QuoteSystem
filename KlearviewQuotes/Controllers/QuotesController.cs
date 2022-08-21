@@ -2,6 +2,7 @@
 using KlearviewQuotes.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KlearviewQuotes.Controllers
 {
@@ -18,6 +19,8 @@ namespace KlearviewQuotes.Controllers
         // GET: Quotes
         public async Task<IActionResult> Index(string? searchString)
         {
+            await AddStatusListViewBag();
+
             var quotes = await _repository.GetAllQuotesAsync();
 
             if (quotes == null)
@@ -39,6 +42,8 @@ namespace KlearviewQuotes.Controllers
         // GET: Quotes/Edit/{id}
         public async Task<IActionResult> Edit(int? id)
         {
+            await AddStatusListViewBag();
+
             if (id == null || id <= 0)
                 return NotFound();
 
@@ -51,8 +56,10 @@ namespace KlearviewQuotes.Controllers
         }
 
         // GET: Quotes/Edit
-        public IActionResult NewQuote()
+        public async Task<IActionResult> NewQuote()
         {
+            await AddStatusListViewBag();
+
             return View(nameof(Edit), new QuoteEdit());
         }
 
@@ -91,6 +98,8 @@ namespace KlearviewQuotes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(QuoteEdit quoteEdit)
         {
+            await AddStatusListViewBag();
+
             quoteEdit.LastOption = quoteEdit.SubmitOption;
             Quote quote = quoteEdit.Quote;
 
@@ -129,6 +138,14 @@ namespace KlearviewQuotes.Controllers
 
                 await _repository.UpdateQuoteAsync(quote);
             }         
+        }
+
+        private async Task AddStatusListViewBag()
+        {
+            var status = await _repository.GetStatusAsync();
+            SelectList selectList = new SelectList(status, "Name", "Name");
+
+            ViewBag.Status = selectList;
         }
 
 

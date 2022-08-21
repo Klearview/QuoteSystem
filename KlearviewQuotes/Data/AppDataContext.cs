@@ -7,6 +7,7 @@ namespace KlearviewQuotes.Data
     public class AppDataContext : DbContext
     {
         public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
 
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options)
         {
@@ -15,6 +16,9 @@ namespace KlearviewQuotes.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Quote>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Status>()
                 .HasKey(x => x.Id);
         }
     }

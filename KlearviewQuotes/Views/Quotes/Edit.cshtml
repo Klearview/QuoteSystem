@@ -10,6 +10,14 @@
 <form method="post" asp-action="Edit">
     <input type="hidden" asp-for="Quote.Id" />
 
+    <div class="group">
+        <span class="group-label">Hidden</span>
+        
+        <div class="form-group">
+            <label class="control-label">Status</label>
+            @Html.DropDownListFor(model => model.Quote.Status, ViewBag.Status as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
 
     <div class="group">
         <span class="group-label">Customer Infromation</span>

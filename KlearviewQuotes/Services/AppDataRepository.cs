@@ -80,6 +80,20 @@ namespace KlearviewQuotes.Services
             }
         }
 
+        public async Task<IList<Status>?> GetStatusAsync()
+        {
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                var status = _dbContext.Status.ToList();
 
+                return status;
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
     }
 }

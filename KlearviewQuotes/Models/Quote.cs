@@ -35,6 +35,8 @@ namespace KlearviewQuotes.Models
 
         [Display(Name = "Sent By")]
         public string? SentBy { get; set; }
+
+        public string? Status { get; set; }
         #endregion
 
         #region Quote Data
@@ -56,6 +58,8 @@ namespace KlearviewQuotes.Models
             QuoteInfo = new QuoteInfo();
 
             CreatedAt = DateTime.Now;
+
+            Status ??= "";
         }
 
         #region Quote Data XML

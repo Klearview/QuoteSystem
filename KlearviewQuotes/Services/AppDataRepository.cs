@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using KlearviewQuotes.Models;
 using KlearviewQuotes.Data;
+using KlearviewQuotes.Services.Interfaces;
 
 namespace KlearviewQuotes.Services
 {

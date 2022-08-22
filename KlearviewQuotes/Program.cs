@@ -1,6 +1,9 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using KlearviewQuotes.Data;
 using KlearviewQuotes.Models;
 using KlearviewQuotes.Services;
+using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +31,16 @@ builder.Services.AddControllersWithViews();
 // Application Insights
 builder.Services.AddApplicationInsightsTelemetry();
 
+// PDF Converter Backend Service
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+// Add Node Services
+builder.Services.AddNodeServices();
+
 // Services
 builder.Services.AddScoped<IAppDataRepository, AppDataRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPDFService, PDFService>();
 
 // Runtime Compilation
 builder.Services.AddRazorPages()

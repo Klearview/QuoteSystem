@@ -1,8 +1,9 @@
 ﻿using KlearviewQuotes.Models;
-using KlearviewQuotes.Services;
+using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.NodeServices;
 
 namespace KlearviewQuotes.Controllers
 {
@@ -10,10 +11,14 @@ namespace KlearviewQuotes.Controllers
     public class QuotesController : Controller
     {
         private readonly IAppDataRepository _repository;
+        private readonly IPDFService _PDFService;
+        private readonly INodeServices _nodeServices;
 
-        public QuotesController(IAppDataRepository repository)
+        public QuotesController(IAppDataRepository repository, IPDFService pDFService, INodeServices nodeServices)
         {
             _repository = repository;
+            _PDFService = pDFService;
+            _nodeServices = nodeServices;
         }
 
         // GET: Quotes
@@ -81,6 +86,7 @@ namespace KlearviewQuotes.Controllers
 
         // GET: Quotes/PreviewPrint/{id}
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult> Print(int? id)
         {
             if (id == null || id <= 0)
@@ -115,6 +121,22 @@ namespace KlearviewQuotes.Controllers
                 default:
                     return RedirectToAction(nameof(Index));
             }
+        }
+
+        public async Task<IActionResult> PDF(int id)
+        {
+            /*var file = await _PDFService.ConvertPreviewToPDF(id);
+
+            return File(file, "application/pdf");*/
+
+            var result = await _nodeServices.InvokeAsync<byte[]>("./pdf");
+
+            HttpContext.Response.ContentType = "application/pdf";
+            string filename = @"report.pdf";
+            HttpContext.Response.Headers.Add("x-filename", filename);
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
+            HttpContext.Response.Body.Write(result, 0, result.Length);
+            return new ContentResult();
         }
 
         private async Task SaveQuote(Quote quote)

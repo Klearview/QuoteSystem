@@ -125,18 +125,18 @@ namespace KlearviewQuotes.Controllers
 
         public async Task<IActionResult> PDF(int id)
         {
-            /*var file = await _PDFService.ConvertPreviewToPDF(id);
+            var file = await _PDFService.ConvertPreviewToPDF(id);
 
-            return File(file, "application/pdf");*/
+            return File(file, "application/pdf");
 
-            var result = await _nodeServices.InvokeAsync<byte[]>("./pdf");
+            /*var result = await _nodeServices.InvokeAsync<byte[]>("./pdf");
 
             HttpContext.Response.ContentType = "application/pdf";
             string filename = @"report.pdf";
             HttpContext.Response.Headers.Add("x-filename", filename);
             HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
             HttpContext.Response.Body.Write(result, 0, result.Length);
-            return new ContentResult();
+            return new ContentResult();*/
         }
 
         private async Task SaveQuote(Quote quote)

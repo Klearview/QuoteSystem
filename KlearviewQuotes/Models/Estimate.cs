@@ -61,10 +61,10 @@ namespace KlearviewQuotes.Models
         public decimal? Price { get; set; }
 
         [Display(Name = "Basements")]
-        public EstimateWithExtra Basements { get; set; }
+        public EstimateWithExtraAndIntExt Basements { get; set; }
 
         [Display(Name = "Skylights")]
-        public EstimateWithExtra Skylights { get; set; }
+        public EstimateWithExtraAndIntExt Skylights { get; set; }
 
         [Display(Name = "Deck Glass")]
         public EstimateWithExtra DeckGlass { get; set; }
@@ -99,5 +99,14 @@ namespace KlearviewQuotes.Models
     {
         public bool Checked { get; set; }
         public decimal? Extra { get; set; }
+    }
+
+    public class EstimateWithExtraAndIntExt : EstimateWithExtra
+    {
+        [Display(Name = "Interior")]
+        public bool Interior { get; set; }
+
+        [Display(Name = "Exterior")]
+        public bool Exterior { get; set; }
     }
 }

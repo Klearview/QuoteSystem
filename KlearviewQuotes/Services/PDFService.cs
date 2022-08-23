@@ -25,10 +25,16 @@ namespace KlearviewQuotes.Services
                 {
                     Options = {
                         PdfPageOrientation = PdfPageOrientation.Portrait,
+                        RenderingEngine = RenderingEngine.WebKit,
+                        MarginBottom = 0,
+                        MarginLeft = 5,
+                        MarginRight = 5,
+                        MarginTop = 7,
+                        PdfPageSize = PdfPageSize.Letter
                     }
                 };
 
-                htmlToPdf.Options.CustomCSS = "https://localhost:7145/wwwroot/css/preview.css";
+                //htmlToPdf.Options.CustomCSS = "https://localhost:7145/wwwroot/css/preview.css";
 
                 PdfDocument pdfDocument = htmlToPdf.ConvertHtmlString(html);
                 byte[] pdf = pdfDocument.Save();

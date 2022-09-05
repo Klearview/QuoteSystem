@@ -1,7 +1,9 @@
-﻿namespace KlearviewQuotes.Services.Interfaces
+﻿using KlearviewQuotes.Models;
+
+namespace KlearviewQuotes.Services.Interfaces
 {
     public interface IPDFService
     {
-        Task<byte[]?> ConvertPreviewToPDF(int id);
+        Task<PDF?> ConvertPreviewToPDF(int id);
     }
 }

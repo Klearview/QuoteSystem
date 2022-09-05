@@ -1,4 +1,4 @@
-namespace KlearviewQuotes.Models
+namespace KlearviewQuotes.Models.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,9 +1,20 @@
-﻿@model KlearviewQuotes.Models.Quote
+﻿@model KlearviewQuotes.Models.ViewModels.PreviewViewModel
 
 <style>
     .pdf-iframe {
-        width: 80vw;
-        height: calc((80vw * 1.3) + 50px);
+        width: 9in;
+        height: 7in;
+    }
+
+    .spinner-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
+
+    #spinner {
+        width: 5rem;
+        height: 5rem;
     }
 </style>
 
@@ -18,8 +29,13 @@
             </div>
 
             <div class="modal-body">
-                <partial name="_PreviewPartial" />
-                @*<iframe class="pdf-iframe" src="https://www.orimi.com/pdf-test.pdf"></iframe>*@
+                <div class="spinner-container">
+                    <div class="spinner-border" role="status" id="spinner">
+                    </div>
+                </div>
+                
+
+                <iframe class="pdf-iframe" id="preview-iframe" src="@Model.PDFUrl"></iframe>
             </div>
 
             <div class="modal-footer">
@@ -29,3 +45,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('preview-iframe').onload = function () {
+        $(".spinner-container").hide();
+    };
+</script>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KlearviewQuotes", "KlearviewQuotes\KlearviewQuotes.csproj", "{7634A281-1293-4B14-8D2A-9417718696A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlearviewQuotes_Unit_Tests", "KlearviewQuotes_Unit_Tests\KlearviewQuotes_Unit_Tests.csproj", "{0BBC9CA3-CBD9-490B-AD8E-93123C880F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KlearviewQuotes_Unit_Tests", "KlearviewQuotes_Unit_Tests\KlearviewQuotes_Unit_Tests.csproj", "{0BBC9CA3-CBD9-490B-AD8E-93123C880F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

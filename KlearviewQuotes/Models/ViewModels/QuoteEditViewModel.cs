@@ -1,17 +1,17 @@
-﻿namespace KlearviewQuotes.Models
+﻿namespace KlearviewQuotes.Models.ViewModels
 {
-    public class QuoteEdit
+    public class QuoteEditViewModel
     {
         public Quote Quote { get; set; }
         public string? LastOption { get; set; }
         public string? SubmitOption { get; set; }
 
-        public QuoteEdit(Quote quote)
+        public QuoteEditViewModel(Quote quote)
         {
             Quote = quote;
         }
 
-        public QuoteEdit() : this(new Quote())
+        public QuoteEditViewModel() : this(new Quote())
         {
 
         }

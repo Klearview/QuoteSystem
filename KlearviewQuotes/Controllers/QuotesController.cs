@@ -1,9 +1,11 @@
 ﻿using KlearviewQuotes.Models;
+using KlearviewQuotes.Models.ViewModels;
 using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.NodeServices;
+using Microsoft.Extensions.Options;
 
 namespace KlearviewQuotes.Controllers
 {
@@ -12,13 +14,13 @@ namespace KlearviewQuotes.Controllers
     {
         private readonly IAppDataRepository _repository;
         private readonly IPDFService _PDFService;
-        private readonly INodeServices _nodeServices;
+        private readonly ApiSettings _settings;
 
-        public QuotesController(IAppDataRepository repository, IPDFService pDFService, INodeServices nodeServices)
+        public QuotesController(IAppDataRepository repository, IPDFService pDFService, IOptions<ApiSettings> settings)
         {
             _repository = repository;
             _PDFService = pDFService;
-            _nodeServices = nodeServices;
+            _settings = settings.Value;
         }
 
         // GET: Quotes
@@ -57,7 +59,7 @@ namespace KlearviewQuotes.Controllers
             if (quote == null)
                 return NotFound();
 
-            return View(new QuoteEdit(quote));
+            return View(new QuoteEditViewModel(quote));
         }
 
         // GET: Quotes/Edit
@@ -65,7 +67,7 @@ namespace KlearviewQuotes.Controllers
         {
             await AddStatusListViewBag();
 
-            return View(nameof(Edit), new QuoteEdit());
+            return View(nameof(Edit), new QuoteEditViewModel());
         }
 
         // GET: Quotes/Preview/{id}
@@ -73,15 +75,29 @@ namespace KlearviewQuotes.Controllers
         public async Task<IActionResult> Preview(int? id)
         {
             if (id == null || id <= 0)
-                return View(new Quote());
+                return NotFound();
+
+            var pdfUrl = $"{_settings.BaseUrl}/Quotes/PDF/{id.Value}";
+
+            var previewViewModel = new PreviewViewModel()
+            {
+                Id = id.Value,
+                PDFUrl = pdfUrl
+            };
+
+            //return View(quote);
+            return PartialView("_PreviewModal", previewViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Email(int? id)
+        {
+            if (id == null || id <= 0)
+                return PartialView("_EmailConfirmation", null);
 
             var quote = await _repository.GetQuoteAsync(id.Value);
 
-            if (quote == null)
-                return NotFound();
-
-            //return View(quote);
-            return PartialView("_PreviewModal", quote);
+            return PartialView("_EmailConfirmation", quote);
         }
 
         // GET: Quotes/PreviewPrint/{id}
@@ -102,7 +118,7 @@ namespace KlearviewQuotes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(QuoteEdit quoteEdit)
+        public async Task<IActionResult> Edit(QuoteEditViewModel quoteEdit)
         {
             await AddStatusListViewBag();
 
@@ -125,18 +141,12 @@ namespace KlearviewQuotes.Controllers
 
         public async Task<IActionResult> PDF(int id)
         {
-            var file = await _PDFService.ConvertPreviewToPDF(id);
+            var pdf = await _PDFService.ConvertPreviewToPDF(id);
 
-            return File(file, "application/pdf");
+            if (pdf == null || pdf.Data == null)
+                return NotFound();
 
-            /*var result = await _nodeServices.InvokeAsync<byte[]>("./pdf");
-
-            HttpContext.Response.ContentType = "application/pdf";
-            string filename = @"report.pdf";
-            HttpContext.Response.Headers.Add("x-filename", filename);
-            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
-            HttpContext.Response.Body.Write(result, 0, result.Length);
-            return new ContentResult();*/
+            return File(pdf.Data, "application/pdf");
         }
 
         private async Task SaveQuote(Quote quote)

@@ -1,6 +1,8 @@
 ﻿using DinkToPdf;
 using DinkToPdf.Contracts;
+using KlearviewQuotes.Models;
 using KlearviewQuotes.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using SelectPdf;
 using System.Net;
 
@@ -8,18 +10,19 @@ namespace KlearviewQuotes.Services
 {
     public class PDFService : IPDFService
     {
-        private readonly IConverter _converter;
 
-        public PDFService(IConverter converter)
+        private readonly ApiSettings _settings;
+
+        public PDFService(IOptions<ApiSettings> settings)
         {
-            _converter = converter;
+            _settings = settings.Value;
         }
 
-        public async Task<byte[]?> ConvertPreviewToPDF(int id)
+        public async Task<PDF?> ConvertPreviewToPDF(int id)
         {
             using (HttpClient client = new())
             {
-                string html = await client.GetStringAsync($"https://localhost:7145/Quotes/Print/{id}");
+                string html = await client.GetStringAsync($"{_settings.BaseUrl}/Quotes/Print/{id}");
 
                 HtmlToPdf htmlToPdf = new()
                 {
@@ -39,36 +42,14 @@ namespace KlearviewQuotes.Services
                 PdfDocument pdfDocument = htmlToPdf.ConvertHtmlString(html);
                 byte[] pdf = pdfDocument.Save();
 
-                Stream stream = new MemoryStream(pdf);
                 pdfDocument.Close();
 
-                return pdf;
+                return new PDF()
+                {
+                    Name = "Klearview Estimate",
+                    Data = pdf
+                };
             }
-
-            /*var globalSettings = new GlobalSettings
-            {
-                PaperSize = PaperKind.Letter,
-                DocumentTitle = "Quote"
-            };
-
-            using (HttpClient client = new())
-            {
-                string html = await client.GetStringAsync($"https://localhost:7145/Quotes/Print/{id}");
-
-                var objectSettings = new ObjectSettings
-                {
-                    HtmlContent = html,
-                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = "https://localhost:7145/css/preview.css" }
-                };
-
-                var pdf = new HtmlToPdfDocument()
-                {
-                    GlobalSettings = globalSettings,
-                    Objects = { objectSettings }
-                };
-
-                return _converter.Convert(pdf);
-            }*/
         }
     }
 }

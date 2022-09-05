@@ -84,37 +84,6 @@ namespace KlearviewQuotes.Controllers
                     if (user != null)
                         await _userManager.AddToRoleAsync(user, model.RoleName);
                 }
-
-                /*
-                foreach (var userId in model.UsersInGroup ?? new string[] { }) 
-                {
-                    var user = await _userManager.FindByIdAsync(userId);
-                    if (user != null)
-                    {
-                        if (!await _userManager.IsInRoleAsync(user, model.RoleName))
-                        {
-                            result = await _userManager.AddToRoleAsync(user, model.RoleName);
-                            if (!result.Succeeded)
-                                Errors(result);
-                        } 
-                    }
-                }
-
-                var notInGroup = _userManager.Users.ToList();
-
-                foreach (var user in _userManager.Users.ToList())
-                    if (await _userManager.IsInRoleAsync(user, model.RoleName))
-                        notInGroup.Remove(user);
-
-                foreach (var user in notInGroup)
-                {
-                    if (await _userManager.IsInRoleAsync(user, model.RoleName))
-                    {
-                        result = await _userManager.RemoveFromRoleAsync(user, model.RoleName);
-                        if (!result.Succeeded)
-                            Errors(result);
-                    }
-                }*/
             }
 
             if (ModelState.IsValid)
@@ -136,5 +105,6 @@ namespace KlearviewQuotes.Controllers
             new("Test"),
             new("AlwaysAdmin")
         };
+
     }
 }

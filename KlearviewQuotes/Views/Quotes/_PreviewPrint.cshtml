@@ -143,19 +143,3 @@
 <div class="preview-wrapper">
     <partial name="_PreviewPartial" />
 </div>
-
-@section Scripts {
-    <script>
-        
-        $(document).ready(function() {
-            window.print();
-
-            window.onafterprint = () => {
-                setTimeout(function(){ 
-                    //window.close();
-                }, 1000)
-            }
-        })
-
-    </script>
-}

@@ -2,7 +2,7 @@
 {
     public class PreviewViewModel
     {
-        public int? Id { get; set; }
+        public Quote? Quote { get; set; }
         public string? PDFUrl { get; set; }
     }
 }

@@ -8,6 +8,9 @@ $(function () {
 
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         let url = $(this).data('url');
+
+        console.log(url)
+
         $.get(url).done((data) => {
             placeholder.html(data);
             placeholder.find('.modal').modal('show');

@@ -1,5 +1,6 @@
 ﻿using KlearviewQuotes.Models;
 using KlearviewQuotes.Models.ViewModels;
+using KlearviewQuotes.Services;
 using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,15 @@ namespace KlearviewQuotes.Controllers
     public class QuotesController : Controller
     {
         private readonly IAppDataRepository _repository;
-        private readonly IPDFService _PDFService;
+        private readonly IPDFService _pdfService;
+        private readonly IEmailService _emailService;
         private readonly ApiSettings _settings;
 
-        public QuotesController(IAppDataRepository repository, IPDFService pDFService, IOptions<ApiSettings> settings)
+        public QuotesController(IAppDataRepository repository, IPDFService pDFService, IEmailService emailService, IOptions<ApiSettings> settings)
         {
             _repository = repository;
-            _PDFService = pDFService;
+            _pdfService = pDFService;
+            _emailService = emailService;
             _settings = settings.Value;
         }
 
@@ -77,11 +80,16 @@ namespace KlearviewQuotes.Controllers
             if (id == null || id <= 0)
                 return NotFound();
 
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            if (quote == null)
+                return NotFound();
+
             var pdfUrl = $"{_settings.BaseUrl}/Quotes/PDF/{id.Value}";
 
             var previewViewModel = new PreviewViewModel()
             {
-                Id = id.Value,
+                Quote = quote,
                 PDFUrl = pdfUrl
             };
 
@@ -98,6 +106,38 @@ namespace KlearviewQuotes.Controllers
             var quote = await _repository.GetQuoteAsync(id.Value);
 
             return PartialView("_EmailConfirmation", quote);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(int? id)
+        {
+            if (id == null || id <= 0)
+                return BadRequest();
+
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            if (quote == null)
+                return NotFound();
+
+            if (quote.CustomerInfo == null || quote.CustomerInfo.Email == null)
+                return BadRequest();
+
+            var pdf = await _pdfService.ConvertPreviewToPDF(id.Value);
+
+            if (pdf == null || pdf.Attachment == null)
+                return NotFound();
+
+            var email = _emailService.SendEmailWithPDF(
+                new(quote.CustomerInfo.Email),
+                "Estimate",
+                "",
+                pdf
+                );
+
+            if (email)
+                return Ok();
+
+            return BadRequest();
         }
 
         // GET: Quotes/PreviewPrint/{id}
@@ -141,7 +181,7 @@ namespace KlearviewQuotes.Controllers
 
         public async Task<IActionResult> PDF(int id)
         {
-            var pdf = await _PDFService.ConvertPreviewToPDF(id);
+            var pdf = await _pdfService.ConvertPreviewToPDF(id);
 
             if (pdf == null || pdf.Data == null)
                 return NotFound();

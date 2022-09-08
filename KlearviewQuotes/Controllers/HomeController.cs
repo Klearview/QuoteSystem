@@ -1,4 +1,4 @@
-﻿using KlearviewQuotes.Models;
+﻿using KlearviewQuotes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

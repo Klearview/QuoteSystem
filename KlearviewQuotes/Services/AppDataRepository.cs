@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using KlearviewQuotes.Models;
 using KlearviewQuotes.Data;
+using KlearviewQuotes.Services.Interfaces;
 
 namespace KlearviewQuotes.Services
 {
@@ -32,7 +33,7 @@ namespace KlearviewQuotes.Services
             }
         }
 
-        public async Task<Quote?> GetQuoteAsync(long id)
+        public async Task<Quote?> GetQuoteAsync(int id)
         {
             try
             {
@@ -77,6 +78,22 @@ namespace KlearviewQuotes.Services
             {
                 _telemetryClient.TrackException(ex);
                 return false;
+            }
+        }
+
+        public async Task<IList<Status>?> GetStatusAsync()
+        {
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                var status = _dbContext.Status.ToList();
+
+                return status;
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
             }
         }
     }

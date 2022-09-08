@@ -1,12 +1,22 @@
-﻿<!DOCTYPE html>
+﻿@using KlearviewQuotes.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<ApiSettings> _apiSettings;
+@{
+    string googleMapsApi = _apiSettings.Value.GoogleMapsUrl!
+        .Replace("{GoogleMapsKey}", _apiSettings.Value.GoogleMapsKey!);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KlearviewQuotes</title>
+    <title>@ViewData["Title"] - Klearview Quotes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KlearviewQuotes.styles.css" asp-append-version="true" />
+
+    <script src="@googleMapsApi"></script>
 </head>
 <body>
     <header>
@@ -22,19 +32,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                                                <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Quotes" asp-action="Index">Quotes List</a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Quotes" asp-action="Edit">Quote Edit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Quotes" asp-action="Preview">Quote Preview</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Quotes" asp-action="Index">Quotes</a>
                         </li>
                         @if(User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Roles</a>
+                                </div>
+                            </li>
+                        }
+                        @if(User.IsInRole("Test"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Test
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Edit" asp-route-id="29">Quote Edit</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Quotes" asp-action="Preview" asp-route-id="29">Quote Preview</a>
+                                </div>
                             </li>
                         }
                         <li class="nav-item">
@@ -46,7 +67,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-lg">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -54,7 +75,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - KlearviewQuotes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Klearview Quotes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

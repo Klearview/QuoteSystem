@@ -1,0 +1,145 @@
+﻿@model KlearviewQuotes.Models.Quote
+
+<style>
+
+    .container-lg {
+        width: max-content;
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    header {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .preview {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 10in !important;
+        height: 12in !important;
+    }
+
+    .notes p {
+        line-height: 1rem !important;
+    }
+
+    .sales-rep {
+        margin-top: 6px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .customer-info td {
+        padding: 10px 10px !important;
+    }
+
+    .customer-info thead td {
+        font-size: 1.25rem !important;
+        padding: 6px !important;
+    }
+
+    .customer-info {
+        margin-top: 6px !important;
+        height: 290px !important;
+    }
+
+    .web-left {
+        margin-right: 8px;
+    }
+
+    .web-right {
+        margin-left: 8px;
+    }
+
+    .preview .image img {
+        height: 130px;
+    }
+
+    .estimate-sheet-heading {
+        padding: 4px;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-top: -40px;
+    }
+
+    .phone-and-info {
+        margin-left: auto !important;
+        width: 500px !important;
+    }
+
+    .multi-service {
+        line-height: 1rem !important;
+    }
+
+    .header {
+        height: 180px !important;
+    }
+
+    .estimate-top p {
+        padding-top: 4px !important;
+    }
+
+    .comp-ext-int {
+        border-bottom: 1px solid black !important;
+    }
+
+    /* Text Sizes */
+
+    body {
+        font-size: 1.25rem;
+    }
+
+    .text-xs {
+        font-size: 1rem !important;
+    }
+
+    .text-sm {
+        font-size: 1.125rem !important;
+    }
+
+    .text-md {
+        font-size: 1.5rem !important;
+    }
+
+    .text-lg {
+        font-size: 1.75rem !important;
+    }
+
+    .text-xl {
+        font-size: 2.25rem !important;
+    }
+
+    * {
+        font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
+
+    .prev-value {
+        line-height: 1.5rem !important;
+        height: 30px !important;
+    }
+
+    .price {
+        line-height: 0.5rem !important;
+    }
+
+    .estimate-good {
+        padding-top: 4px !important;
+        font-size: 1rem !important;
+    }
+
+    .sub-text {
+        font-size: 1rem !important;
+    }
+
+</style>
+
+<div class="preview-wrapper">
+    <partial name="_PreviewPartial" />
+</div>

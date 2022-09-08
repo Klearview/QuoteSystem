@@ -13,13 +13,15 @@ namespace QuoteSystem.Helpers
         /// <typeparam name="T">The type ofthe object being serialized</typeparam>
         /// <param name="instance">The instance of the object to be serialized</param>
         /// <returns>byte array of the converted object</returns>
-        public static byte[] SerializeToXml<T>(T instance)
+        public static string SerializeToXml<T>(T instance)
         {
             var serializer = new XmlSerializer(typeof(T));
-            using var stream = new MemoryStream();
-
-            serializer.Serialize(stream, instance);
-            return stream.ToArray();
+            
+            using (StringWriter sw = new StringWriter())
+            {
+                serializer.Serialize(sw, instance);
+                return sw.ToString();
+            }
         }
 
         /// <summary>
@@ -28,12 +30,14 @@ namespace QuoteSystem.Helpers
         /// <typeparam name="T">the Type of the the object being deserialized</typeparam>
         /// <param name="instance">the byte array to deserialize</param>
         /// <returns>object of type T</returns>
-        public static T DeserializeFromXML<T>(byte[] instance)
+        public static T DeserializeFromXML<T>(string instance)
         {
             var serializer = new XmlSerializer(typeof(T));
-            using var stream = new MemoryStream(instance);
-
-            return (T)serializer.Deserialize(stream);
+            
+            using (StringReader sr = new StringReader(instance))
+            {
+                return (T)serializer.Deserialize(sr);
+            }
         }
     }
 }

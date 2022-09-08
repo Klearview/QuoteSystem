@@ -24,5 +24,19 @@ namespace KlearviewQuotes.Models
         [EmailAddress]
         public string? Email { get; set; }
 
+
+        public bool Contains(string search)
+        {
+            search = search.ToLower();
+
+            return (
+                (Name != null && Name.ToLower().Contains(search))||
+                (Address != null && Address.ToLower().Contains(search)) ||
+                (Phone != null && Phone.ToLower().Contains(search)) ||
+                (Cell != null && Cell.ToLower().Contains(search)) ||
+                (Work != null && Work.ToLower().Contains(search)) ||
+                (Email != null && Email.ToLower().Contains(search))
+            );
+        }
     }
 }

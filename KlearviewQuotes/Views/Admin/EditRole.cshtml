@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @model RoleEdit
   
-<h2>Update Role</h2>
+<h2>Update @Model.Role.Name Role</h2>
 <a asp-action="Index" class="btn btn-secondary">Back</a>
 <div asp-validation-summary="All" class="text-danger"></div>
   
@@ -18,12 +18,24 @@
             </tr>
         </thead>
         <tbody>
+            @if (Model.UsersInGroupAlwaysAdmin != null)
+            {
+                @foreach(var user in Model.UsersInGroupAlwaysAdmin)
+                {
+                    <tr>
+                        <td>@user.Key.UserName</td>
+                        <td> 
+                            <input class="form-check-input disabled" type="checkbox" name="UsersInGroup" value="@user.Key.Id" checked="@user.Value"/>
+                        </td>
+                    </tr>
+                }
+            }
             @foreach(var user in Model.UsersInGroup)
             {
                 <tr>
                     <td>@user.Key.UserName</td>
-                    <td>
-                        <input class="form-check-input" type="checkbox" name="Users" value="@user.Key.Id" checked="@user.Value"/>
+                    <td> 
+                        <input class="form-check-input" type="checkbox" name="UsersInGroup" value="@user.Key.Id" checked="@user.Value"/>
                     </td>
                 </tr>
             }

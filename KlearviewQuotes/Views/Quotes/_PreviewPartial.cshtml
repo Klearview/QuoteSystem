@@ -1,0 +1,240 @@
+﻿@model KlearviewQuotes.Models.Quote
+
+<!-- Preview Stylesheet -->
+<link rel="stylesheet" href="/css/preview.css" />
+
+<!-- Allow for pdf -->
+<link rel="stylesheet" href="https://localhost:7145/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://localhost:7145/css/site.css" />
+<link rel="stylesheet" href="https://localhost:7145/css/preview.css" />
+
+<div class="preview d-flex flex-column page-1">
+    <div class="header">
+        <div class="d-flex">
+            <div class="image">
+                <img src="https://localhost:7145/images/kv-logo.png" />
+                <br/>
+                <span class="text-xs">o/b 2112190 Ontario Inc.</span>
+            </div>
+            <div class="text-center phone-and-info">
+                <span class="font-weight-bold text-xl">905-634-2882</span>
+                <br/>
+                <span>Locally owned and operated</span>
+                <div class="row">
+                    <div class="col text-right text-red text-md web-left"><a>www.klearview.ca</a></div>
+                    <div class="col text-left text-red text-md web-right"><a>info@klearview.ca</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="estimate-sheet-heading">
+        ESTIMATE SHEET
+    </div>
+    <div class="customer-info">
+        <table>
+            <colgroup>
+                <col span="1" style="width: 170px;">
+                <col span="1" style="width: auto;">
+                <col span="1" style="width: 50px;">
+                <col span="1" style="width: auto;">
+            </colgroup>
+            <thead>
+                <tr><td colspan="4">CUSTOMER INFORMATION</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Name):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Address):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Phone):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Cell):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Email):</td>
+                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sales-rep">
+        <table>
+            <colgroup>
+                <col span="1" style="width: 160px;">
+                <col span="1" style="width: 180px;">
+                <col span="1" style="width: 100px;">
+                <col span="1" style="width: auto;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(item => Model.QuoteInfo.DateOfEstimate):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.DateOfEstimate)</div></td>
+                    <td>@Html.DisplayNameFor(item => Model.QuoteInfo.SalesRep):</td>
+                    <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.SalesRep)</div></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="estimate-good text-center text-sm">
+                        <em>Estimate good for 30 days from above date</em>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row border-top border-dark flex-fill">
+        <div class="col-7 m-2 border border-dark d-flex flex-column estimate">
+            <div class="text-center estimate-top">
+                <span class="text-bold text-lg">ESTIMATE</span>
+                <p class="text-red text-xs">TAXES NOT INCLUDED</p>
+            </div>
+            <div class="flex-fill">
+                <div>
+                    <span class="text-bold text-md">Window Cleaning</span>
+                    <div class="indent">
+                        <div>
+                            <div class="d-flex">
+                                <span class="text-bold text-md flex-fill">Exterior</span>
+                                <div class="price-wrapper d-flex">
+                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Exterior.Price)</div>
+                                </div>
+                            </div>
+                            <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
+                            <div class="indent">
+                                <div class="form-check w-75">
+                                    <input asp-for="Estimate.Exterior.CustomerRemoveExtScreens" class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" asp-for="Estimate.Exterior.CustomerRemoveExtScreens"></label>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill">
+                                        <input asp-for="Estimate.Exterior.WeRemoveExtScreens.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.Exterior.WeRemoveExtScreens"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.Exterior.WeRemoveExtScreens.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <input asp-for="Estimate.Exterior.WeRequireAccessInside" class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" asp-for="Estimate.Exterior.WeRequireAccessInside"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-ext-int">
+                            <div class="d-flex">
+                                <span class="text-bold text-md flex-fill">Complete Exterior and Interior</span>
+                                <div class="price-wrapper d-flex">
+                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Price)</div>
+                                </div>
+                            </div>
+                            <span class="sub-text"><em>(Price includes wiping sills, tracks, and screens)</em></span>
+                         </div>
+                         <div class="mt-3 mb-1">
+                            <div class="indent" style="margin-top: -10px; margin-bottom: 6px;">
+                                <div class="d-flex mb-1">
+                                    <span class="flex-fill"><b>Included</b></span>
+                                    <span style="margin-right: 50px"><b>Extra</b></span>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="flex-fill mr-2 d-flex">
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Basements.Checked" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements"></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Basements.Interior" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements.Interior"></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Basements.Exterior" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements.Exterior"></label>
+                                        </div>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="flex-fill mr-2 d-flex">
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Skylights.Checked" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights"></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Skylights.Interior" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights.Interior"></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Estimate.CompleteExtAndInt.Skylights.Exterior" class="form-check-input" type="checkbox">
+                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights.Exterior"></label>
+                                        </div>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="form-check flex-fill">
+                                        <input asp-for="Estimate.CompleteExtAndInt.DeckGlass.Checked" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.DeckGlass"></label>
+                                    </div>
+                                    <div class="price-wrapper d-flex">
+                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-flex">
+                        <span class="text-bold text-md flex-fill">Siding Cleaning</span>
+                        <div class="price-wrapper d-flex">
+                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Siding.Price)</div>
+                        </div>
+                    </div>
+                    <div class="indent w-50">
+                        <div style="line-height: 100%; margin-bottom: 10px;">Includes siding, fascia, soffits and exterior of eavestrough</div>
+                        <span class="sub-text"><em>(Surface dirt and mild stains only)</em></span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-flex">
+                        <span class="text-bold text-md flex-fill">Eavestrough / Gutter Clearing</span>
+                        <div class="price-wrapper d-flex">
+                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Eaves.Price)</div>
+                        </div>
+                    </div>
+                    <div class="indent">
+                        <div style="line-height: 100%; margin-bottom: 10px;">Clearing out eaves/gutters and downspouts</div>
+                        <span class="sub-text"><em>(Does not include removal of shingle dust)</em></span>
+                        <ul><li class="sub-text"><em>Extra charge to remove gutter guards</em></li></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-xs multi-service">
+                <div class="multi-service-title">Multi-Service Discount</div>
+                <div>2 Services $30 off</div>
+                <div>3 Services $60 off</div>
+            </div>
+        </div>
+        <div class="col m-2 d-flex flex-column">
+            <div class="text-center text-md">Job Description: (see notes)</div>
+            <div class="mt-2 flex-fill job-description text-sm">
+                @Html.DisplayFor(item => Model.QuoteInfo.Description)
+            </div>
+        </div>
+        
+    </div>
+</div>

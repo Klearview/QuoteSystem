@@ -1,12 +1,4 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:32398",
-      "sslPort": 44348
-    }
-  },
   "profiles": {
     "KlearviewQuotes": {
       "commandName": "Project",
@@ -16,6 +8,21 @@
       },
       "applicationUrl": "https://localhost:7145;http://localhost:5145;https://192.168.0.4:7145;http://192.168.0.4:5145",
       "dotnetRunMessages": true
+    },
+    "Release": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7145;http://localhost:5145;https://192.168.0.4:7145;http://192.168.0.4:5145",
+      "dotnetRunMessages": true,
+      "hotReloadEnabled": false
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:32398",
+      "sslPort": 44348
     }
   }
 }

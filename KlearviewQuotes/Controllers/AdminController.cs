@@ -38,25 +38,32 @@ namespace KlearviewQuotes.Controllers
                 {
                     
                 }            
-            }       
+            }
 
             return RedirectToAction("Index");
         }
 
+        
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
+            var usersInGroupAlwaysAdmin = new Dictionary<IdentityUser, bool>();
             var usersInGroup = new Dictionary<IdentityUser, bool>();
 
             foreach (var user in _userManager.Users)
             {
                 var inGroup = await _userManager.IsInRoleAsync(user, role.Name);
-                usersInGroup.Add(user, inGroup);
+
+                if (role.Name == "Admin" && inGroup && await _userManager.IsInRoleAsync(user, "AlwaysAdmin"))
+                    usersInGroupAlwaysAdmin.Add(user, inGroup);
+                else
+                    usersInGroup.Add(user, inGroup);
             }
 
             return View(new RoleEdit
             {
                 Role = role,
+                UsersInGroupAlwaysAdmin = usersInGroupAlwaysAdmin,
                 UsersInGroup = usersInGroup
             });
         }
@@ -64,37 +71,25 @@ namespace KlearviewQuotes.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole(RoleModification model)
         {
-            /*IdentityResult result;
-            if (true)
+            IdentityResult result;
+            if (ModelState.IsValid)
             {
-                foreach (var userId in model.AddIds ?? new string[] { })
+                foreach (var user in _userManager.Users.ToList())
+                    if (await _userManager.IsInRoleAsync(user, model.RoleName))
+                        await _userManager.RemoveFromRoleAsync(user, model.RoleName);
+
+                foreach (var userId in model.UsersInGroup ?? new string[] { })
                 {
                     var user = await _userManager.FindByIdAsync(userId);
                     if (user != null)
-                    {
-                        result = await _userManager.AddToRoleAsync(user, model.RoleName);
-                        if (!result.Succeeded)
-                            Errors(result);
-                    }
-                }
-                foreach (string userId in model.DeleteIds ?? new string[] { })
-                {
-                    var user = await _userManager.FindByIdAsync(userId);
-                    if (user != null)
-                    {
-                        result = await _userManager.RemoveFromRoleAsync(user, model.RoleName);
-                        if (!result.Succeeded)
-                            Errors(result);
-                    }
+                        await _userManager.AddToRoleAsync(user, model.RoleName);
                 }
             }
 
             if (ModelState.IsValid)
                 return RedirectToAction(nameof(Index));
             else
-                return await EditRole(model.RoleId);*/
-
-            return RedirectToAction(nameof(Index));
+                return await EditRole(model.RoleId);
         }
 
         private void Errors(IdentityResult result)
@@ -107,7 +102,9 @@ namespace KlearviewQuotes.Controllers
         {
             new("Admin"),
             new("QuoteEditor"),
-            new("Test")
+            new("Test"),
+            new("AlwaysAdmin")
         };
+
     }
 }

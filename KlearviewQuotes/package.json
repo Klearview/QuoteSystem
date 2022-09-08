@@ -1,0 +1,20 @@
+{
+  "name": "klearviewquotes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jsreport/jsreport-chrome-pdf": "^3.2.0",
+    "@jsreport/jsreport-core": "^3.7.0",
+    "@jsreport/jsreport-handlebars": "^3.2.1",
+    "jsreport-core": "^2.10.1",
+    "jsreport-jsrender": "^2.1.1",
+    "jsreport-phantom-pdf": "^2.6.1",
+    "puppeteer": "^16.2.0"
+  }
+}

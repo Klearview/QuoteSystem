@@ -1,0 +1,97 @@
+﻿@model KlearviewQuotes.Models.ViewModels.PreviewViewModel
+
+<style>
+    .pdf-iframe {
+        width: 9in;
+        height: 7in;
+    }
+
+    .spinner-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
+
+    #spinner {
+        width: 5rem;
+        height: 5rem;
+    }
+</style>
+
+<div id="modal-confirm">
+
+</div>
+
+<div class="modal fade" id="previewQuote">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Quote Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <span class="col"><b>Status:</b> @Html.DisplayFor(model => model.Quote.Status)</span>
+                    <span class="col"><b>Created:</b> @Html.DisplayFor(model => model.Quote.CreatedAt)</span>
+                    <span class="col"><b>Updated:</b> @Html.DisplayFor(model => model.Quote.UpdatedAt)</span>
+                    <span class="col"><b>Sent:</b> @Html.DisplayFor(model => model.Quote.SentAt)</span>
+                </div>
+                <div class="spinner-container">
+                    <div class="spinner-border" role="status" id="spinner">
+                    </div>
+                </div>
+                
+
+                <iframe class="pdf-iframe" id="preview-iframe" src="@Model.PDFUrl"></iframe>
+            </div>
+
+            <div class="modal-footer">
+                @if (Model.Quote.SentAt == null) {
+                    <button class="btn btn-secondary"
+                        data-toggle="ajax-confirm"
+                        data-target="#modal-confirm"
+                        data-dismiss="modal"
+                        data-bs-dismiss="modal"
+                        data-url="@Url.Action("Email")/@Model.Quote.Id">
+                        Send Email
+                    </button>
+                }
+                @if (Model.Quote.SentAt != null) {
+                    <button class="btn btn-danger"
+                        data-toggle="ajax-confirm"
+                        data-target="#modal-confirm"
+                        data-dismiss="modal"
+                        data-bs-dismiss="modal"
+                        data-url="@Url.Action("Email")/@Model.Quote.Id">
+                        Resend Email
+                    </button>
+                }
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-bs-dismiss="modal">Close</button>              
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('preview-iframe').onload = function () {
+        $(".spinner-container").hide();
+    };
+
+    $(function () {
+        let placeholder = $('#modal-confirm');
+
+        $('button[data-toggle="ajax-confirm"]').click(function (event) {
+            console.log('test')
+
+            let url = $(this).data('url');
+            $.get(url).done((data) => {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+        })
+    })
+</script>

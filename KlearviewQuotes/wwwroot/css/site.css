@@ -41,6 +41,15 @@ body {
     padding: 0px 10px;
 }
 
+.form-check label {
+    display: block;
+}
+
+.form-check {
+    margin-left: 20px;
+    /*margin-bottom: 10px;*/
+}
+
 .sub {
     margin-left: 10px;
 }
@@ -66,18 +75,14 @@ body {
     display: flex;
 }
 
-.estimate .form-control, .estimate .form-group {
-    max-width: 200px;
-}
-
 .buttons {
     display: flex;
     justify-content: end;
 }
 
-    .buttons * {
-        margin: 0px 6px;
-    }
+.buttons * {
+    margin: 0px 6px;
+}
 
 .input-group {
     flex-wrap: nowrap;
@@ -87,10 +92,10 @@ body {
     margin-left: 20px;
 }
 
-    .estimate .text-danger::after {
-        content: "\a";
-        white-space: pre;
-    }
+.estimate .text-danger::after {
+    content: "\a";
+    white-space: pre;
+}
 
 @media only screen and (max-width: 500px) {
     .estimate .inline-check {
@@ -103,6 +108,24 @@ body {
     }
 }
 
+.form-with-extra {
+    display: flex;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    max-height: 38px;
+}
+
+.form-check-label {
+    display: flex !important;
+    margin-right: 20px;
+    min-width: 100px;
+}
+
+textarea {
+    max-height: none !important;
+}
 
 /* Text Sizes */
 
@@ -126,10 +149,42 @@ body {
     font-size: 2rem;
 }
 
+/* Text */
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-red {
+    color: red;
+}
+
+.mr-3 {
+    margin-right: 3rem;
+}
+
+.ml-0 {
+    margin-left: 0;
+}
+
 /* Forms */
 
 .form-floating {
     margin: 10px 0;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
 }
 
 /* Login */
@@ -142,7 +197,7 @@ body {
 
 .login {
     max-width: 100%;
-    min-width: 500px;
+    width: 500px;
 }
 
 .login h1 {
@@ -157,4 +212,62 @@ body {
     margin-top: 20px;
     text-align: center;
     line-height: 1rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block !important;
+}
+
+.indent {
+    margin-left: 1rem;
+}
+
+/* Modal */
+
+.modal-dialog {
+    position: relative;
+    display: table;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    min-width: 300px;
+}
+
+.modal-body {
+    max-width: 90vw;
+    overflow: auto;
+}
+
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.close:focus, .close:hover {
+    color: #000;
+    text-decoration: none;
+    opacity: .75;
+}
+
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+
+/* Tables */
+
+.table-wrapper {
+    overflow-x: auto;
 }

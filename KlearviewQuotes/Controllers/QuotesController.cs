@@ -108,38 +108,6 @@ namespace KlearviewQuotes.Controllers
             return PartialView("_EmailConfirmation", quote);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SendEmail(int? id)
-        {
-            if (id == null || id <= 0)
-                return BadRequest();
-
-            var quote = await _repository.GetQuoteAsync(id.Value);
-
-            if (quote == null)
-                return NotFound();
-
-            if (quote.CustomerInfo == null || quote.CustomerInfo.Email == null)
-                return BadRequest();
-
-            var pdf = await _pdfService.ConvertPreviewToPDF(id.Value);
-
-            if (pdf == null || pdf.Attachment == null)
-                return NotFound();
-
-            var email = _emailService.SendEmailWithPDF(
-                new(quote.CustomerInfo.Email),
-                "Estimate",
-                "",
-                pdf
-                );
-
-            if (email)
-                return Ok();
-
-            return BadRequest();
-        }
-
         // GET: Quotes/PreviewPrint/{id}
         [HttpGet]
         [AllowAnonymous]
@@ -192,22 +160,6 @@ namespace KlearviewQuotes.Controllers
                 
 
             return BadRequest();
-        }
-
-        // GET: Quotes/PreviewPrint/{id}
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<ActionResult> Print(int? id)
-        {
-            if (id == null || id <= 0)
-                return NotFound();
-
-            var quote = await _repository.GetQuoteAsync(id.Value);
-
-            if (quote == null)
-                return NotFound();
-
-            return View("_PreviewPrint", quote);
         }
 
         [HttpPost]

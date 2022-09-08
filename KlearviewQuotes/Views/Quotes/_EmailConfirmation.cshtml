@@ -1,0 +1,83 @@
+﻿@model KlearviewQuotes.Models.Quote
+
+<style>
+    .spinner-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
+</style>
+
+<div class="modal fade" id="email-confirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Send Quote to Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div id="email-pre">
+                    <span>
+                        Are you sure you want to
+                        @if (Model.SentAt == null)
+                        {
+                            <span>send</span>
+                        }
+                        @if (Model.SentAt != null)
+                        {
+                            <span>resend</span>
+                        }
+                        the email to the customer?
+                    </span>
+                    <br />
+                    <br />
+                    <span><b>Recipient:</b> @Model.CustomerInfo.Email</span>
+                </div>
+                <br />
+                <div id="email-success" style="display: none">
+                    <span class="text-success">Email Sent!</span>
+                </div>
+                <div id="email-fail" style="display: none">
+                    <span class="text-danger">Failed to Send Email! Check Email Address and Try Again.</span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id="email-pre-buttons">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-success" id="send-email">Yes</button>
+                </div>
+                <div id="email-done-buttons" style="display: none">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#send-email").on('click', function() {
+
+        let id = '@Model.Id';
+        let url = '@Url.Action("SendEmail")'
+
+        $.post(url, { id: id })
+        .done(() => {
+            $("#email-success").show();
+
+            $("#email-pre-buttons").hide();
+            $("#email-done-buttons").show();
+        })
+        .fail(() => {
+            $("#email-fail").show();
+
+            $("#email-pre-buttons").hide();
+            $("#email-done-buttons").show();
+        })
+
+
+    })
+</script>

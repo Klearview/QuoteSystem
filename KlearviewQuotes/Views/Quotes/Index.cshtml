@@ -8,17 +8,26 @@
 
 </div>
 
-<a asp-action="NewQuote" class="btn btn-sm btn-primary">New Quote</a>
+<a asp-action="NewQuote" class="btn btn-primary">New Quote</a>
 <br />
 <br />
 @using (Html.BeginForm())
 {
-    <div class="input-group mb-3 w-25">
-      @Html.TextBox("SearchString", null, new { @class = "form-control"})
-          <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-          </div>
+    <div class="row mb-3">
+        <div class="form-group col-md-3">
+            <label>Search Query</label>
+            @Html.TextBox("SearchString", null, new { @class = "form-control"})
+        </div>
+        <div class="form-group col-md-3">
+            <label>Status</label>
+            @Html.DropDownList("Status", ViewBag.Status as SelectList, new { @class = "form-control" })
+        </div>
+        <div class="d-flex align-items-end col-md-3">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+        </div>
     </div>
+    
+    
 }
 
 <div class="table-responsive table-wrapper">
@@ -33,12 +42,24 @@
         </colgroup>
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.CustomerInfo.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.CustomerInfo.Address)</th>
-                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-                <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
-                <th>@Html.DisplayNameFor(model => model.SentAt)</th>
-                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th>
+                    @Html.ActionLink("Customer Name", "Index", new { sortOrder = ViewBag.NameParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Created At", "Index", new { sortOrder = ViewBag.CreatedOnParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Updated At", "Index", new { sortOrder = ViewBag.UpdatedAtParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Sent At", "Index", new { sortOrder = ViewBag.SentOnParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusParm })
+                </th>
                 <th>Options</th>
             </tr>
         </thead>

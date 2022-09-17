@@ -27,24 +27,23 @@ namespace KlearviewQuotes.Controllers
         }
 
         // GET: Quotes
-        public async Task<IActionResult> Index(string? searchString)
+        public async Task<IActionResult> Index(string searchString, string status, string sortOrder)
         {
             await AddStatusListViewBag();
+            AddSortOrderViewBag(sortOrder);
 
             var quotes = await _repository.GetAllQuotesAsync();
 
             if (quotes == null)
                 return NotFound();
 
-            try
-            {
-                if (!string.IsNullOrEmpty(searchString))
-                    return View(quotes.Where(s => s.CustomerInfo.Contains(searchString)));
-            } 
-            catch
-            {
-                return View(quotes);
-            }
+            if (!string.IsNullOrEmpty(searchString))
+                quotes = quotes.Where(s => s.CustomerInfo.Contains(searchString)).ToList();
+
+            if (!string.IsNullOrEmpty(status))
+                quotes = quotes.Where(s => s.Status != null && s.Status.Contains(status)).ToList();
+
+            quotes = SortList(quotes, sortOrder);
 
             return View(quotes);
         }
@@ -227,6 +226,61 @@ namespace KlearviewQuotes.Controllers
             SelectList selectList = new SelectList(status, "Name", "Name");
 
             ViewBag.Status = selectList;
+        }
+
+        private void AddSortOrderViewBag(string sortOrder)
+        {
+            ViewBag.CreatedOnParm = String.IsNullOrEmpty(sortOrder) ? "created_asc" : "";
+            ViewBag.AddressSortParm = sortOrder == "address_asc" ? "address_desc" : "address_asc";
+            ViewBag.UpdatedAtParm = sortOrder == "updated_asc" ? "updated_desc" : "updated_asc";
+            ViewBag.SentOnParm = sortOrder == "senton_asc" ? "senton_desc" : "senton_asc";
+            ViewBag.StatusParm = sortOrder == "status_asc" ? "status_desc" : "status_asc";
+            ViewBag.NameParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+        }
+
+        private IList<Quote> SortList(IList<Quote> quotes, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "created_asc":
+                    quotes = quotes.OrderBy(s => s.CreatedAt).ToList();
+                    break;
+                case "address_asc":
+                    quotes = quotes.OrderBy(s => s.CustomerInfo.Address).ToList();
+                    break;
+                case "address_desc":
+                    quotes = quotes.OrderByDescending(s => s.CustomerInfo.Address).ToList();
+                    break;
+                case "updated_asc":
+                    quotes = quotes.OrderBy(s => s.UpdatedAt).ToList();
+                    break;
+                case "updated_desc":
+                    quotes = quotes.OrderByDescending(s => s.UpdatedAt).ToList();
+                    break;
+                case "senton_asc":
+                    quotes = quotes.OrderBy(s => s.SentAt).ToList();
+                    break;
+                case "senton_desc":
+                    quotes = quotes.OrderByDescending(s => s.SentAt).ToList();
+                    break;
+                case "status_asc":
+                    quotes = quotes.OrderBy(s => s.Status).ToList();
+                    break;
+                case "status_desc":
+                    quotes = quotes.OrderByDescending(s => s.Status).ToList();
+                    break;
+                case "name_asc":
+                    quotes = quotes.OrderBy(s => s.CustomerInfo.Name).ToList();
+                    break;
+                case "name_desc":
+                    quotes = quotes.OrderByDescending(s => s.CustomerInfo.Name).ToList();
+                    break;
+                default:
+                    quotes = quotes.OrderByDescending(s => s.CreatedAt).ToList();
+                    break;
+            }
+
+            return quotes;
         }
 
 

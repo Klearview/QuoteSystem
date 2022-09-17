@@ -44,12 +44,13 @@ namespace KlearviewQuotes.Services
             }
         }
 
-        public bool SendEmailWithPDF(MailAddress recipient, string subject, string body, PDF pdf)
+        public bool SendEmailWithPDF(MailAddress recipient, string subject, string body, PDF pdf, bool html = false)
         {
             using (var message = new MailMessage(_fromAddress, recipient)
             {
                 Subject = subject,
-                Body = body
+                Body = body,
+                IsBodyHtml = html
             })
             {
                 if (pdf.Attachment == null)
@@ -60,6 +61,16 @@ namespace KlearviewQuotes.Services
 
                 return true;
             }
+        }
+
+        public bool SendDefaultEmailWithPDF(MailAddress recipient, PDF pdf)
+        {
+            string subject = "Estimate";
+
+            var path = $"{Directory.GetCurrentDirectory()}\\wwwroot\\EmailBody.html";
+            var body = File.ReadAllText(path);
+
+            return SendEmailWithPDF(recipient, subject, body, pdf, true);
         }
     }
 }

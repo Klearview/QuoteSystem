@@ -7,6 +7,5 @@ namespace KlearviewQuotes_Unit_Tests
     [TestClass]
     public class UnitTest1
     {
-
     }
 }

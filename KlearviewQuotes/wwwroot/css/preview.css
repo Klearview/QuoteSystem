@@ -294,3 +294,28 @@
     -ms-flex: 1 0 0%;
     flex: 1 0 0%;
 }
+
+/* Pages */
+
+.page-1 {
+    position: absolute;
+    top: 0;
+}
+
+.page-2 {
+    position: absolute;
+    top: 14in;
+    width: 10in;
+    height: 12in;
+    padding: 0.5in;
+}
+
+.page-2 p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem !important;
+}
+
+.page-2 h3, .page-2 h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

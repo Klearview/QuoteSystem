@@ -6,6 +6,7 @@ namespace KlearviewQuotes.Services.Interfaces
     public interface IEmailService
     {
         void SendTextOnlyEmail(MailAddress recipient, string subject, string body);
-        bool SendEmailWithPDF(MailAddress recipient, string subject, string body, PDF pdf);
+        bool SendEmailWithPDF(MailAddress recipient, string subject, string body, PDF pdf, bool html);
+        bool SendDefaultEmailWithPDF(MailAddress recipient, PDF pdf);
     }
 }

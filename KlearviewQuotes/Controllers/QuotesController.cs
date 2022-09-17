@@ -143,12 +143,15 @@ namespace KlearviewQuotes.Controllers
             if (pdf == null || pdf.Attachment == null)
                 return NotFound();
 
-            var email = _emailService.SendEmailWithPDF(
+            /*var email = _emailService.SendEmailWithPDF(
                 new(quote.CustomerInfo.Email),
                 "Estimate",
                 "",
                 pdf
                 );
+            */
+
+            var email = _emailService.SendDefaultEmailWithPDF(new(quote.CustomerInfo.Email), pdf);
 
             if (email)
             {

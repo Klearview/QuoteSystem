@@ -26,6 +26,8 @@ namespace KlearviewQuotes.Controllers
             _settings = settings.Value;
         }
 
+        #region List
+
         // GET: Quotes
         public async Task<IActionResult> Index(string searchString, string status, string sortOrder)
         {
@@ -48,6 +50,10 @@ namespace KlearviewQuotes.Controllers
             return View(quotes);
         }
 
+        #endregion List
+
+        #region Editing
+
         // GET: Quotes/Edit/{id}
         public async Task<IActionResult> Edit(int? id)
         {
@@ -64,6 +70,29 @@ namespace KlearviewQuotes.Controllers
             return View(new QuoteEditViewModel(quote));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(QuoteEditViewModel quoteEdit)
+        {
+            await AddStatusListViewBag();
+
+            quoteEdit.LastOption = quoteEdit.SubmitOption;
+            Quote quote = quoteEdit.Quote;
+
+            switch (quoteEdit.SubmitOption)
+            {
+                case "save":
+                    await SaveQuote(quote);
+                    return RedirectToAction(nameof(Index));
+                case "preview":
+                    await SaveQuote(quote);
+                    return View(quoteEdit);
+                case "cancel":
+                default:
+                    return RedirectToAction(nameof(Index));
+            }
+        }
+
         // GET: Quotes/Edit
         public async Task<IActionResult> NewQuote()
         {
@@ -71,6 +100,33 @@ namespace KlearviewQuotes.Controllers
 
             return View(nameof(Edit), new QuoteEditViewModel());
         }
+
+        private async Task SaveQuote(Quote quote)
+        {
+            string? username = null;
+
+            if (HttpContext.User.Identity != null)
+                username = HttpContext.User.Identity.Name;
+
+            if (quote.Id == null)
+            {
+                quote.CreatedBy = username;
+                quote.CreatedAt = DateTime.Now;
+
+                await _repository.AddQuoteAsync(quote);
+            }
+            else
+            {
+                quote.UpdatedBy = username;
+                quote.UpdatedAt = DateTime.Now;
+
+                await _repository.UpdateQuoteAsync(quote);
+            }
+        }
+
+        #endregion Editing
+
+        #region Preview
 
         // GET: Quotes/Preview/{id}
         [HttpGet]
@@ -86,6 +142,8 @@ namespace KlearviewQuotes.Controllers
 
             var pdfUrl = $"{_settings.BaseUrl}/Quotes/PDF/{id.Value}";
 
+            quote.QuoteInfo.DateOfEstimate = DateTime.Now;
+
             var previewViewModel = new PreviewViewModel()
             {
                 Quote = quote,
@@ -94,17 +152,6 @@ namespace KlearviewQuotes.Controllers
 
             //return View(quote);
             return PartialView("_PreviewModal", previewViewModel);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Email(int? id)
-        {
-            if (id == null || id <= 0)
-                return PartialView("_EmailConfirmation", null);
-
-            var quote = await _repository.GetQuoteAsync(id.Value);
-
-            return PartialView("_EmailConfirmation", quote);
         }
 
         // GET: Quotes/PreviewPrint/{id}
@@ -116,11 +163,37 @@ namespace KlearviewQuotes.Controllers
                 return NotFound();
 
             var quote = await _repository.GetQuoteAsync(id.Value);
+            quote.QuoteInfo.DateOfEstimate = DateTime.Now;
 
             if (quote == null)
                 return NotFound();
 
             return View("_PreviewPrint", quote);
+        }
+
+        public async Task<IActionResult> PDF(int id)
+        {
+            var pdf = await _pdfService.ConvertPreviewToPDF(id);
+
+            if (pdf == null || pdf.Data == null)
+                return NotFound();
+
+            return File(pdf.Data, "application/pdf");
+        }
+
+        #endregion Preview
+
+        #region Email
+
+        [HttpGet]
+        public async Task<IActionResult> Email(int? id)
+        {
+            if (id == null || id <= 0)
+                return PartialView("_EmailConfirmation", null);
+
+            var quote = await _repository.GetQuoteAsync(id.Value);
+
+            return PartialView("_EmailConfirmation", quote);
         }
 
         [HttpPost]
@@ -164,61 +237,9 @@ namespace KlearviewQuotes.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(QuoteEditViewModel quoteEdit)
-        {
-            await AddStatusListViewBag();
+        #endregion Email
 
-            quoteEdit.LastOption = quoteEdit.SubmitOption;
-            Quote quote = quoteEdit.Quote;
-
-            switch (quoteEdit.SubmitOption)
-            {
-                case "save":
-                    await SaveQuote(quote);
-                    return RedirectToAction(nameof(Index));
-                case "preview":
-                    await SaveQuote(quote);
-                    return View(quoteEdit);
-                case "cancel":
-                default:
-                    return RedirectToAction(nameof(Index));
-            }
-        }
-
-        public async Task<IActionResult> PDF(int id)
-        {
-            var pdf = await _pdfService.ConvertPreviewToPDF(id);
-
-            if (pdf == null || pdf.Data == null)
-                return NotFound();
-
-            return File(pdf.Data, "application/pdf");
-        }
-
-        private async Task SaveQuote(Quote quote)
-        {
-            string? username = null;
-
-            if (HttpContext.User.Identity != null)
-                username = HttpContext.User.Identity.Name;
-
-            if (quote.Id == null)
-            {
-                quote.CreatedBy = username;
-                quote.CreatedAt = DateTime.Now;
-
-                await _repository.AddQuoteAsync(quote);
-            }
-            else
-            {
-                quote.UpdatedBy = username;
-                quote.UpdatedAt = DateTime.Now;
-
-                await _repository.UpdateQuoteAsync(quote);
-            }         
-        }
+        #region Sorting And Filtering
 
         private async Task AddStatusListViewBag()
         {
@@ -236,6 +257,7 @@ namespace KlearviewQuotes.Controllers
             ViewBag.SentOnParm = sortOrder == "senton_asc" ? "senton_desc" : "senton_asc";
             ViewBag.StatusParm = sortOrder == "status_asc" ? "status_desc" : "status_asc";
             ViewBag.NameParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.AccountParm = sortOrder == "account_asc" ? "account_desc" : "account_asc";
         }
 
         private IList<Quote> SortList(IList<Quote> quotes, string sortOrder)
@@ -275,6 +297,12 @@ namespace KlearviewQuotes.Controllers
                 case "name_desc":
                     quotes = quotes.OrderByDescending(s => s.CustomerInfo.Name).ToList();
                     break;
+                case "account_asc":
+                    quotes = quotes.OrderBy(s => s.CustomerInfo.AccountNumber).ToList();
+                    break;
+                case "account_desc":
+                    quotes = quotes.OrderByDescending(s => s.CustomerInfo.AccountNumber).ToList();
+                    break;
                 default:
                     quotes = quotes.OrderByDescending(s => s.CreatedAt).ToList();
                     break;
@@ -283,6 +311,9 @@ namespace KlearviewQuotes.Controllers
             return quotes;
         }
 
+        #endregion Sorting And Filtering
+
+        #region Test
 
         private static readonly Quote test = new()
         {
@@ -300,5 +331,7 @@ namespace KlearviewQuotes.Controllers
         {
             test
         };
+
+        #endregion Test
     }
 }

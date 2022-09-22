@@ -1,13 +1,5 @@
 ﻿@model KlearviewQuotes.Models.Quote
 
-<style>
-    .spinner-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 5rem;
-    }
-</style>
-
 <div class="modal fade" id="email-confirm">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -43,6 +35,10 @@
                 <div id="email-fail" style="display: none">
                     <span class="text-danger">Failed to Send Email! Check Email Address and Try Again.</span>
                 </div>
+                <div id="loading" style="display: none">
+                    <div class="spinner-border" role="status">
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -60,6 +56,8 @@
 
 <script>
     $("#send-email").on('click', function() {
+        
+        $("#loading").show();
 
         let id = '@Model.Id';
         let url = '@Url.Action("SendEmail")'
@@ -70,12 +68,16 @@
 
             $("#email-pre-buttons").hide();
             $("#email-done-buttons").show();
+
+            $("#loading").hide();
         })
         .fail(() => {
             $("#email-fail").show();
 
             $("#email-pre-buttons").hide();
             $("#email-done-buttons").show();
+
+            $("#loading").hide();
         })
 
 

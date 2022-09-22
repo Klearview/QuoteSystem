@@ -9,6 +9,9 @@ namespace KlearviewQuotes.Models
         [Display(Name = "Customer Name")]
         public string? Name { get; set; }
 
+        [Display(Name = "Account Number")]
+        public string? AccountNumber { get; set; }
+
         [Required]
         public string? Address { get; set; }
 
@@ -31,6 +34,7 @@ namespace KlearviewQuotes.Models
 
             return (
                 (Name != null && Name.ToLower().Contains(search))||
+                (AccountNumber != null && AccountNumber.ToLower().Contains(search)) ||
                 (Address != null && Address.ToLower().Contains(search)) ||
                 (Phone != null && Phone.ToLower().Contains(search)) ||
                 (Cell != null && Cell.ToLower().Contains(search)) ||

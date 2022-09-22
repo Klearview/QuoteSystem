@@ -23,7 +23,8 @@
             @Html.DropDownList("Status", ViewBag.Status as SelectList, new { @class = "form-control" })
         </div>
         <div class="d-flex align-items-end col-md-3">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+            <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+            <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Quotes" asp-action="Index">Reset</a>
         </div>
     </div>
     
@@ -42,6 +43,9 @@
         </colgroup>
         <thead>
             <tr>
+                <th>
+                    @Html.ActionLink("Account Number", "Index", new { sortOrder = ViewBag.AccountParm })
+                </th>
                 <th>
                     @Html.ActionLink("Customer Name", "Index", new { sortOrder = ViewBag.NameParm })
                 </th>
@@ -69,6 +73,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(modelItem => item.CustomerInfo.AccountNumber)</td>
                         <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.CustomerInfo.Address)</td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>

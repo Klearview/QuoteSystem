@@ -53,12 +53,11 @@ namespace KlearviewQuotes.Models
 
         public Quote()
         {
-            Estimate = new Estimate();
-            CustomerInfo = new CustomerInfo();
-            QuoteInfo = new QuoteInfo();
+            Estimate ??= new Estimate();
+            CustomerInfo ??= new CustomerInfo();
+            QuoteInfo ??= new QuoteInfo();
 
             CreatedAt = DateTime.Now;
-
             Status ??= "";
         }
 

@@ -13,7 +13,7 @@ namespace KlearviewQuotes.Models
         [Display(Name = "Sales Rep")]
         public string? SalesRep { get; set; }
 
-        [Display(Name = "Job Description")]
+        [Display(Name = "Notes")]
         public string? Description { get; set; }
 
         [Display(Name = "Notes (private)")]

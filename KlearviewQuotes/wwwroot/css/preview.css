@@ -1,4 +1,8 @@
-﻿.image img {
+﻿* {
+    font-size: 1.1rem;
+}
+
+.image img {
     height: 72px;
 }
 
@@ -241,7 +245,7 @@
 .sub-text {
     font-size: 0.75rem;
     position: relative;
-    top: -10px;
+    top: -5px;
 }
 
 .extra {
@@ -304,7 +308,7 @@
 
 .page-2 {
     position: absolute;
-    top: 14in;
+    top: 13.5in;
     width: 10in;
     height: 12in;
     padding: 0.5in;

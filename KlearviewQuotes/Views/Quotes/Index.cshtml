@@ -81,15 +81,18 @@
                         <td>@Html.DisplayFor(modelItem => item.SentAt)</td>
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-                            @*<a asp-action="Preview" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Preview</a>*@
+                            <div class="d-flex">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                @*<a asp-action="Preview" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Preview</a>*@
 
-                            <button 
-                                class="btn btn-sm btn-secondary" 
-                                data-toggle="ajax-modal" 
-                                data-target="#previewQuote"
-                                data-url="@Url.Action("Preview")/@item.Id"
-                            >Preview</button>
+                                <button class="btn btn-sm btn-secondary"
+                                    data-toggle="ajax-modal"
+                                    data-target="#previewQuote"
+                                    style="margin-left: 4px;"
+                                    data-url="@Url.Action("Preview")/@item.Id">
+                                        Preview
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 }

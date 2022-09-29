@@ -4,6 +4,8 @@
     ViewData["Title"] = "Quotes";
 }
 
+<link rel="stylesheet" href="~/lib/multiselect/dist/css/bootstrap-multiselect.css" />
+
 <div id="modal-container">
 
 </div>
@@ -13,20 +15,25 @@
 <br />
 @using (Html.BeginForm())
 {
-    <div class="row mb-3">
+    <div class="row mb-1">
         <div class="form-group col-md-3">
             <label>Search Query</label>
             @Html.TextBox("SearchString", null, new { @class = "form-control"})
         </div>
-        <div class="form-group col-md-3">
-            <label>Status</label>
-            @Html.DropDownList("Status", ViewBag.Status as SelectList, new { @class = "form-control" })
+        <div class="d-flex align-items-end col-md-5">
+            <div class="d-flex flex-column">
+                <label>Status</label>
+                @Html.DropDownList("Status", ViewBag.Status as SelectList, new {
+                    @class = "multiselect",
+                    @multiple = "multiple"
+                    })
+            </div>
         </div>
-        <div class="d-flex align-items-end col-md-3">
-            <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
-            <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Quotes" asp-action="Index">Reset</a>
-        </div>
-    </div>   
+    </div>
+    <div class="d-flex align-items-end col-md-3 mb-3">
+        <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+        <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Quotes" asp-action="Index">Reset</a>
+    </div>
 }
 
 <div class="table-responsive table-wrapper">
@@ -104,3 +111,18 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    <script src="~/lib/multiselect/dist/js/bootstrap-multiselect.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.multiselect').multiselect({
+                buttonClass: 'form-select',
+                templates: {
+                    button: '<button type="button" class="multiselect dropdown-toggle" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                }
+            });
+        });
+    </script>
+}

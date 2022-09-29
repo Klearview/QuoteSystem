@@ -29,7 +29,7 @@ namespace KlearviewQuotes.Controllers
         #region List
 
         // GET: Quotes
-        public async Task<IActionResult> Index(string searchString, string status, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, List<string> status, string sortOrder)
         {
             await AddStatusListViewBag();
             AddSortOrderViewBag(sortOrder);
@@ -42,8 +42,19 @@ namespace KlearviewQuotes.Controllers
             if (!string.IsNullOrEmpty(searchString))
                 quotes = quotes.Where(s => s.CustomerInfo.Contains(searchString)).ToList();
 
-            if (!string.IsNullOrEmpty(status))
-                quotes = quotes.Where(s => s.Status != null && s.Status.Contains(status)).ToList();
+            if (status.Count > 0)
+                quotes = quotes.Where(s => {
+                    if (s.Status == null)
+                        return false;
+
+                    foreach (var stat in status)
+                    {
+                        if (s.Status.Contains(stat))
+                            return true;
+                    }
+
+                    return false;
+                }).ToList();
 
             quotes = SortList(quotes, sortOrder);
 
@@ -246,7 +257,17 @@ namespace KlearviewQuotes.Controllers
         private async Task AddStatusListViewBag()
         {
             var status = await _repository.GetStatusAsync();
-            SelectList statusSelectList = new SelectList(status, "Name", "Name");
+            var statusList = new List<SelectListItem>();
+
+            foreach (var stat in status)
+            {
+                if (string.IsNullOrEmpty(stat.Name))
+                    statusList.Add(new SelectListItem { Text = "Not Set", Value = stat.Name });
+                else
+                    statusList.Add(new SelectListItem { Text = stat.Name, Value = stat.Name });
+            }
+
+            SelectList statusSelectList = new SelectList(statusList, "Value", "Text");
             ViewBag.Status = statusSelectList;
 
             SelectList salesRepSelectList = new SelectList(new List<SelectListItem>

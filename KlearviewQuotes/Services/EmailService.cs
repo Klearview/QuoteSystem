@@ -67,7 +67,7 @@ namespace KlearviewQuotes.Services
         {
             string subject = "Estimate";
 
-            var path = $"{Directory.GetCurrentDirectory()}\\wwwroot\\EmailBody.html";
+            var path = $"{Directory.GetCurrentDirectory()}/wwwroot/EmailBody.html";
             var body = File.ReadAllText(path);
 
             return SendEmailWithPDF(recipient, subject, body, pdf, true);

@@ -18,6 +18,6 @@ VALUES
 (2, 'Ready to Quote'),
 (3, 'Ready for Customer'),
 (4, 'Sent to Customer'),
-(5, 'Expired'),
+(5, 'Booked'),
 (6, 'Deleted')
 GO

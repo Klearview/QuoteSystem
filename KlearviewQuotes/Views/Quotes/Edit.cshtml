@@ -5,9 +5,9 @@
 
 <div id="modal-container">
 </div>
-<p>Last Option: @Model.LastOption</p>
+<p>Last Option: @Model.LastOption, Id: @Model.Quote.Id</p>
 <form method="post" asp-action="Edit">
-    <input type="hidden" asp-for="Quote.Id" />
+    <input type="hidden" name="Quote.Id" value="@Model.Quote.Id"/>
 
     <input type="hidden" asp-for="Quote.CreatedAt" />
     <input type="hidden" asp-for="Quote.CreatedBy" />
@@ -66,11 +66,12 @@
 
     <div class="group">
         <span class="group-label">Sales Rep</span>
+
         <div class="form-group mt-3">
             <label asp-for="Quote.QuoteInfo.SalesRep" class="control-label"></label>
-            <input asp-for="Quote.QuoteInfo.SalesRep" class="form-control">
-            <span asp-validation-for="Quote.QuoteInfo.SalesRep" class="text-danger"></span>
+            @Html.DropDownListFor(model => model.Quote.QuoteInfo.SalesRep, ViewBag.SalesRep as SelectList, new { @class = "form-control" })
         </div>
+        
     </div>
 
     <div class="group estimate">

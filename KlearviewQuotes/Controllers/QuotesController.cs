@@ -91,6 +91,8 @@ namespace KlearviewQuotes.Controllers
                 default:
                     return RedirectToAction(nameof(Index));
             }
+
+            
         }
 
         // GET: Quotes/Edit
@@ -244,9 +246,16 @@ namespace KlearviewQuotes.Controllers
         private async Task AddStatusListViewBag()
         {
             var status = await _repository.GetStatusAsync();
-            SelectList selectList = new SelectList(status, "Name", "Name");
+            SelectList statusSelectList = new SelectList(status, "Name", "Name");
+            ViewBag.Status = statusSelectList;
 
-            ViewBag.Status = selectList;
+            SelectList salesRepSelectList = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Selected = true, Text = "", Value = "" },
+                new SelectListItem { Selected = false, Text = "David Tomkins", Value = "David Tomkins" },
+                new SelectListItem { Selected = false, Text = "Jennifer Tomkins", Value = "Jennifer Tomkins" }
+            }, "Value", "Text");
+            ViewBag.SalesRep = salesRepSelectList;
         }
 
         private void AddSortOrderViewBag(string sortOrder)

@@ -7,9 +7,7 @@ namespace KlearviewQuotes.Models
     public class Quote
     {
         [Key]
-        [Required]
-        public int? Id { get; set; }
-
+        public int Id { get; set; }
 
         #region Tracking
         [DisplayFormat(DataFormatString = "{0:MMM d, yyyy}")]

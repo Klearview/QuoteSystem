@@ -99,7 +99,7 @@ namespace KlearviewQuotes.Services
 
             return new PDF()
             {
-                Name = "Klearview Estimate",
+                Name = "Klearview Estimate.pdf",
                 Data = pdf
             };
         }

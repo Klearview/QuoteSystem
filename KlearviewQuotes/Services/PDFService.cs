@@ -71,17 +71,13 @@ namespace KlearviewQuotes.Services
 
             LaunchOptions launchOptions = new()
             {
-                Headless = true
+                Headless = true,
+                LogProcess = true,
             };
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                //launchOptions.ExecutablePath = "/usr/bin/chromium-browser";
-            }
 
             await using var browser = await Puppeteer.LaunchAsync(launchOptions);
             await using var page = await browser.NewPageAsync();
-            await page.GoToAsync(pageUrl);
+            await page.GoToAsync(pageUrl, WaitUntilNavigation.Load);
             await page.EvaluateExpressionHandleAsync("document.fonts.ready");
 
             byte[] pdf = await page.PdfDataAsync(new()
@@ -94,7 +90,7 @@ namespace KlearviewQuotes.Services
                     Left = "0.2in"
                 },
                 Format = PaperFormat.Letter,
-                PrintBackground = true
+                PrintBackground = true,
             });
 
             return new PDF()

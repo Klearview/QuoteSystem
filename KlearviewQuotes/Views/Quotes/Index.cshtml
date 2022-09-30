@@ -13,7 +13,7 @@
 <br />
 @using (Html.BeginForm())
 {
-    <div class="row mb-3">
+    <div class="row">
         <div class="form-group col-md-3">
             <label>Search Query</label>
             @Html.TextBox("SearchString", null, new { @class = "form-control"})
@@ -22,11 +22,16 @@
             <label>Status</label>
             @Html.DropDownList("Status", ViewBag.Status as SelectList, new { @class = "form-control" })
         </div>
-        <div class="d-flex align-items-end col-md-3">
-            <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
-            <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Quotes" asp-action="Index">Reset</a>
-        </div>
-    </div>   
+        
+    </div>
+    <div class="form-group">
+        <label>Show Deleted</label>
+        @Html.CheckBox("ShowDeleted", new { @class = "form-check-input"})
+    </div>
+    <div class="d-flex align-items-end mt-2 mb-4">
+        <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+        <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Quotes" asp-action="Index">Reset</a>
+    </div>
 }
 
 <div class="table-responsive table-wrapper">

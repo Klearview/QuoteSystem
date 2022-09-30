@@ -29,7 +29,7 @@ namespace KlearviewQuotes.Controllers
         #region List
 
         // GET: Quotes
-        public async Task<IActionResult> Index(string searchString, string status, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string status, bool showDeleted, string sortOrder)
         {
             await AddStatusListViewBag();
             AddSortOrderViewBag(sortOrder);
@@ -38,6 +38,9 @@ namespace KlearviewQuotes.Controllers
 
             if (quotes == null)
                 return NotFound();
+
+            if (!showDeleted)
+                quotes = quotes.Where(s => s.Status == null || s.Status != "Deleted").ToList();
 
             if (!string.IsNullOrEmpty(searchString))
                 quotes = quotes.Where(s => s.CustomerInfo.Contains(searchString)).ToList();

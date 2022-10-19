@@ -19,5 +19,6 @@ VALUES
 (3, 'Ready for Customer'),
 (4, 'Sent to Customer'),
 (5, 'Booked'),
-(6, 'Deleted')
+(6, 'Deleted'),
+(7, 'Cancelled')
 GO

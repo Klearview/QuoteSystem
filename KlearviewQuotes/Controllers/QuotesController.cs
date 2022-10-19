@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Options;
+using X.PagedList;
 
 namespace KlearviewQuotes.Controllers
 {
@@ -17,6 +18,8 @@ namespace KlearviewQuotes.Controllers
         private readonly IPDFService _pdfService;
         private readonly IEmailService _emailService;
         private readonly ApiSettings _settings;
+
+        private static readonly int pageSize = 10;
 
         public QuotesController(IAppDataRepository repository, IPDFService pDFService, IEmailService emailService, IOptions<ApiSettings> settings)
         {
@@ -29,10 +32,15 @@ namespace KlearviewQuotes.Controllers
         #region List
 
         // GET: Quotes
-        public async Task<IActionResult> Index(string searchString, string status, bool showDeleted, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string status, bool showDeleted, string sortOrder, int? page)
         {
             await AddStatusListViewBag();
             AddSortOrderViewBag(sortOrder);
+
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentStatus = status;
+            ViewBag.CurrentShowDeleted = showDeleted;
+            ViewBag.CurrentSortOrder = sortOrder;
 
             var quotes = await _repository.GetAllQuotesAsync();
 
@@ -50,7 +58,9 @@ namespace KlearviewQuotes.Controllers
 
             quotes = SortList(quotes, sortOrder);
 
-            return View(quotes);
+            int pageNumber = (page ?? 1);
+
+            return View(quotes.ToPagedList(pageNumber, pageSize));
         }
 
         #endregion List

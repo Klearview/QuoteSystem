@@ -63,7 +63,7 @@ namespace KlearviewQuotes.Models
         [Display(Name = "Basements")]
         public EstimateWithExtraAndIntExt Basements { get; set; }
 
-        [Display(Name = "Skylights")]
+        [Display(Name = "Skylights (Exterior Only)")]
         public EstimateWithExtraAndIntExt Skylights { get; set; }
 
         [Display(Name = "Deck Glass")]

@@ -1,4 +1,7 @@
-﻿@model IEnumerable<KlearviewQuotes.Models.Quote>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Quote>;
 
 @{
     ViewData["Title"] = "Quotes";
@@ -108,4 +111,26 @@
             }
         </tbody>
     </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("index", 
+    new { 
+        page = page,
+        searchString = ViewBag.CurrentSearchString,
+        status = ViewBag.CurrentStatus,
+        showDeleted = ViewBag.CurrentShowDeleted,
+        sortOrder = ViewBag.CurrentSortOrder
+    }), 
+    new PagedListRenderOptions()
+    {
+    ActiveLiElementClass = "active",
+    PageClasses = new[]{ "page-link"},
+    LiElementClasses=new[] { "page-item" },
+    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
 </div>

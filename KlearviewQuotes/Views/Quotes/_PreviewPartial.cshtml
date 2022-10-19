@@ -147,14 +147,6 @@
                                             <input asp-for="Estimate.CompleteExtAndInt.Basements.Checked" class="form-check-input" type="checkbox">
                                             <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements"></label>
                                         </div>
-                                        <div class="form-check">
-                                            <input asp-for="Estimate.CompleteExtAndInt.Basements.Interior" class="form-check-input" type="checkbox">
-                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements.Interior"></label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Estimate.CompleteExtAndInt.Basements.Exterior" class="form-check-input" type="checkbox">
-                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Basements.Exterior"></label>
-                                        </div>
                                     </div>
                                     <div class="price-wrapper d-flex">
                                         <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
@@ -166,14 +158,6 @@
                                         <div class="form-check">
                                             <input asp-for="Estimate.CompleteExtAndInt.Skylights.Checked" class="form-check-input" type="checkbox">
                                             <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights"></label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Estimate.CompleteExtAndInt.Skylights.Interior" class="form-check-input" type="checkbox">
-                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights.Interior"></label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Estimate.CompleteExtAndInt.Skylights.Exterior" class="form-check-input" type="checkbox">
-                                            <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.Skylights.Exterior"></label>
                                         </div>
                                     </div>
                                     <div class="price-wrapper d-flex">
@@ -251,6 +235,7 @@
         Customers are responsible for moving furniture or large items away from work area. If this is not possible, we will do our best
         to work around these items. Klearview assumes no responsibility when moving furniture/items.
     </p>
+    <p>Payment options: Cash or Cheque on site, e-Transfer, Credit Card.</p>
 
     <h4><b>Insured</b></h4>
     <p>
@@ -286,6 +271,7 @@
         factors.
     </p>
     <p>Not responsible for breakage or damage of screens, screen clips that are aged and not fitting properly or other factors</p>
+    <p>Interior skylights priced on site</p>
 
     <h4><b>Siding Cleaning</b></h4>
     <p>Siding cleaning is for surface dirt and mild stains only</p>

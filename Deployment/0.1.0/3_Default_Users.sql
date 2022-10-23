@@ -7,7 +7,9 @@ INSERT INTO [dbo].[AspNetUsers] (Id, UserName, NormalizedUserName, Email, Normal
 VALUES
 ('15f1b8a1-9648-42f9-99dc-c75b8ef4ec85', 'admin@klearview.ca', 'ADMIN@KLEARVIEW.CA', 'admin@klearview.ca', 'ADMIN@KLEARVIEW.CA', 1, 'AQAAAAEAACcQAAAAECoVEomjueHOQdRB175BKOgyp/ec3GxNRP5EGB34KIvwSTyELq1bjn03jbuPhDkJ/Q==', '4Y2HQVKCGN2G5QPE2K4GETDIXABPQDNR', '5a63beae-f2b7-4ae8-ace6-ea0f24507c8d', NULL, 0, 0, NULL, 1, 0),
 ('48f3fac2-25ca-4129-a290-00c5682cde93', '1tomkinsnoa.per@gmail.com', '1TOMKINSNOA.PER@GMAIL.COM', '1tomkinsnoa.per@gmail.com', '1TOMKINSNOA.PER@GMAIL.COM', 1, 'AQAAAAEAACcQAAAAECHQ22+xJn9oM42cid+EdZVFZKUSu+H1EDckiA51cMWQM/8gffg7t8VUDUYfFHzKFA==', 'X3NUFWT6ZBDCR3Y437CUVHM7DFGKODMU', 'cd5632fa-4786-4140-94bf-f4c2d927bb31', NULL, 0, 0, NULL, 1, 0),
-('7a5adf7c-7aaa-4703-9005-61caa7d13503', '1tomkinsnoa@gmail.com', '1TOMKINSNOA@GMAIL.COM', '1tomkinsnoa@gmail.com', '1TOMKINSNOA@GMAIL.COM', 1, 'AQAAAAEAACcQAAAAEIXG/DY7MFfL2DjoGu7XIh2qwXnwa+R+bzsKydQdbATLR7O0WWJnNXscLNorWmCUnw==', '3LXBJSRFFTKVONMBI7TNYF7446ESAT7B', 'b3d9555e-26b2-4e2b-adb3-206a1bd3b27c', NULL, 0, 0, NULL, 1, 0);
+('7a5adf7c-7aaa-4703-9005-61caa7d13503', '1tomkinsnoa@gmail.com', '1TOMKINSNOA@GMAIL.COM', '1tomkinsnoa@gmail.com', '1TOMKINSNOA@GMAIL.COM', 1, 'AQAAAAEAACcQAAAAEIXG/DY7MFfL2DjoGu7XIh2qwXnwa+R+bzsKydQdbATLR7O0WWJnNXscLNorWmCUnw==', '3LXBJSRFFTKVONMBI7TNYF7446ESAT7B', 'b3d9555e-26b2-4e2b-adb3-206a1bd3b27c', NULL, 0, 0, NULL, 1, 0),
+('96090623-b6cb-4f2c-8de9-fef76fae0570', 'user@test.com', 'USER@TEST.COM', 'user@test.com', 'USER@TEST.COM', 1, 'AQAAAAEAACcQAAAAEAgoF1pXnkcEA9UzPhvn6vOLzhUzRjJcBzeyAnSJccGoV8PbnD5AnjUSNXwQ1SSWgA==', 'FGZPRWQQPRIJOQAOQ4FJJXVUZIWREPGJ', '57af47c4-3778-4e6f-86b6-32b0942783c5', NULL, 0, 0, NULL, 1, 0),
+('b0d4817e-a8a2-4ea1-b3cd-dd93908dafd9', 'admin@test.com', 'ADMIN@TEST.COM', 'admin@test.com', 'ADMIN@TEST.COM', 1, 'AQAAAAEAACcQAAAAECa4RodKwymzZS2jehtzgi7oymvGLwBCZXFQlwEVkZ0m5+GGexXOh7091cip0c+l+w==', 'ELNV4QHNEDLGFUFOJ3TP7N5CL2O3VSKA', '26831c70-d34b-4589-a7a5-9a2b4dc4d49f', NULL, 0, 0, NULL, 1, 0);
 GO
 
 
@@ -37,5 +39,8 @@ VALUES
 ('48f3fac2-25ca-4129-a290-00c5682cde93', 'aa639804-30a0-4bf6-b80a-1dfd06e2911d'), -- (1tomkinsnoa.per@gmail.com, QuoteEditor)
 ('7a5adf7c-7aaa-4703-9005-61caa7d13503', 'aa639804-30a0-4bf6-b80a-1dfd06e2911d'), -- (1tomkinsnoa@gmail.com, QuoteEditor)
 ('15f1b8a1-9648-42f9-99dc-c75b8ef4ec85', 'da4a3ef8-9000-4a8c-8164-3d4ca43c02f4'), -- (admin@klearview.ca, Admin)
-('7a5adf7c-7aaa-4703-9005-61caa7d13503', 'da4a3ef8-9000-4a8c-8164-3d4ca43c02f4'); -- (1tomkinsnoa@gmail.com, Admin)
+('7a5adf7c-7aaa-4703-9005-61caa7d13503', 'da4a3ef8-9000-4a8c-8164-3d4ca43c02f4'), -- (1tomkinsnoa@gmail.com, Admin)
+('96090623-b6cb-4f2c-8de9-fef76fae0570','aa639804-30a0-4bf6-b80a-1dfd06e2911d'), -- (user@test.com, QuoteEditor)
+('b0d4817e-a8a2-4ea1-b3cd-dd93908dafd9','aa639804-30a0-4bf6-b80a-1dfd06e2911d'), -- (admin@test.com, QuoteEditor)
+('b0d4817e-a8a2-4ea1-b3cd-dd93908dafd9','da4a3ef8-9000-4a8c-8164-3d4ca43c02f4'); -- (admin@test.com, Admin)
 GO

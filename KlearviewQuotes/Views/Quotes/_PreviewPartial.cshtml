@@ -43,21 +43,21 @@
             <tbody>
                 <tr>
                     <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Name):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
+                    <td colspan="3"><div class="prev-value entered-data">@Html.DisplayFor(item => Model.CustomerInfo.Name)</div></td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Address):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
+                    <td colspan="3"><div class="prev-value entered-data">@Html.DisplayFor(item => Model.CustomerInfo.Address)</div></td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Phone):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
+                    <td><div class="prev-value entered-data">@Html.DisplayFor(item => Model.CustomerInfo.Phone)</div></td>
                     <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Cell):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
+                    <td><div class="prev-value entered-data">@Html.DisplayFor(item => Model.CustomerInfo.Cell)</div></td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(item => Model.CustomerInfo.Email):</td>
-                    <td colspan="3"><div class="prev-value">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
+                    <td colspan="3"><div class="prev-value entered-data">@Html.DisplayFor(item => Model.CustomerInfo.Email)</div></td>
                 </tr>
             </tbody>
         </table>
@@ -73,9 +73,9 @@
             <tbody>
                 <tr>
                     <td>@Html.DisplayNameFor(item => Model.QuoteInfo.DateOfEstimate):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.DateOfEstimate)</div></td>
+                    <td><div class="prev-value entered-data">@Html.DisplayFor(item => Model.QuoteInfo.DateOfEstimate)</div></td>
                     <td>@Html.DisplayNameFor(item => Model.QuoteInfo.SalesRep):</td>
-                    <td><div class="prev-value">@Html.DisplayFor(item => Model.QuoteInfo.SalesRep)</div></td>
+                    <td><div class="prev-value entered-data">@Html.DisplayFor(item => Model.QuoteInfo.SalesRep)</div></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="estimate-good text-center text-sm">
@@ -99,7 +99,7 @@
                             <div class="d-flex">
                                 <span class="text-bold text-md flex-fill">Exterior</span>
                                 <div class="price-wrapper d-flex">
-                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Exterior.Price)</div>
+                                    <div class="price text-bold">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.Exterior.Price)</span></div>
                                 </div>
                             </div>
                             <span class="sub-text"><em>(Screens and tracks on inside are not included in exterior price)</em></span>
@@ -115,7 +115,7 @@
                                         <label class="form-check-label" asp-for="Estimate.Exterior.WeRemoveExtScreens"></label>
                                     </div>
                                     <div class="price-wrapper d-flex">
-                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.Exterior.WeRemoveExtScreens.Extra)</div>
+                                        <div class="price">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.Exterior.WeRemoveExtScreens.Extra)</span></div>
                                     </div>
                                 </div>
 
@@ -129,7 +129,7 @@
                             <div class="d-flex">
                                 <span class="text-bold text-md flex-fill">Complete Exterior and Interior</span>
                                 <div class="price-wrapper d-flex">
-                                    <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Price)</div>
+                                    <div class="price text-bold">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Price)</span></div>
                                 </div>
                             </div>
                             <span class="sub-text"><em>(Price includes wiping sills, tracks, and screens)</em></span>
@@ -149,7 +149,7 @@
                                         </div>
                                     </div>
                                     <div class="price-wrapper d-flex">
-                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</div>
+                                        <div class="price">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Basements.Extra)</span></div>
                                     </div>
                                 </div>
 
@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div class="price-wrapper d-flex">
-                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</div>
+                                        <div class="price">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.Skylights.Extra)</span></div>
                                     </div>
                                 </div>
 
@@ -171,7 +171,7 @@
                                         <label class="form-check-label" asp-for="Estimate.CompleteExtAndInt.DeckGlass"></label>
                                     </div>
                                     <div class="price-wrapper d-flex">
-                                        <div class="price">$@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</div>
+                                        <div class="price">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.CompleteExtAndInt.DeckGlass.Extra)</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                     <div class="d-flex">
                         <span class="text-bold text-md flex-fill">Siding Cleaning</span>
                         <div class="price-wrapper d-flex">
-                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Siding.Price)</div>
+                            <div class="price text-bold">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.Siding.Price)</span></div>
                         </div>
                     </div>
                     <div class="indent w-50">
@@ -196,7 +196,7 @@
                     <div class="d-flex">
                         <span class="text-bold text-md flex-fill">Eavestrough / Gutter Clearing</span>
                         <div class="price-wrapper d-flex">
-                            <div class="price text-bold">$@Html.DisplayFor(item => Model.Estimate.Eaves.Price)</div>
+                            <div class="price text-bold">$<span class="entered-data">@Html.DisplayFor(item => Model.Estimate.Eaves.Price)</span></div>
                         </div>
                     </div>
                     <div class="indent">
@@ -214,7 +214,7 @@
         </div>
         <div class="col m-2 d-flex flex-column">
             <div class="text-center text-md">@Html.DisplayNameFor(item => Model.QuoteInfo.Description)</div>
-            <div class="mt-2 flex-fill job-description text-sm">
+            <div class="mt-2 flex-fill job-description text-sm entered-data">
                 @Html.DisplayFor(item => Model.QuoteInfo.Description)
             </div>
         </div>

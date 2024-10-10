@@ -2,6 +2,10 @@
     font-size: 1.1rem;
 }
 
+.entered-data, .entered-data a {
+    color: #0000cc;
+}
+
 .image img {
     height: 72px;
 }
@@ -34,7 +38,6 @@
 
 .prev-value a {
     text-decoration: none !important;
-    color: black;
 }
 
 .prev-check {

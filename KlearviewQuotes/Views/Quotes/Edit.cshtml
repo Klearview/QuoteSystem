@@ -241,7 +241,7 @@
     <div class="group">
         <span class="group-label">@Html.DisplayNameFor(model => Model.Quote.QuoteInfo.Notes)</span>
         <div class="form-group">
-            <textarea asp-for="Quote.QuoteInfo.Notes" class="form-control" rows="10"></textarea>
+            <textarea asp-for="Quote.QuoteInfo.Notes" class="form-control" rows="10" cols="10" wrap="hard"></textarea>
             <span asp-validation-for="Quote.QuoteInfo.Notes" class="text-danger"></span>
         </div>
     </div>

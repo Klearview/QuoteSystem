@@ -169,6 +169,8 @@
 
 .job-description {
     font-size: 0.8rem;
+    word-wrap: anywhere;
+    white-space: pre-line;
 }
 
 /* Estimate */

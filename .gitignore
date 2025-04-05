@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 # Local Chromium
 *.local-chromium
+/database.db
+/KlearviewQuotes/database.db

@@ -15,11 +15,15 @@ builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("Api"))
 
 // Database Connections
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var sqlite = builder.Configuration.GetConnectionString("sqlite");
+
 builder.Services.AddDbContext<IdentityDataContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<AppDataContext>(options => 
     options.UseSqlServer(connectionString)
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(sqlite));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // AUTH

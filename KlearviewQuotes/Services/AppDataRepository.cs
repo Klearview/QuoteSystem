@@ -2,6 +2,7 @@
 using KlearviewQuotes.Models;
 using KlearviewQuotes.Data;
 using KlearviewQuotes.Services.Interfaces;
+using KlearviewQuotes.Models.Clients;
 
 namespace KlearviewQuotes.Services
 {
@@ -9,11 +10,13 @@ namespace KlearviewQuotes.Services
     {
 
         private readonly AppDataContext _dbContext;
+        private readonly ApplicationDbContext _appDbContext;
         private readonly TelemetryClient _telemetryClient;
 
-        public AppDataRepository(AppDataContext dbContext, TelemetryClient telemetryClient)
+        public AppDataRepository(AppDataContext dbContext, ApplicationDbContext appDbContext, TelemetryClient telemetryClient)
         {
             _dbContext = dbContext;
+            _appDbContext = appDbContext;
             _telemetryClient = telemetryClient;
         }
 
@@ -89,6 +92,34 @@ namespace KlearviewQuotes.Services
                 var status = _dbContext.Status.ToList();
 
                 return status;
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<IList<Account>?> GetAccountsAsync()
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return _appDbContext.Accounts.ToList();
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<Account?> GetAccountAsync(int id)
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return await _appDbContext.Accounts.FindAsync(id);
             }
             catch (Exception ex)
             {

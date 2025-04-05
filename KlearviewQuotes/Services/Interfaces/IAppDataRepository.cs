@@ -1,10 +1,10 @@
 ﻿using KlearviewQuotes.Models;
+using KlearviewQuotes.Models.Clients;
 
 namespace KlearviewQuotes.Services.Interfaces
 {
     public interface IAppDataRepository
     {
-
         Task<IList<Quote>?> GetAllQuotesAsync();
         Task<Quote?> GetQuoteAsync(int id);
 
@@ -14,5 +14,10 @@ namespace KlearviewQuotes.Services.Interfaces
         //Task<string> GetUsernameById(string id);
 
         Task<IList<Status>?> GetStatusAsync();
+
+        // Old Data Viewer
+
+        Task<IList<Account>?> GetAccountsAsync();
+        Task<Account?> GetAccountAsync(int id);
     }
 }

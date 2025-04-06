@@ -16,12 +16,16 @@ namespace KlearviewQuotes.Models.Clients
         [Display(Name = "Account Number")]
         public int? Number { get; set; }
         public string? Active { get; set; }
+
+        [Display(Name = "Tax Exempt")]
         public string? TaxExempt { get; set; }
         public string? DefaultServiceLocationId { get; set; }
         public string? DefaultBillingLocationId { get; set; }
+
+        [Display(Name = "Account Type")]
         public string? AccountType { get; set; }
 
-        public virtual IList<ServiceLocation> ServiceLocations { get; set; }
+        public virtual IList<ServiceLocation>? ServiceLocations { get; set; }
 
         public bool Contains(string search)
         {

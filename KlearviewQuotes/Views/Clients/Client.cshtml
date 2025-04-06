@@ -49,21 +49,27 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
                 <th>Address</th>
+                <th>Zone</th>
+                <th>Name</th>
                 <th>Active</th>
                 <th>Service Memo</th>
                 <th>Options</th>
             </tr>
         </thead>
         <tbody>
-            @if (Model != null)
+            @if (Model.ServiceLocations != null && Model.ServiceLocations.Count > 0)
             {
                 @foreach (var item in Model.ServiceLocations)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Address)</td>
+                        <td>
+                            <span class="zone" style="background-color: @item.Zone.Color;">
+                                @Html.DisplayFor(modelItem => item.Zone.Name)
+                            </span>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Active)</td>
                         <td>@Html.DisplayFor(modelItem => item.ServiceMemo)</td>
                         <td>

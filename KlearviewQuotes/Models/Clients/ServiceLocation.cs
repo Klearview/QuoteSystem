@@ -29,7 +29,8 @@ namespace KlearviewQuotes.Models.Clients
         public string? ZoneId { get; set; }
         public string? ServiceMemo { get; set; }
 
-        public virtual Account Account { get; set; }
+        public virtual Account? Account { get; set; }
+        public virtual Zone? Zone { get; set; }
 
         public string Address { get
             {

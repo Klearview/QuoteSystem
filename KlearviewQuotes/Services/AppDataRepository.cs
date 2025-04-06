@@ -120,7 +120,10 @@ namespace KlearviewQuotes.Services
             try
             {
                 await _appDbContext.SaveChangesAsync();
-                return await _appDbContext.Accounts.Include(a => a.ServiceLocations).FirstOrDefaultAsync(a => a.AccountId == id);
+                return await _appDbContext.Accounts
+                    .Include(a => a.ServiceLocations)
+                    .ThenInclude(a => a.Zone)
+                    .FirstOrDefaultAsync(a => a.AccountId == id);
             }
             catch (Exception ex)
             {

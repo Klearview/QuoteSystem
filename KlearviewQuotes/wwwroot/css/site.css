@@ -271,3 +271,12 @@ button.close {
 .table-wrapper {
     overflow-x: auto;
 }
+
+/* Zone */
+
+.zone {
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 5px;
+}

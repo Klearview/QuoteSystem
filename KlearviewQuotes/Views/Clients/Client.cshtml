@@ -1,0 +1,85 @@
+﻿@model KlearviewQuotes.Models.Clients.Account
+@{
+    ViewData["Title"] = "Account";
+}
+<h3>@Html.DisplayFor(model => model.Name) - (#@Html.DisplayFor(model => model.Number))</h3>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Number)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Number)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Active)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Active)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.TaxExempt)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.TaxExempt)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AccountType)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AccountType)
+    </dd>
+</dl>
+<hr />
+
+<h4>Service Locations</h4>
+
+<div class="table-responsive table-wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Active</th>
+                <th>Service Memo</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model.ServiceLocations)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Address)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Active)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ServiceMemo)</td>
+                        <td>
+                            <div class="d-flex">
+                                <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            @if (Model == null)
+            {
+                <tr>
+                    <td colspan="6"><div class="text-center">No Service Locations</div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

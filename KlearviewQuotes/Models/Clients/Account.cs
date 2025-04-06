@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Web.Helpers;
 
 namespace KlearviewQuotes.Models.Clients
 {
@@ -7,13 +10,35 @@ namespace KlearviewQuotes.Models.Clients
         [Key]
         public string? AccountId { get; set; }
 
-        public string? BuisnessUnitId { get; set; }
+        public string? BusinessUnitId { get; set; }
         public string? Name { get; set; }
-        public string? Number { get; set; }
+
+        [Display(Name = "Account Number")]
+        public int? Number { get; set; }
         public string? Active { get; set; }
         public string? TaxExempt { get; set; }
         public string? DefaultServiceLocationId { get; set; }
         public string? DefaultBillingLocationId { get; set; }
         public string? AccountType { get; set; }
+
+        public virtual IList<ServiceLocation> ServiceLocations { get; set; }
+
+        public bool Contains(string search)
+        {
+            search = FormatString(search);
+
+            return (
+                (Name != null && FormatString(Name).Contains(search)) ||
+                (Number != null && FormatString(Number.Value.ToString()).Contains(search))
+            );
+        }
+
+        private string FormatString(string input)
+        {
+            input = input.ToLower();
+
+            string regExp = "\\W";
+            return Regex.Replace(input, regExp, "");
+        }
     }
 }

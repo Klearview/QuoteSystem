@@ -1,0 +1,87 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Clients.Account>;
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div id="modal-container">
+
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Search Query</label>
+            @Html.TextBox("SearchString", null, new { @class = "form-control"})
+        </div>
+    </div>
+    <div class="d-flex align-items-end mt-2 mb-4">
+        <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+        <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Clients" asp-action="Index">Reset</a>
+    </div>
+}
+
+<div class="table-responsive table-wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Account Number", "Index", new { sortOrder = ViewBag.NumberParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Customer Name", "Index", new { sortOrder = ViewBag.NameParm })
+                </th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>
+                            <div class="d-flex">
+                                <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            @if(Model == null)
+            {
+                <tr>
+                    <td colspan="6"><div class="text-center">No Clients</div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("index", 
+    new { 
+        page = page,
+        searchString = ViewBag.CurrentSearchString,
+        status = ViewBag.CurrentStatus,
+        showDeleted = ViewBag.CurrentShowDeleted,
+        sortOrder = ViewBag.CurrentSortOrder
+    }), 
+    new PagedListRenderOptions()
+    {
+    ActiveLiElementClass = "active",
+    PageClasses = new[]{ "page-link"},
+    LiElementClasses=new[] { "page-item" },
+    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
+</div>

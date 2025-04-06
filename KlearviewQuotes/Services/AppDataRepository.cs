@@ -3,6 +3,7 @@ using KlearviewQuotes.Models;
 using KlearviewQuotes.Data;
 using KlearviewQuotes.Services.Interfaces;
 using KlearviewQuotes.Models.Clients;
+using Microsoft.EntityFrameworkCore;
 
 namespace KlearviewQuotes.Services
 {
@@ -114,12 +115,12 @@ namespace KlearviewQuotes.Services
             }
         }
 
-        public async Task<Account?> GetAccountAsync(int id)
+        public async Task<Account?> GetAccountAsync(string id)
         {
             try
             {
                 await _appDbContext.SaveChangesAsync();
-                return await _appDbContext.Accounts.FindAsync(id);
+                return await _appDbContext.Accounts.Include(a => a.ServiceLocations).FirstOrDefaultAsync(a => a.AccountId == id);
             }
             catch (Exception ex)
             {

@@ -6,7 +6,17 @@ namespace KlearviewQuotes.Data
     public class ApplicationDbContext : DbContext
     {
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<ServiceLocation> ServiceLocations { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Account>()
+                .HasMany(e => e.ServiceLocations)
+                .WithOne(e => e.Account)
+                .HasForeignKey(e => e.AccountId)
+                .HasPrincipalKey(e => e.AccountId);
+        }
     }
 }

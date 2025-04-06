@@ -18,6 +18,6 @@ namespace KlearviewQuotes.Services.Interfaces
         // Old Data Viewer
 
         Task<IList<Account>?> GetAccountsAsync();
-        Task<Account?> GetAccountAsync(int id);
+        Task<Account?> GetAccountAsync(string id);
     }
 }

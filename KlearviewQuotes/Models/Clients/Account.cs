@@ -27,6 +27,7 @@ namespace KlearviewQuotes.Models.Clients
 
         public virtual IList<ServiceLocation> ServiceLocations { get; set; }
         public virtual IList<Agreement> Agreements { get; set; }
+        public virtual IList<WorkOrder> WorkOrders { get; set; }
 
         public bool Contains(string search)
         {

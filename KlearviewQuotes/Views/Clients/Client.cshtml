@@ -150,3 +150,51 @@
         </tbody>
     </table>
 </div>
+<br />
+
+<h4>Work Orders</h4>
+<div class="table-responsive table-wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Service Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Completed On</th>
+                <th>Canceled</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.WorkOrders != null && Model.WorkOrders.Count > 0)
+            {
+                @foreach (var item in Model.WorkOrders)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                        <td>
+                            <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
+                        </td>
+                        <td>
+                            <div>@Html.DisplayFor(modelItem => item.CancelledDate)</div>
+                            <div>@Html.DisplayFor(modelItem => item.CancelReason)</div>
+                            <div>@Html.DisplayFor(modelItem => item.CancelReasonOther)</div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            @if (Model == null)
+            {
+                <tr>
+                    <td colspan="6"><div class="text-center">No Agreements</div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

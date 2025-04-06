@@ -12,6 +12,6 @@ namespace KlearviewQuotes.Models.Clients
         public string? Color { get; set; }
         public string? Active { get; set; }
 
-        public virtual IList<ServiceLocation>? ServiceLocations { get; set; }
+        public virtual IList<ServiceLocation> ServiceLocations { get; set; }
     }
 }

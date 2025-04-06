@@ -44,7 +44,6 @@
 <hr />
 
 <h4>Service Locations</h4>
-
 <div class="table-responsive table-wrapper">
     <table class="table table-striped">
         <thead>
@@ -65,13 +64,75 @@
                     <tr>
                         <td style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Address)</td>
                         <td>
-                            <span class="zone" style="background-color: @item.Zone.Color;">
-                                @Html.DisplayFor(modelItem => item.Zone.Name)
-                            </span>
+                            @if (item.Zone != null) {
+                                <span class="zone" style="background-color: @item.Zone.Color;">
+                                    @Html.DisplayFor(modelItem => item.Zone.Name)
+                                </span>
+                            }                 
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Active)</td>
                         <td>@Html.DisplayFor(modelItem => item.ServiceMemo)</td>
+                        <td>
+                            <div class="d-flex">
+                                <a asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId" class="btn btn-sm btn-primary">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            @if (Model == null)
+            {
+                <tr>
+                    <td colspan="6"><div class="text-center">No Service Locations</div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<hr />
+
+<h4>Agreements</h4>
+<div class="table-responsive table-wrapper">
+    <table class="table table-striped">
+        <colgroup>
+            <col style="min-width: 150px" />
+            <col style="min-width: 200px" />
+            <col style="width: 120px" />
+            <col style="width: 120px" />
+            <col style="width: 140px" />
+            <col style="width: 200px" />
+            <col style="min-width: 100px" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Service Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Completed On</th>
+                <th>Canceled</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Agreements != null && Model.Agreements.Count > 0)
+            {
+                @foreach (var item in Model.Agreements)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>
+                            <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CompletedOn)</td>
+                        <td>
+                            <div>@Html.DisplayFor(modelItem => item.CancelDate)</div>
+                            <div>@Html.DisplayFor(modelItem => item.CancelReason)</div>
+                            <div>@Html.DisplayFor(modelItem => item.CancelReasonOther)</div>
+                        </td>
                         <td>
                             <div class="d-flex">
                                 <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
@@ -83,7 +144,7 @@
             @if (Model == null)
             {
                 <tr>
-                    <td colspan="6"><div class="text-center">No Service Locations</div></td>
+                    <td colspan="6"><div class="text-center">No Agreements</div></td>
                 </tr>
             }
         </tbody>

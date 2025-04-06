@@ -31,6 +31,7 @@ namespace KlearviewQuotes.Models.Clients
 
         public virtual Account? Account { get; set; }
         public virtual Zone? Zone { get; set; }
+        public virtual IList<Agreement>? Agreements { get; set; }
 
         public string Address { get
             {

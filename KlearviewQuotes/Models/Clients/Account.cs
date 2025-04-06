@@ -25,7 +25,8 @@ namespace KlearviewQuotes.Models.Clients
         [Display(Name = "Account Type")]
         public string? AccountType { get; set; }
 
-        public virtual IList<ServiceLocation>? ServiceLocations { get; set; }
+        public virtual IList<ServiceLocation> ServiceLocations { get; set; }
+        public virtual IList<Agreement> Agreements { get; set; }
 
         public bool Contains(string search)
         {

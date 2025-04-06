@@ -8,6 +8,7 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<ServiceLocation> ServiceLocations { get; set; }
         public virtual DbSet<Zone> Zones { get; set; }
+        public virtual DbSet<Agreement> Agreements { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -19,11 +20,23 @@ namespace KlearviewQuotes.Data
                 .HasForeignKey(e => e.AccountId)
                 .HasPrincipalKey(e => e.AccountId);
 
+            modelBuilder.Entity<Account>()
+                .HasMany(e => e.Agreements)
+                .WithOne(e => e.Account)
+                .HasForeignKey(e => e.AccountId)
+                .HasPrincipalKey(e => e.AccountId);
+
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(e => e.Zone)
                 .WithMany(e => e.ServiceLocations)
                 .HasForeignKey(e => e.ZoneId)
                 .HasPrincipalKey(e => e.Id);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasMany(e => e.Agreements)
+                .WithOne(e => e.ServiceLocation)
+                .HasForeignKey(e => e.ServiceLocationId)
+                .HasPrincipalKey(e => e.ServiceLocationId);
         }
     }
 }

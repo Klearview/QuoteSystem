@@ -17,5 +17,6 @@ namespace KlearviewQuotes.Models.Clients
         public string? BillingMemo { get; set; }
 
         public virtual IList<WorkOrder> WorkOrders { get; set; }
+        public virtual Contact DefaultContact { get; set; }
     }
 }

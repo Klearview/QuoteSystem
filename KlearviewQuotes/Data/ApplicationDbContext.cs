@@ -8,6 +8,7 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<ServiceLocation> ServiceLocations { get; set; }
         public virtual DbSet<BillingLocation> BillingLocations { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Zone> Zones { get; set; }
         public virtual DbSet<Agreement> Agreements { get; set; }
         public virtual DbSet<WorkOrder> WorkOrders { get; set; }
@@ -57,6 +58,18 @@ namespace KlearviewQuotes.Data
                 .WithOne(e => e.BillingLocation)
                 .HasForeignKey(e => e.BillingLocationId)
                 .HasPrincipalKey(e => e.BillingLocationId);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(e => e.ServiceLocation)
+                .WithOne(e => e.DefaultContact)
+                .HasForeignKey<ServiceLocation>(e => e.DefaultContactId)
+                .HasPrincipalKey<Contact>(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(e => e.BillingLocation)
+                .WithOne(e => e.DefaultContact)
+                .HasForeignKey<BillingLocation>(e => e.DefaultContactId)
+                .HasPrincipalKey<Contact>(e => e.ContactId);
         }
     }
 }

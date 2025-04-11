@@ -34,10 +34,17 @@ namespace KlearviewQuotes.Models.Clients
         {
             get
             {
-                return $"{Street1}{(string.IsNullOrEmpty(Street2) ? "" : $"\n{Street2}")}" +
-                        $"\n{City} {StateAbbreviation} {PostalCode}" +
-                        $"{(Country == "Canada" ? "" : $"\n{Country}")}";
+                return $"{Street1} {(string.IsNullOrEmpty(Street2) ? "" : $"\n{Street2}")} " +
+                        $"\n{City} {StateAbbreviation} {PostalCode} " +
+                        $"{(Country == "Canada" ? "" : $"\n{Country}")} ";
             }
+        }
+
+        public string GoogleMapsURL { 
+            get
+            {
+                return $"https://www.google.com/maps/search/?api=1&query={Address.Replace(" ", "%20")}";
+            } 
         }
     }
 }

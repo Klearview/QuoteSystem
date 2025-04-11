@@ -173,7 +173,9 @@ namespace KlearviewQuotes.Services
             try
             {
                 await _appDbContext.SaveChangesAsync();
-                var location = await _appDbContext.ServiceLocations.FindAsync(id);
+                var location = await _appDbContext.ServiceLocations
+                    .Include(e => e.DefaultContact)
+                    .FirstOrDefaultAsync(e => e.ServiceLocationId == id);
 
                 return location;
             }
@@ -189,7 +191,9 @@ namespace KlearviewQuotes.Services
             try
             {
                 await _appDbContext.SaveChangesAsync();
-                var location = await _appDbContext.BillingLocations.FindAsync(id);
+                var location = await _appDbContext.BillingLocations
+                    .Include(e => e.DefaultContact)
+                    .FirstOrDefaultAsync(e => e.BillingLocationId == id);
 
                 return location;
             }

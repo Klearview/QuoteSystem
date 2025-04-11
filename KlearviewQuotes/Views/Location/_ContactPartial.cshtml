@@ -1,0 +1,28 @@
+﻿@model KlearviewQuotes.Models.Clients.Contact
+
+<table class="table">
+    <colgroup>
+        <col style="min-width: 200px" />
+        <col style="min-width: 300px" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <th>Full Name</th>
+            <td>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.MiddleName) @Html.DisplayFor(model => model.LastName)</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <td>@Html.DisplayFor(model => model.Title)</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.Company))
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Company)</th>
+                <td>@Html.DisplayFor(model => model.Company)</td>
+            </tr>
+        }
+    </tbody>
+</table>

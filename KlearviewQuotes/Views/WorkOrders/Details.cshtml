@@ -9,38 +9,46 @@
 <h3>Work Order #@Html.DisplayFor(model => model.Number)</h3>
 <hr />
 
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Number)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Number)
-    </dd>
-
-    <dt class="col-sm-2">
-        Service Location
-    </dt>
-    <dd class="col-sm-10">
-        <button class="btn btn-link"
-                data-toggle="ajax-modal"
-                data-target="#locationModal"
-                style="white-space: pre-line; text-align: left; padding: 0;"
-                data-url="@Url.Action("Service", "Location")/@Model.ServiceLocationId"
-        >@Html.DisplayFor(model => model.ServiceLocation.Address)
-        </button>
-    </dd>
-
-    <dt class="col-sm-2">
-        Billing Location
-    </dt>
-    <dd class="col-sm-10">
-        <button class="btn btn-link"
-                data-toggle="ajax-modal"
-                data-target="#locationModal"
-                style="white-space: pre-line; text-align: left; padding: 0;"
-                data-url="@Url.Action("Billing", "Location")/@Model.BillingLocationId"
-        >@Html.DisplayFor(model => model.BillingLocation.Address)
-        </button>
-    </dd>
-</dl>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Number)</th>
+        <td>@Html.DisplayFor(model => model.Number)</td>
+    </tr>
+    <tr>
+        <th>Service Location</th>
+        <td>
+            <button class="btn btn-link"
+                    data-toggle="ajax-modal"
+                    data-target="#locationModal"
+                    style="white-space: pre-line; text-align: left; padding: 0;"
+                    data-url="@Url.Action("Service", "Location")/@Model.ServiceLocationId"
+            >@Html.DisplayFor(model => model.ServiceLocation.Address)
+            </button>
+            <a href="@Model.ServiceLocation.GoogleMapsURL" target="_blank" class="text-decoration-none" style="margin-left: 2rem;">
+                Open in Maps
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"></path>
+                </svg>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th>Billing Location</th>
+        <td>
+            <button class="btn btn-link"
+                    data-toggle="ajax-modal"
+                    data-target="#locationModal"
+                    style="white-space: pre-line; text-align: left; padding: 0;"
+                    data-url="@Url.Action("Billing", "Location")/@Model.BillingLocationId"
+            >@Html.DisplayFor(model => model.BillingLocation.Address)
+            </button>
+            <a href="@Model.BillingLocation.GoogleMapsURL" target="_blank" class="text-decoration-none" style="margin-left: 2rem;">
+                Open in Maps
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"></path>
+                </svg>
+            </a>
+        </td>
+    </tr>
+</table>
 <hr />

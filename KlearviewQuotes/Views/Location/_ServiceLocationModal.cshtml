@@ -9,31 +9,42 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div style="padding: 1rem;">
+            <div style="padding: 1rem;" class="d-flex gap-2">
+                <div>
+                    <h5>Contact</h5>
+                    @await Html.PartialAsync("_ContactPartial", Model.DefaultContact)
 
-                <h5>Contact</h5>
-                <table class="table">
-                    <colgroup>
-                        <col style="min-width: 200px" />
-                        <col style="min-width: 300px" />
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Name)</th>
-                            <td>@Html.DisplayFor(model => model.Name)</td>
-                        </tr>
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Active)</th>
-                            <td>@Html.DisplayFor(model => model.Active)</td>
-                        </tr>
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.ServiceMemo)</th>
-                            <td>@Html.DisplayFor(model => model.ServiceMemo)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <h6>Contact Address</h6>
+                    @await Html.PartialAsync("_LocationPartial", Model.DefaultContact)
+                </div>
+                <div style="background-color: grey; width: 1px;"></div>
+                <div>
+                    <h5>Location</h5>
+                    <table class="table">
+                        <colgroup>
+                            <col style="min-width: 200px" />
+                            <col style="min-width: 300px" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <td>@Html.DisplayFor(model => model.Name)</td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Active)</th>
+                                <td>@Html.DisplayFor(model => model.Active)</td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.ServiceMemo)</th>
+                                <td>@Html.DisplayFor(model => model.ServiceMemo)</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <partial name="_LocationPartial" />
+
+                    <h6>Location Addreess</h6>
+                    <partial name="_LocationPartial" />
+                </div>
             </div>
         </div>
     </div>

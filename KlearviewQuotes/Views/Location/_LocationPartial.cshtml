@@ -1,6 +1,5 @@
 ﻿@model KlearviewQuotes.Models.Clients.Location
 
-<h5>Address</h5>
 <table class="table">
     <colgroup>
         <col style="min-width: 200px" />
@@ -29,10 +28,13 @@
             <th>@Html.DisplayNameFor(model => model.PostalCode)</th>
             <td>@Html.DisplayFor(model => model.PostalCode)</td>
         </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Country)</th>
+        @if (!string.IsNullOrEmpty(Model.Country))
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Country)</th>
             <td>@Html.DisplayFor(model => model.Country) (@Html.DisplayFor(model => model.CountryCode))</td>
         </tr>
+        }
         @if (!string.IsNullOrEmpty(Model.Latitude)) 
         {
             <tr>

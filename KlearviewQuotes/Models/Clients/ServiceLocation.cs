@@ -25,6 +25,7 @@ namespace KlearviewQuotes.Models.Clients
         public virtual Zone Zone { get; set; }
         public virtual IList<Agreement> Agreements { get; set; }
         public virtual IList<WorkOrder> WorkOrders { get; set; }
+        public virtual Contact DefaultContact { get; set; }
 
     }
 }

@@ -1,0 +1,40 @@
+﻿@model KlearviewQuotes.Models.Clients.ServiceLocation
+
+<div class="modal fade" id="locationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Service Location</h5>
+                <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="padding: 1rem;">
+
+                <h5>Contact</h5>
+                <table class="table">
+                    <colgroup>
+                        <col style="min-width: 200px" />
+                        <col style="min-width: 300px" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <td>@Html.DisplayFor(model => model.Name)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Active)</th>
+                            <td>@Html.DisplayFor(model => model.Active)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ServiceMemo)</th>
+                            <td>@Html.DisplayFor(model => model.ServiceMemo)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <partial name="_LocationPartial" />
+            </div>
+        </div>
+    </div>
+</div>

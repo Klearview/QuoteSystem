@@ -14,7 +14,7 @@
         public string? ExpectedDuration { get; set; }
         public string? ServiceSubTotal { get; set; }
         public string? ProductSubTotal { get; set; }
-        public string? SubTotal { get; set; }
+        public decimal? SubTotal { get; set; }
         public string? ResourceId { get; set; }
         public string? CommittedResourceId { get; set; }
         public string? EstimatedStartTime { get; set; }
@@ -51,5 +51,6 @@
 
         public virtual Account Account { get; set; }
         public virtual ServiceLocation ServiceLocation { get; set; }
+        public virtual BillingLocation BillingLocation { get; set; }
     }
 }

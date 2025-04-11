@@ -15,9 +15,18 @@ namespace KlearviewQuotes.Services.Interfaces
 
         Task<IList<Status>?> GetStatusAsync();
 
-        // Old Data Viewer
+
+        #region Old Data
 
         Task<IList<Account>?> GetAccountsAsync();
         Task<Account?> GetAccountAsync(string id);
+
+        Task<IList<WorkOrder>?> GetWorkOrdersAsync();
+        Task<WorkOrder?> GetWorkOrderAsync(string id);
+
+        Task<ServiceLocation?> GetServiceLocationAsync(string id);
+        Task<BillingLocation?> GetBillingLocationAsync(string id);
+
+        #endregion
     }
 }

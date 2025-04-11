@@ -2,7 +2,7 @@
 @using X.PagedList.Web.Common
 @model KlearviewQuotes.Models.ViewModels.ClientViewModel 
 @{
-    ViewData["Title"] = "Account";
+    ViewData["Title"] = "Client";
 }
 <h3>@Html.DisplayFor(model => model.Account.Name) - (#@Html.DisplayFor(model => model.Account.Number))</h3>
 <hr />
@@ -93,7 +93,7 @@
 
     Page @(Model.PagedAgreements.PageCount < Model.PagedAgreements.PageNumber ? 0 : Model.PagedAgreements.PageNumber) of @Model.PagedAgreements.PageCount
 
-    @Html.PagedListPager(Model.PagedAgreements, agreementPage => Url.Action("Client",
+    @Html.PagedListPager(Model.PagedAgreements, agreementPage => Url.Action("Details",
             new
             {
                 id = Model.Account.AccountId,
@@ -121,7 +121,7 @@
     
     Page @(Model.PagedWorkOrders.PageCount < Model.PagedWorkOrders.PageNumber ? 0 : Model.PagedWorkOrders.PageNumber) of @Model.PagedWorkOrders.PageCount
     
-    @Html.PagedListPager(Model.PagedWorkOrders, workOrderPage => Url.Action("Client",
+    @Html.PagedListPager(Model.PagedWorkOrders, workOrderPage => Url.Action("Details",
             new
             {
                 id = Model.Account.AccountId,

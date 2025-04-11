@@ -12,6 +12,7 @@
         <tr>
             <th>@Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoNumberParm }, null)</th>
             <th>Service Location</th>
+            <th>Billing Location</th>
             <th>Start Time</th>
             <th>End Time</th>
             <th>@Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoSubTotalParm }, null)</th>
@@ -29,13 +30,16 @@
                     <td>
                         <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
                     </td>
+                    <td>
+                        <a style="white-space: pre-line" asp-action="BillingLocation" asp-route-id="@item.BillingLocationId">@Html.DisplayFor(modelItem => item.BillingLocation.Address)</a>
+                    </td>
                     <td>@Html.DisplayFor(modelItem => item.EstimatedStartTime)</td>
                     <td>@Html.DisplayFor(modelItem => item.EstimatedCompletedTime)</td>
                     <td>$@Html.DisplayFor(modelItem => item.SubTotal)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
                     <td>
                         <div class="d-flex">
-                            <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
+                            <a asp-action="Details" asp-controller="WorkOrders" asp-route-id="@item.WorkOrderId" class="btn btn-sm btn-primary">Details</a>
                         </div>
                     </td>
                 </tr>

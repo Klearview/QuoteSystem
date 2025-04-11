@@ -1,0 +1,58 @@
+﻿@model KlearviewQuotes.Models.Clients.Location
+
+<h5>Address</h5>
+<table class="table">
+    <colgroup>
+        <col style="min-width: 200px" />
+        <col style="min-width: 300px" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Street1)</th>
+            <td>@Html.DisplayFor(model => model.Street1)</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Street2)) {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Street2)</th>
+                <td>@Html.DisplayFor(model => model.Street2)</td>
+            </tr>
+        }
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.City)</th>
+            <td>@Html.DisplayFor(model => model.City)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.State)</th>
+            <td>@Html.DisplayFor(model => model.State) (@Html.DisplayFor(model => model.StateAbbreviation))</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PostalCode)</th>
+            <td>@Html.DisplayFor(model => model.PostalCode)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Country)</th>
+            <td>@Html.DisplayFor(model => model.Country) (@Html.DisplayFor(model => model.CountryCode))</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Latitude)) 
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Latitude)</th>
+                <td>@Html.DisplayFor(model => model.Latitude)</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.Longitude))
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Longitude)</th>
+                <td>@Html.DisplayFor(model => model.Longitude)</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.County))
+        {
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.County)</th>
+                <td>@Html.DisplayFor(model => model.County)</td>
+            </tr>
+        }
+    </tbody>
+</table>

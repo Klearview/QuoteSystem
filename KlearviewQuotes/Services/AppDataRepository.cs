@@ -133,5 +133,71 @@ namespace KlearviewQuotes.Services
                 return null;
             }
         }
+
+        public async Task<IList<WorkOrder>?> GetWorkOrdersAsync()
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return _appDbContext.WorkOrders
+                    .Include(a => a.ServiceLocation)
+                    .Include(a => a.BillingLocation)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<WorkOrder?> GetWorkOrderAsync(string id)
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return await _appDbContext.WorkOrders
+                    .Include(a => a.ServiceLocation)
+                    .Include(a => a.BillingLocation)
+                    .FirstOrDefaultAsync(a => a.WorkOrderId == id);
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<ServiceLocation?> GetServiceLocationAsync(string id)
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                var location = await _appDbContext.ServiceLocations.FindAsync(id);
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<BillingLocation?> GetBillingLocationAsync(string id)
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                var location = await _appDbContext.BillingLocations.FindAsync(id);
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
     }
 }

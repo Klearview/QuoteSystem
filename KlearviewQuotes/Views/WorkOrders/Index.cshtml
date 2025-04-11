@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Clients.WorkOrder>;
+
 @{
+    ViewData["Title"] = "Work Orders";
 }
+
+<div class="table-responsive table-wrapper">
+    @await Html.PartialAsync("../WorkOrders/_WorkOrderListPartial", Model)
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, workOrderPage => Url.Action("index",
+            new
+            {
+                workOrderPage = workOrderPage,
+            }) + "#workOrders",
+            new PagedListRenderOptions()
+    {
+        ActiveLiElementClass = "active",
+        PageClasses = new[] { "page-link" },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+        LinkToNextPageFormat = "Next",
+        LinkToPreviousPageFormat = "Previous",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
+</div>

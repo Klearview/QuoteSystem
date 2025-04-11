@@ -44,8 +44,8 @@ namespace KlearviewQuotes.Controllers
             return View(accounts.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Clients/Client/{id}
-        public async Task<IActionResult> Client(string? id, int? agreementPage, int? workOrderPage, string woSort)
+        // GET: Clients/Details/{id}
+        public async Task<IActionResult> Details(string? id, int? agreementPage, int? workOrderPage, string woSort)
         {
             WorkOrdersController.AddSortOrderViewBag(ViewBag, woSort);
             ViewBag.CurrentAgreementPage = agreementPage ?? 1;

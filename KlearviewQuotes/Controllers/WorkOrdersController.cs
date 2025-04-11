@@ -1,13 +1,49 @@
 ﻿using KlearviewQuotes.Models.Clients;
+using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace KlearviewQuotes.Controllers
 {
     public class WorkOrdersController : Controller
     {
-        public IActionResult Index()
+        private readonly IAppDataRepository _repository;
+
+        private static readonly int pageSize = 20;
+
+        public WorkOrdersController(IAppDataRepository repository)
         {
-            return View();
+            _repository = repository;
+        }
+
+        public async Task<IActionResult> Index(string searchString, int? workOrderPage, string woSort)
+        {
+            AddSortOrderViewBag(ViewBag, woSort);
+            ViewBag.CurrentSearchString = searchString;
+
+            var workOrders = await _repository.GetWorkOrdersAsync();
+
+            if (workOrders == null)
+                return NotFound();
+
+            //if (!string.IsNullOrEmpty(searchString))
+
+            workOrders = SortWorkOrders(workOrders, woSort);
+
+            return View(workOrders.ToPagedList(workOrderPage ?? 1, pageSize));
+        }
+
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var workOrder = await _repository.GetWorkOrderAsync(id);
+
+            if (workOrder == null)
+                return NotFound();
+
+            return View(workOrder);
         }
 
         public static void AddSortOrderViewBag(dynamic viewBag, string sortOrder)
@@ -22,7 +58,7 @@ namespace KlearviewQuotes.Controllers
             {
                 "number_asc" => workOrders.OrderBy(s => s.Number),
                 "total_asc" => workOrders.OrderBy(s => s.SubTotal),
-                "total_dec" => workOrders.OrderByDescending(s => s.SubTotal),
+                "total_desc" => workOrders.OrderByDescending(s => s.SubTotal),
                 _ => workOrders.OrderByDescending(s => s.Number)
             }).ToList();
             return workOrders;

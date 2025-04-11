@@ -1,44 +1,39 @@
-﻿@model KlearviewQuotes.Models.Clients.Account
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model KlearviewQuotes.Models.ViewModels.ClientViewModel 
 @{
     ViewData["Title"] = "Account";
 }
-<h3>@Html.DisplayFor(model => model.Name) - (#@Html.DisplayFor(model => model.Number))</h3>
+<h3>@Html.DisplayFor(model => model.Account.Name) - (#@Html.DisplayFor(model => model.Account.Number))</h3>
 <hr />
 
 <dl class="row">
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Number)
+        @Html.DisplayNameFor(model => model.Account.Number)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Number)
+        @Html.DisplayFor(model => model.Account.Number)
     </dd>
 
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
+        @Html.DisplayNameFor(model => model.Account.Name)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.Account.Name)
     </dd>
 
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Active)
+        @Html.DisplayNameFor(model => model.Account.Active)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Active)
+        @Html.DisplayFor(model => model.Account.Active)
     </dd>
 
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.TaxExempt)
+        @Html.DisplayNameFor(model => model.Account.AccountType)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.TaxExempt)
-    </dd>
-
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.AccountType)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.AccountType)
+        @Html.DisplayFor(model => model.Account.AccountType)
     </dd>
 </dl>
 <hr />
@@ -57,9 +52,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.ServiceLocations != null && Model.ServiceLocations.Count > 0)
+            @if (Model.Account.ServiceLocations != null && Model.Account.ServiceLocations.Count > 0)
             {
-                @foreach (var item in Model.ServiceLocations)
+                @foreach (var item in Model.Account.ServiceLocations)
                 {
                     <tr>
                         <td style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Address)</td>
@@ -92,109 +87,57 @@
 </div>
 <hr />
 
-<h4>Agreements</h4>
+<h4 id="agreements">Agreements</h4>
 <div class="table-responsive table-wrapper">
-    <table class="table table-striped">
-        <colgroup>
-            <col style="min-width: 150px" />
-            <col style="min-width: 200px" />
-            <col style="width: 120px" />
-            <col style="width: 120px" />
-            <col style="width: 140px" />
-            <col style="width: 200px" />
-            <col style="min-width: 100px" />
-        </colgroup>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Service Location</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Completed On</th>
-                <th>Canceled</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Agreements != null && Model.Agreements.Count > 0)
-            {
-                @foreach (var item in Model.Agreements)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>
-                            <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
-                        </td>
-                        <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CompletedOn)</td>
-                        <td>
-                            <div>@Html.DisplayFor(modelItem => item.CancelDate)</div>
-                            <div>@Html.DisplayFor(modelItem => item.CancelReason)</div>
-                            <div>@Html.DisplayFor(modelItem => item.CancelReasonOther)</div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            }
-            @if (Model == null)
-            {
-                <tr>
-                    <td colspan="6"><div class="text-center">No Agreements</div></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<br />
+    @await Html.PartialAsync("../Agreements/_AgreementsListPartial", Model.PagedAgreements)
 
-<h4>Work Orders</h4>
+    Page @(Model.PagedAgreements.PageCount < Model.PagedAgreements.PageNumber ? 0 : Model.PagedAgreements.PageNumber) of @Model.PagedAgreements.PageCount
+
+    @Html.PagedListPager(Model.PagedAgreements, agreementPage => Url.Action("Client",
+            new
+            {
+                id = Model.Account.AccountId,
+                agreementPage = agreementPage,
+                workOrderPage = ViewBag.CurrentWorkOrderPage,
+            }) + "#agreements",
+            new PagedListRenderOptions()
+    {
+        ActiveLiElementClass = "active",
+        PageClasses = new[] { "page-link" },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+        LinkToNextPageFormat = "Next",
+        LinkToPreviousPageFormat = "Previous",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
+</div>
+<hr />
+
+<h4 id="workOrders">Work Orders</h4>
 <div class="table-responsive table-wrapper">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Number</th>
-                <th>Service Location</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Completed On</th>
-                <th>Canceled</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.WorkOrders != null && Model.WorkOrders.Count > 0)
+    @await Html.PartialAsync("../WorkOrders/_WorkOrderListPartial", Model.PagedWorkOrders)
+    
+    Page @(Model.PagedWorkOrders.PageCount < Model.PagedWorkOrders.PageNumber ? 0 : Model.PagedWorkOrders.PageNumber) of @Model.PagedWorkOrders.PageCount
+    
+    @Html.PagedListPager(Model.PagedWorkOrders, workOrderPage => Url.Action("Client",
+            new
             {
-                @foreach (var item in Model.WorkOrders)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Number)</td>
-                        <td>
-                            <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
-                        </td>
-                        <td>
-                            <div>@Html.DisplayFor(modelItem => item.CancelledDate)</div>
-                            <div>@Html.DisplayFor(modelItem => item.CancelReason)</div>
-                            <div>@Html.DisplayFor(modelItem => item.CancelReasonOther)</div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            }
-            @if (Model == null)
-            {
-                <tr>
-                    <td colspan="6"><div class="text-center">No Agreements</div></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                id = Model.Account.AccountId,
+                agreementPage = ViewBag.CurrentAgreementPage,
+                workOrderPage = workOrderPage,
+            }) + "#workOrders",
+            new PagedListRenderOptions()
+    {
+        ActiveLiElementClass = "active",
+        PageClasses = new[] { "page-link" },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+        LinkToNextPageFormat = "Next",
+        LinkToPreviousPageFormat = "Previous",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
 </div>

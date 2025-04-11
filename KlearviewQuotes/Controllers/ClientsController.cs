@@ -1,5 +1,6 @@
 ﻿using KlearviewQuotes.Models;
 using KlearviewQuotes.Models.Clients;
+using KlearviewQuotes.Models.ViewModels;
 using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace KlearviewQuotes.Controllers
         private readonly IAppDataRepository _repository;
 
         private static readonly int pageSize = 20;
+        private static readonly int clientPageSize = 10;
 
         public ClientsController(IAppDataRepository repository)
         {
@@ -35,7 +37,7 @@ namespace KlearviewQuotes.Controllers
             if (!string.IsNullOrEmpty(searchString))
                 accounts = accounts.Where(s => s.Contains(searchString)).ToList();
 
-            accounts = SortAccountsList(accounts, sortOrder);
+            accounts = SortAccounts(accounts, sortOrder);
 
             int pageNumber = (page ?? 1);
 
@@ -43,8 +45,12 @@ namespace KlearviewQuotes.Controllers
         }
 
         // GET: Clients/Client/{id}
-        public async Task<IActionResult> Client(string? id)
+        public async Task<IActionResult> Client(string? id, int? agreementPage, int? workOrderPage, string woSort)
         {
+            WorkOrdersController.AddSortOrderViewBag(ViewBag, woSort);
+            ViewBag.CurrentAgreementPage = agreementPage ?? 1;
+            ViewBag.CurrentWorkOrderPage = workOrderPage ?? 1;
+
             if (string.IsNullOrEmpty(id))
                 return NotFound();
 
@@ -53,7 +59,15 @@ namespace KlearviewQuotes.Controllers
             if (account == null)
                 return NotFound();
 
-            return View(account);
+            account.WorkOrders = WorkOrdersController.SortWorkOrders(account.WorkOrders, woSort);
+
+            ClientViewModel cvm = new(account)
+            {
+                PagedAgreements = account.Agreements.ToPagedList(agreementPage ?? 1, clientPageSize),
+                PagedWorkOrders = account.WorkOrders.ToPagedList(workOrderPage ?? 1, clientPageSize)
+            };
+
+            return View(cvm);
         }
 
         #endregion
@@ -62,28 +76,19 @@ namespace KlearviewQuotes.Controllers
 
         private void AddSortOrderViewBag(string sortOrder)
         {
-            ViewBag.NumberParm = String.IsNullOrEmpty(sortOrder) ? "" : "number_asc";
+            ViewBag.NumberParm = String.IsNullOrEmpty(sortOrder) ? "number_asc" : "";
             ViewBag.NameParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
         }
 
-        private IList<Account> SortAccountsList(IList<Account> accounts, string sortOrder)
+        private static IList<Account> SortAccounts(IList<Account> accounts, string sortOrder)
         {
-            switch (sortOrder)
+            accounts = (sortOrder switch
             {
-                case "number_asc":
-                    accounts = accounts.OrderBy(s => s.Number).ToList();
-                    break;
-                case "name_asc":
-                    accounts = accounts.OrderBy(s => s.Name).ToList();
-                    break;
-                case "name_desc":
-                    accounts = accounts.OrderByDescending(s => s.Name).ToList();
-                    break;
-                default:
-                    accounts = accounts.OrderByDescending(s => s.Number).ToList();
-                    break;
-            }
-
+                "number_asc" => accounts.OrderBy(s => s.Number),
+                "name_asc" => accounts.OrderBy(s => s.Name),
+                "name_desc" => accounts.OrderByDescending(s => s.Name),
+                _ => accounts.OrderByDescending(s => s.Number),
+            }).ToList();
             return accounts;
         }
 

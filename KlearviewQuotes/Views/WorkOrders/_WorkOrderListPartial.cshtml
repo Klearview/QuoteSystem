@@ -1,0 +1,51 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Clients.WorkOrder>;
+@{
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string actionLink = controller == "Clients" ? "Client" : "Index";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoNumberParm }, null)</th>
+            <th>Service Location</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>@Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoSubTotalParm }, null)</th>
+            <th>Status</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                    <td>
+                        <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.EstimatedStartTime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EstimatedCompletedTime)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.SubTotal)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    <td>
+                        <div class="d-flex">
+                            <a asp-action="Client" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        @if (Model == null)
+        {
+            <tr>
+                <td colspan="6"><div class="text-center">No Work Orders</div></td>
+            </tr>
+        }
+    </tbody>
+</table>

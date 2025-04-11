@@ -8,7 +8,7 @@
         public string? BillingLocationId { get; set; }
         public string? AgreementId { get; set; }
         public string? BusinessUnitId { get; set; }
-        public string? Number { get; set; }
+        public int? Number { get; set; }
         public string? Issue { get; set; }
         public string? DurationAdjustment { get; set; }
         public string? ExpectedDuration { get; set; }

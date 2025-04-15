@@ -1,8 +1,10 @@
 ﻿using KlearviewQuotes.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KlearviewQuotes.Controllers
 {
+    [Authorize(Roles = "Admin,AlwaysAdmin,QuoteEditor")]
     public class LocationController : Controller
     {
         private readonly IAppDataRepository _repository;

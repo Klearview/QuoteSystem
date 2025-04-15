@@ -1,10 +1,12 @@
 ﻿using KlearviewQuotes.Models.Clients;
 using KlearviewQuotes.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace KlearviewQuotes.Controllers
 {
+    [Authorize(Roles = "Admin,AlwaysAdmin,QuoteEditor")]
     public class WorkOrdersController : Controller
     {
         private readonly IAppDataRepository _repository;

@@ -3,8 +3,6 @@
     ViewData["Title"] = "Residential";
 }
 
-<div id="modal-container">
-</div>
 <p>Last Option: @Model.LastOption, Id: @Model.Quote.Id</p>
 <form method="post" asp-action="Edit">
     <input type="hidden" name="Quote.Id" value="@Model.Quote.Id"/>

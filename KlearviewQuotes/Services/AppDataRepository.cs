@@ -125,8 +125,11 @@ namespace KlearviewQuotes.Services
                 return await _appDbContext.Accounts
                     .Include(a => a.Agreements)
                     .Include(a => a.WorkOrders)
+                        .ThenInclude(a => a.ServiceLocation)
+                    .Include(a => a.WorkOrders)
+                        .ThenInclude(a => a.BillingLocation)
                     .Include(a => a.ServiceLocations)
-                    .ThenInclude(a => a.Zone)
+                        .ThenInclude(a => a.Zone)
                     .FirstOrDefaultAsync(a => a.AccountId == id);
             }
             catch (Exception ex)

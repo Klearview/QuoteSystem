@@ -3,9 +3,6 @@
     ViewData["Title"] = "Work Order";
 }
 
-<div id="modal-container">
-</div>
-
 <h3>Work Order #@Html.DisplayFor(model => model.Number)</h3>
 <hr />
 
@@ -17,13 +14,7 @@
     <tr>
         <th>Service Location</th>
         <td>
-            <button class="btn btn-link"
-                    data-toggle="ajax-modal"
-                    data-target="#locationModal"
-                    style="white-space: pre-line; text-align: left; padding: 0;"
-                    data-url="@Url.Action("Service", "Location")/@Model.ServiceLocationId"
-            >@Html.DisplayFor(model => model.ServiceLocation.Address)
-            </button>
+            @await Html.PartialAsync("../Location/_ServiceLocationLinkPartial", Model.ServiceLocation)
             <a href="@Model.ServiceLocation.GoogleMapsURL" target="_blank" class="text-decoration-none" style="margin-left: 2rem;">
                 Open in Maps
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -35,13 +26,7 @@
     <tr>
         <th>Billing Location</th>
         <td>
-            <button class="btn btn-link"
-                    data-toggle="ajax-modal"
-                    data-target="#locationModal"
-                    style="white-space: pre-line; text-align: left; padding: 0;"
-                    data-url="@Url.Action("Billing", "Location")/@Model.BillingLocationId"
-            >@Html.DisplayFor(model => model.BillingLocation.Address)
-            </button>
+            @await Html.PartialAsync("../Location/_BillingLocationLinkPartial", Model.BillingLocation)
             <a href="@Model.BillingLocation.GoogleMapsURL" target="_blank" class="text-decoration-none" style="margin-left: 2rem;">
                 Open in Maps
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">

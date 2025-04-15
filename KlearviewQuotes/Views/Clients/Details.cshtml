@@ -48,7 +48,6 @@
                 <th>Name</th>
                 <th>Active</th>
                 <th>Service Memo</th>
-                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -68,11 +67,6 @@
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Active)</td>
                         <td>@Html.DisplayFor(modelItem => item.ServiceMemo)</td>
-                        <td>
-                            <div class="d-flex">
-                                <a asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId" class="btn btn-sm btn-primary">Details</a>
-                            </div>
-                        </td>
                     </tr>
                 }
             }

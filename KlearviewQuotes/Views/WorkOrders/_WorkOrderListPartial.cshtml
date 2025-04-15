@@ -10,13 +10,27 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoNumberParm }, null)</th>
+            <th>@Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new 
+            { 
+                woSort = ViewBag.WoNumberParm,
+                accountType = ViewBag.CurrentAccountType ?? ""
+            }, null)</th>
+            @if (controller == "WorkOrders")
+            {
+                <th>Customer Name</th>
+            }
             <th>Service Location</th>
             <th>Billing Location</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>@Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new { woSort = ViewBag.WoSubTotalParm }, null)</th>
+            <th>Scheduled Date</th>
+            <th>@Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new 
+            { 
+                woSort = ViewBag.WoSubTotalParm,
+                accountType = ViewBag.CurrentAccountType ?? ""
+            }, null)</th>
             <th>Status</th>
+            @if (controller == "WorkOrders") {
+                <th>Account Type</th>
+            }
             <th>Options</th>
         </tr>
     </thead>
@@ -27,16 +41,35 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                    @if (controller == "WorkOrders")
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.Account.Name)</td>
+                    }
                     <td>
-                        <a style="white-space: pre-line" asp-action="ServiceLocation" asp-route-id="@item.ServiceLocationId">@Html.DisplayFor(modelItem => item.ServiceLocation.Address)</a>
+                        <button class="btn btn-link"
+                                data-toggle="ajax-modal"
+                                data-target="#locationModal"
+                                style="white-space: pre-line; text-align: left; padding: 0;"
+                                data-url="@Url.Action("Service", "Location")/@item.ServiceLocationId"
+                        >@Html.DisplayFor(model => item.ServiceLocation.Address)
+                        </button>
                     </td>
                     <td>
-                        <a style="white-space: pre-line" asp-action="BillingLocation" asp-route-id="@item.BillingLocationId">@Html.DisplayFor(modelItem => item.BillingLocation.Address)</a>
+                        <button class="btn btn-link"
+                                data-toggle="ajax-modal"
+                                data-target="#locationModal"
+                                style="white-space: pre-line; text-align: left; padding: 0;"
+                                data-url="@Url.Action("Billing", "Location")/@item.BillingLocationId"
+                        >@Html.DisplayFor(model => item.BillingLocation.Address)
+                        </button>
                     </td>
-                    <td>@Html.DisplayFor(modelItem => item.EstimatedStartTime)</td>
-                    <td>@Html.DisplayFor(modelItem => item.EstimatedCompletedTime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ScheduledDate)</td>
                     <td>$@Html.DisplayFor(modelItem => item.SubTotal)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    @if (controller == "WorkOrders")
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.Account.AccountType)</td>
+                    }
                     <td>
                         <div class="d-flex">
                             <a asp-action="Details" asp-controller="WorkOrders" asp-route-id="@item.WorkOrderId" class="btn btn-sm btn-primary">Details</a>

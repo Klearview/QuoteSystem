@@ -16,17 +16,24 @@ namespace KlearviewQuotes.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index(string searchString, int? workOrderPage, string woSort)
+        public async Task<IActionResult> Index(string searchString, string accountType, int? workOrderPage, string woSort)
         {
+            ClientsController.AddAccountTypeViewBag(ViewBag);
             AddSortOrderViewBag(ViewBag, woSort);
+
             ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentAccountType = accountType;
 
             var workOrders = await _repository.GetWorkOrdersAsync();
 
             if (workOrders == null)
                 return NotFound();
 
-            //if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(accountType))
+                workOrders = workOrders.Where(e => e.Account.AccountType != null && e.Account.AccountType.Contains(accountType)).ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+                workOrders = workOrders.Where(e => e.Account.Contains(searchString)).ToList();
 
             workOrders = SortWorkOrders(workOrders, woSort);
 

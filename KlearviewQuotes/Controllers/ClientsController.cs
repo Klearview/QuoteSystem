@@ -4,6 +4,7 @@ using KlearviewQuotes.Models.ViewModels;
 using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace KlearviewQuotes.Controllers
@@ -24,24 +25,28 @@ namespace KlearviewQuotes.Controllers
         #region Client
 
         // GET: Clients
-        public async Task<IActionResult> Index(string searchString, string sortOrder, int? page)
+        public async Task<IActionResult> Index(string searchString, string accountType, string sortOrder, int? page)
         {
+            AddAccountTypeViewBag(ViewBag);
             AddSortOrderViewBag(sortOrder);
+
             ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentAccountType = accountType;
 
             var accounts = await _repository.GetAccountsAsync();
 
             if (accounts == null)
                 return NotFound();
 
+            if (!string.IsNullOrEmpty(accountType))
+                accounts = accounts.Where(a => a.AccountType != null && a.AccountType.Contains(accountType)).ToList();
+
             if (!string.IsNullOrEmpty(searchString))
                 accounts = accounts.Where(s => s.Contains(searchString)).ToList();
 
             accounts = SortAccounts(accounts, sortOrder);
 
-            int pageNumber = (page ?? 1);
-
-            return View(accounts.ToPagedList(pageNumber, pageSize));
+            return View(accounts.ToPagedList(page ?? 1, pageSize));
         }
 
         // GET: Clients/Details/{id}
@@ -73,6 +78,19 @@ namespace KlearviewQuotes.Controllers
         #endregion
 
         #region Sorting And Filtering
+
+        public static void AddAccountTypeViewBag(dynamic viewBag)
+        {
+            SelectList accountTypeList = new(new List<SelectListItem>()
+            {
+                new() { Selected = true, Text = "", Value = ""},
+                new() { Selected = true, Text = "Street Run", Value = "Street Run"},
+                new() { Selected = true, Text = "Residential", Value = "Residential"},
+                new() { Selected = true, Text = "Commercial", Value = "Commercial"},
+                new() { Selected = true, Text = "Apartment/condo", Value = "Apartment/condo"}
+            }, "Value", "Text");
+            viewBag.AccountType = accountTypeList;
+        }
 
         private void AddSortOrderViewBag(string sortOrder)
         {

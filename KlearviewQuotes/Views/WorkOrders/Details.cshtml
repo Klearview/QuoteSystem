@@ -50,5 +50,21 @@
             </a>
         </td>
     </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.SubTotal)</th>
+        <td>@Html.DisplayFor(model => model.SubTotal)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ScheduledDate)</th>
+        <td>@Html.DisplayFor(model => model.ScheduledDate)</td>
+    </tr>
+    <tr>
+        <th>Canceled</th>
+        <td>
+            <div>@Html.DisplayFor(model => model.CancelledDate)</div>
+            <div>@Html.DisplayFor(model => model.CancelReason)</div>
+            <div>@Html.DisplayFor(model => model.CancelReasonOther)</div>
+        </td>
+    </tr>
 </table>
 <hr />

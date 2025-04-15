@@ -35,6 +35,12 @@ namespace KlearviewQuotes.Data
                 .HasForeignKey(e => e.AccountId)
                 .HasPrincipalKey(e => e.AccountId);
 
+            modelBuilder.Entity<Account>()
+                .HasOne(e => e.DefaultServiceLocation)
+                .WithOne(e => e.DefaultAccount)
+                .HasForeignKey<ServiceLocation>(e => e.ServiceLocationId)
+                .HasPrincipalKey<Account>(e => e.DefaultServiceLocationId);
+
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(e => e.Zone)
                 .WithMany(e => e.ServiceLocations)

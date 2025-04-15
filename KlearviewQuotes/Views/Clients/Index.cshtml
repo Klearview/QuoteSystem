@@ -18,6 +18,10 @@
             <label>Search Query</label>
             @Html.TextBox("SearchString", null, new { @class = "form-control"})
         </div>
+        <div class="form-group col-md-3">
+            <label>Account Type</label>
+            @Html.DropDownList("AccountType", ViewBag.Status as SelectList, new { @class = "form-control" })
+        </div>
     </div>
     <div class="d-flex align-items-end mt-2 mb-4">
         <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
@@ -30,11 +34,22 @@
         <thead>
             <tr>
                 <th>
-                    @Html.ActionLink("Account Number", "Index", new { sortOrder = ViewBag.NumberParm })
+                    @Html.ActionLink("Account Number", "Index", new { 
+                        sortOrder = ViewBag.NumberParm,
+                        accountType = ViewBag.CurrentAccountType
+                    })
                 </th>
                 <th>
-                    @Html.ActionLink("Customer Name", "Index", new { sortOrder = ViewBag.NameParm })
+                    @Html.ActionLink("Customer Name", "Index", new
+                        {
+                            sortOrder = ViewBag.NameParm,
+                            accountType = ViewBag.CurrentAccountType
+                        })
                 </th>
+                <th>
+                    Default Service Location
+                </th>
+                <th>Account Type</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -46,6 +61,16 @@
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.Number)</td>
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>
+                            <button class="btn btn-link"
+                                    data-toggle="ajax-modal"
+                                    data-target="#locationModal"
+                                    style="white-space: pre-line; text-align: left; padding: 0;"
+                                    data-url="@Url.Action("Service", "Location")/@item.DefaultServiceLocation.ServiceLocationId"
+                            >@Html.DisplayFor(modelItem => item.DefaultServiceLocation.Address)
+                            </button>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.AccountType)</td>
                         <td>
                             <div class="d-flex">
                                 <a asp-action="Details" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Details</a>
@@ -68,9 +93,7 @@
     new { 
         page = page,
         searchString = ViewBag.CurrentSearchString,
-        status = ViewBag.CurrentStatus,
-        showDeleted = ViewBag.CurrentShowDeleted,
-        sortOrder = ViewBag.CurrentSortOrder
+        accountType = ViewBag.CurrentAccountType,
     }), 
     new PagedListRenderOptions()
     {

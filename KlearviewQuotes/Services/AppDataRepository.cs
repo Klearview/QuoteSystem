@@ -106,7 +106,9 @@ namespace KlearviewQuotes.Services
             try
             {
                 await _appDbContext.SaveChangesAsync();
-                return _appDbContext.Accounts.ToList();
+                return _appDbContext.Accounts
+                    .Include(a => a.DefaultServiceLocation)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -142,6 +144,7 @@ namespace KlearviewQuotes.Services
                 return _appDbContext.WorkOrders
                     .Include(a => a.ServiceLocation)
                     .Include(a => a.BillingLocation)
+                    .Include(a => a.Account)
                     .ToList();
             }
             catch (Exception ex)

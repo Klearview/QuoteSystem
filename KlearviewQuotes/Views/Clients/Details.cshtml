@@ -85,27 +85,32 @@
 <div class="table-responsive table-wrapper">
     @await Html.PartialAsync("../Agreements/_AgreementsListPartial", Model.PagedAgreements)
 
-    Page @(Model.PagedAgreements.PageCount < Model.PagedAgreements.PageNumber ? 0 : Model.PagedAgreements.PageNumber) of @Model.PagedAgreements.PageCount
+    @if (Model.PagedAgreements.PageCount > 1) {
 
-    @Html.PagedListPager(Model.PagedAgreements, agreementPage => Url.Action("Details",
-            new
-            {
-                id = Model.Account.AccountId,
-                agreementPage = agreementPage,
-                workOrderPage = ViewBag.CurrentWorkOrderPage,
-            }) + "#agreements",
-            new PagedListRenderOptions()
-    {
-        ActiveLiElementClass = "active",
-        PageClasses = new[] { "page-link" },
-        LiElementClasses = new[] { "page-item" },
-        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
-        LinkToNextPageFormat = "Next",
-        LinkToPreviousPageFormat = "Previous",
-        MaximumPageNumbersToDisplay = 5,
-        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-        DisplayLinkToNextPage = PagedListDisplayMode.Always
-    })
+        <div>
+            Page @(Model.PagedAgreements.PageCount < Model.PagedAgreements.PageNumber ? 0 : Model.PagedAgreements.PageNumber) of @Model.PagedAgreements.PageCount
+
+            @Html.PagedListPager(Model.PagedAgreements, agreementPage => Url.Action("Details",
+                     new
+                     {
+                         id = Model.Account.AccountId,
+                         agreementPage = agreementPage,
+                         workOrderPage = ViewBag.CurrentWorkOrderPage,
+                     }) + "#agreements",
+                     new PagedListRenderOptions()
+                        {
+                            ActiveLiElementClass = "active",
+                            PageClasses = new[] { "page-link" },
+                            LiElementClasses = new[] { "page-item" },
+                            UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+                            LinkToNextPageFormat = "Next",
+                            LinkToPreviousPageFormat = "Previous",
+                            MaximumPageNumbersToDisplay = 5,
+                            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                            DisplayLinkToNextPage = PagedListDisplayMode.Always
+                        })
+        </div>
+    }
 </div>
 <hr />
 
@@ -113,25 +118,31 @@
 <div class="table-responsive table-wrapper">
     @await Html.PartialAsync("../WorkOrders/_WorkOrderListPartial", Model.PagedWorkOrders)
     
-    Page @(Model.PagedWorkOrders.PageCount < Model.PagedWorkOrders.PageNumber ? 0 : Model.PagedWorkOrders.PageNumber) of @Model.PagedWorkOrders.PageCount
-    
-    @Html.PagedListPager(Model.PagedWorkOrders, workOrderPage => Url.Action("Details",
-            new
-            {
-                id = Model.Account.AccountId,
-                agreementPage = ViewBag.CurrentAgreementPage,
-                workOrderPage = workOrderPage,
-            }) + "#workOrders",
-            new PagedListRenderOptions()
+    @if (Model.PagedWorkOrders.PageCount > 1)
     {
-        ActiveLiElementClass = "active",
-        PageClasses = new[] { "page-link" },
-        LiElementClasses = new[] { "page-item" },
-        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
-        LinkToNextPageFormat = "Next",
-        LinkToPreviousPageFormat = "Previous",
-        MaximumPageNumbersToDisplay = 5,
-        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-        DisplayLinkToNextPage = PagedListDisplayMode.Always
-    })
+
+        <div>
+            Page @(Model.PagedWorkOrders.PageCount < Model.PagedWorkOrders.PageNumber ? 0 : Model.PagedWorkOrders.PageNumber) of @Model.PagedWorkOrders.PageCount
+
+            @Html.PagedListPager(Model.PagedWorkOrders, workOrderPage => Url.Action("Details",
+                     new
+                     {
+                         id = Model.Account.AccountId,
+                         agreementPage = ViewBag.CurrentAgreementPage,
+                         workOrderPage = workOrderPage,
+                     }) + "#workOrders",
+                     new PagedListRenderOptions()
+                        {
+                            ActiveLiElementClass = "active",
+                            PageClasses = new[] { "page-link" },
+                            LiElementClasses = new[] { "page-item" },
+                            UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+                            LinkToNextPageFormat = "Next",
+                            LinkToPreviousPageFormat = "Previous",
+                            MaximumPageNumbersToDisplay = 5,
+                            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                            DisplayLinkToNextPage = PagedListDisplayMode.Always
+                        })
+        </div>
+    }   
 </div>

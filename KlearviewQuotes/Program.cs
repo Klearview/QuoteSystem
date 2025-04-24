@@ -23,7 +23,8 @@ builder.Services.AddDbContext<AppDataContext>(options =>
     options.UseSqlServer(connectionString)
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(sqlite));
+    options.UseSqlite(sqlite, o => 
+        o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // AUTH

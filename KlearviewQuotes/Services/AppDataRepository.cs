@@ -107,7 +107,8 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 return _appDbContext.Accounts
-                    .Include(a => a.DefaultServiceLocation)
+                    .Include(a => a.DefaultServiceLocation.DefaultContact.ContactEmails)
+                    .Include(a => a.DefaultServiceLocation.DefaultContact.ContactPhones)
                     .ToList();
             }
             catch (Exception ex)
@@ -130,6 +131,8 @@ namespace KlearviewQuotes.Services
                         .ThenInclude(a => a.BillingLocation)
                     .Include(a => a.ServiceLocations)
                         .ThenInclude(a => a.Zone)
+                    .Include(a => a.DefaultServiceLocation)
+                    .Include(a => a.DefaultServiceLocation)
                     .FirstOrDefaultAsync(a => a.AccountId == id);
             }
             catch (Exception ex)
@@ -180,7 +183,8 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 var location = await _appDbContext.ServiceLocations
-                    .Include(e => e.DefaultContact)
+                    .Include(e => e.DefaultContact.ContactPhones)
+                    .Include(e => e.DefaultContact.ContactEmails)
                     .FirstOrDefaultAsync(e => e.ServiceLocationId == id);
 
                 return location;
@@ -198,7 +202,8 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 var location = await _appDbContext.BillingLocations
-                    .Include(e => e.DefaultContact)
+                    .Include(e => e.DefaultContact.ContactPhones)
+                    .Include(e => e.DefaultContact.ContactEmails)
                     .FirstOrDefaultAsync(e => e.BillingLocationId == id);
 
                 return location;

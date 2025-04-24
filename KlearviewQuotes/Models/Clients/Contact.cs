@@ -12,5 +12,8 @@
 
         public virtual ServiceLocation ServiceLocation { get; set; }
         public virtual BillingLocation BillingLocation { get; set; }
+
+        public virtual IList<ContactEmail> ContactEmails { get; set; }
+        public virtual IList<ContactPhone> ContactPhones { get; set; }
     }
 }

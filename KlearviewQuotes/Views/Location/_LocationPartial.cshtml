@@ -1,5 +1,8 @@
 ﻿@model KlearviewQuotes.Models.Clients.Location
 
+@if (Model != null) {
+
+}
 <table class="table">
     <colgroup>
         <col style="min-width: 200px" />
@@ -32,8 +35,8 @@
         {
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Country)</th>
-            <td>@Html.DisplayFor(model => model.Country) (@Html.DisplayFor(model => model.CountryCode))</td>
-        </tr>
+                <td>@Html.DisplayFor(model => model.Country) (@Html.DisplayFor(model => model.CountryCode))</td>
+            </tr>
         }
         @if (!string.IsNullOrEmpty(Model.Latitude)) 
         {

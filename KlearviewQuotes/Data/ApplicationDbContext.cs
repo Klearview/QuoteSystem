@@ -12,6 +12,8 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<Zone> Zones { get; set; }
         public virtual DbSet<Agreement> Agreements { get; set; }
         public virtual DbSet<WorkOrder> WorkOrders { get; set; }
+        public virtual DbSet<ContactEmail> ContactEmails { get; set; }
+        public virtual DbSet<ContactPhone> ContactPhones { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -40,6 +42,12 @@ namespace KlearviewQuotes.Data
                 .WithOne(e => e.DefaultAccount)
                 .HasForeignKey<ServiceLocation>(e => e.ServiceLocationId)
                 .HasPrincipalKey<Account>(e => e.DefaultServiceLocationId);
+
+            modelBuilder.Entity<Account>()
+                .HasOne(e => e.DefualtBillingLocation)
+                .WithOne(e => e.DefaultAccount)
+                .HasForeignKey<BillingLocation>(e => e.BillingLocationId)
+                .HasPrincipalKey<Account>(e => e.DefaultBillingLocationId);
 
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(e => e.Zone)
@@ -76,6 +84,18 @@ namespace KlearviewQuotes.Data
                 .WithOne(e => e.DefaultContact)
                 .HasForeignKey<BillingLocation>(e => e.DefaultContactId)
                 .HasPrincipalKey<Contact>(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasMany(e => e.ContactPhones)
+                .WithOne(e => e.Contact)
+                .HasForeignKey(e => e.ContactId)
+                .HasPrincipalKey(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasMany(e => e.ContactEmails)
+                .WithOne(e => e.Contact)
+                .HasForeignKey(e => e.ContactId)
+                .HasPrincipalKey(e => e.ContactId);
         }
     }
 }

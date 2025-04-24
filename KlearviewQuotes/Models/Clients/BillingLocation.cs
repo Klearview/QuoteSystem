@@ -18,5 +18,6 @@ namespace KlearviewQuotes.Models.Clients
 
         public virtual IList<WorkOrder> WorkOrders { get; set; }
         public virtual Contact DefaultContact { get; set; }
+        public virtual Account DefaultAccount { get; set; }
     }
 }

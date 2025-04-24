@@ -24,5 +24,27 @@
                 <td>@Html.DisplayFor(model => model.Company)</td>
             </tr>
         }
+        @if (Model.ContactEmails != null) {
+            @foreach (var item in Model.ContactEmails)
+            {
+                <tr>
+                    <th>@Html.DisplayFor(modelItem => item.Name) Email</th>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                </tr>
+            }
+        }
+        @if (Model.ContactPhones != null)
+        {
+            @foreach (var item in Model.ContactPhones)
+            {
+                <tr>
+                    <th>@Html.DisplayFor(modelItem => item.Name) Email</th>
+                    <td>@Html.DisplayFor(modelItem => item.Number) @if (!string.IsNullOrEmpty(item.Extension))
+                        {
+                            <span>EXT @Html.DisplayFor(modelItem => item.Extension)</span>
+                        }</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

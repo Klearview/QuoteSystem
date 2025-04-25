@@ -168,6 +168,10 @@ namespace KlearviewQuotes.Services
                 return await _appDbContext.WorkOrders
                     .Include(a => a.ServiceLocation)
                     .Include(a => a.BillingLocation)
+                    .Include(a => a.Resource)
+                    .Include(a => a.CommittedResource)
+                    .Include(a => a.PerformedByResource)
+                    .Include(a => a.Campaign)
                     .FirstOrDefaultAsync(a => a.WorkOrderId == id);
             }
             catch (Exception ex)

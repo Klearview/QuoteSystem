@@ -3,6 +3,8 @@
     ViewData["Title"] = "Work Order";
 }
 
+<a asp-action="Details" asp-controller="Clients" asp-route-id="@Model.AccountId" class="btn btn-sm btn-link">&#60; Account</a>
+
 <h3>Work Order #@Html.DisplayFor(model => model.Number)</h3>
 <hr />
 
@@ -24,6 +26,10 @@
         </td>
     </tr>
     <tr>
+        <th>@Html.DisplayNameFor(model => model.ServiceLocationServiceMemo)</th>
+        <td>@Html.DisplayFor(model => model.ServiceLocationServiceMemo)</td>
+    </tr>
+    <tr>
         <th>Billing Location</th>
         <td>
             @await Html.PartialAsync("../Location/_BillingLocationLinkPartial", Model.BillingLocation)
@@ -36,20 +42,52 @@
         </td>
     </tr>
     <tr>
+        <th>@Html.DisplayNameFor(model => model.BillingLocationBillingMemo)</th>
+        <td>@Html.DisplayFor(model => model.BillingLocationBillingMemo)</td>
+    </tr>
+    <tr>
         <th>@Html.DisplayNameFor(model => model.SubTotal)</th>
-        <td>@Html.DisplayFor(model => model.SubTotal)</td>
+        <td>$@Html.DisplayFor(model => model.SubTotal)</td>
     </tr>
     <tr>
         <th>@Html.DisplayNameFor(model => model.ScheduledDate)</th>
         <td>@Html.DisplayFor(model => model.ScheduledDate)</td>
     </tr>
+    @if (!string.IsNullOrEmpty(Model.CancelledDate))
+    {
+        <tr>
+            <th>Canceled</th>
+            <td>
+                <div>@Html.DisplayFor(model => model.CancelledDate)</div>
+                <div>@Html.DisplayFor(model => model.CancelReason)</div>
+                <div>@Html.DisplayFor(model => model.CancelReasonOther)</div>
+            </td>
+        </tr>
+    }
     <tr>
-        <th>Canceled</th>
-        <td>
-            <div>@Html.DisplayFor(model => model.CancelledDate)</div>
-            <div>@Html.DisplayFor(model => model.CancelReason)</div>
-            <div>@Html.DisplayFor(model => model.CancelReasonOther)</div>
-        </td>
+        <th>@Html.DisplayNameFor(model => model.Resource)</th>
+        <td>@Html.DisplayFor(model => model.Resource.Name)</td>
     </tr>
+    @if (Model.CommittedResource != null) 
+    {
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CommittedResource)</th>
+            <td>@Html.DisplayFor(model => model.CommittedResource.Name)</td>
+        </tr>
+    }
+    @if (Model.PerformedByResource != null)
+    {
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PerformedByResource)</th>
+            <td>@Html.DisplayFor(model => model.PerformedByResource.Name)</td>
+        </tr>
+    }
+    @if (Model.Campaign != null)
+    {
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Campaign)</th>
+            <td>@Html.DisplayFor(model => model.Campaign.Name)</td>
+        </tr>
+    }
 </table>
 <hr />

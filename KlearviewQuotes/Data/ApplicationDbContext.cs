@@ -14,10 +14,105 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<WorkOrder> WorkOrders { get; set; }
         public virtual DbSet<ContactEmail> ContactEmails { get; set; }
         public virtual DbSet<ContactPhone> ContactPhones { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Campaign> MarketingCampaigns { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            PrepareAccounts(modelBuilder);
+            PrepareWorkOrders(modelBuilder);
+            PrepareServiceLocations(modelBuilder);
+            PrepareBillingLocations(modelBuilder);
+            PrepareContacts(modelBuilder);
+        }
+
+        private void PrepareWorkOrders(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<WorkOrder>()
+                .HasOne(e => e.Resource)
+                .WithMany(e => e.WorkOrders)
+                .HasForeignKey(e => e.ResourceId)
+                .HasPrincipalKey(e => e.TeamId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasOne(e => e.CommittedResource)
+                .WithMany(e => e.WorkOrdersCommited)
+                .HasForeignKey(e => e.CommittedResourceId)
+                .HasPrincipalKey(e => e.TeamId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasOne(e => e.PerformedByResource)
+                .WithMany(e => e.WorkOrdersPerformed)
+                .HasForeignKey(e => e.PerformedByResourceId)
+                .HasPrincipalKey(e => e.TeamId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasOne(e => e.Campaign)
+                .WithMany(e => e.WorkOrders)
+                .HasForeignKey(e => e.CampaignId)
+                .HasPrincipalKey(e => e.CampaignId);
+        }
+
+        private void PrepareContacts(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Contact>()
+               .HasMany(e => e.ContactPhones)
+               .WithOne(e => e.Contact)
+               .HasForeignKey(e => e.ContactId)
+               .HasPrincipalKey(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasMany(e => e.ContactEmails)
+                .WithOne(e => e.Contact)
+                .HasForeignKey(e => e.ContactId)
+                .HasPrincipalKey(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(e => e.BillingLocation)
+                .WithOne(e => e.DefaultContact)
+                .HasForeignKey<BillingLocation>(e => e.DefaultContactId)
+                .HasPrincipalKey<Contact>(e => e.ContactId);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(e => e.ServiceLocation)
+                .WithOne(e => e.DefaultContact)
+                .HasForeignKey<ServiceLocation>(e => e.DefaultContactId)
+                .HasPrincipalKey<Contact>(e => e.ContactId);
+        }
+
+        private void PrepareServiceLocations(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ServiceLocation>()
+                .HasOne(e => e.Zone)
+                .WithMany(e => e.ServiceLocations)
+                .HasForeignKey(e => e.ZoneId)
+                .HasPrincipalKey(e => e.Id);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasMany(e => e.Agreements)
+                .WithOne(e => e.ServiceLocation)
+                .HasForeignKey(e => e.ServiceLocationId)
+                .HasPrincipalKey(e => e.ServiceLocationId);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasMany(e => e.WorkOrders)
+                .WithOne(e => e.ServiceLocation)
+                .HasForeignKey(e => e.ServiceLocationId)
+                .HasPrincipalKey(e => e.ServiceLocationId);
+        }
+
+        private void PrepareBillingLocations(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BillingLocation>()
+                .HasMany(e => e.WorkOrders)
+                .WithOne(e => e.BillingLocation)
+                .HasForeignKey(e => e.BillingLocationId)
+                .HasPrincipalKey(e => e.BillingLocationId);
+        }
+
+        private void PrepareAccounts(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()
                 .HasMany(e => e.ServiceLocations)
@@ -48,54 +143,6 @@ namespace KlearviewQuotes.Data
                 .WithOne(e => e.DefaultAccount)
                 .HasForeignKey<BillingLocation>(e => e.BillingLocationId)
                 .HasPrincipalKey<Account>(e => e.DefaultBillingLocationId);
-
-            modelBuilder.Entity<ServiceLocation>()
-                .HasOne(e => e.Zone)
-                .WithMany(e => e.ServiceLocations)
-                .HasForeignKey(e => e.ZoneId)
-                .HasPrincipalKey(e => e.Id);
-
-            modelBuilder.Entity<ServiceLocation>()
-                .HasMany(e => e.Agreements)
-                .WithOne(e => e.ServiceLocation)
-                .HasForeignKey(e => e.ServiceLocationId)
-                .HasPrincipalKey(e => e.ServiceLocationId);
-
-            modelBuilder.Entity<ServiceLocation>()
-                .HasMany(e => e.WorkOrders)
-                .WithOne(e => e.ServiceLocation)
-                .HasForeignKey(e => e.ServiceLocationId)
-                .HasPrincipalKey(e => e.ServiceLocationId);
-
-            modelBuilder.Entity<BillingLocation>()
-                .HasMany(e => e.WorkOrders)
-                .WithOne(e => e.BillingLocation)
-                .HasForeignKey(e => e.BillingLocationId)
-                .HasPrincipalKey(e => e.BillingLocationId);
-
-            modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ServiceLocation)
-                .WithOne(e => e.DefaultContact)
-                .HasForeignKey<ServiceLocation>(e => e.DefaultContactId)
-                .HasPrincipalKey<Contact>(e => e.ContactId);
-
-            modelBuilder.Entity<Contact>()
-                .HasOne(e => e.BillingLocation)
-                .WithOne(e => e.DefaultContact)
-                .HasForeignKey<BillingLocation>(e => e.DefaultContactId)
-                .HasPrincipalKey<Contact>(e => e.ContactId);
-
-            modelBuilder.Entity<Contact>()
-                .HasMany(e => e.ContactPhones)
-                .WithOne(e => e.Contact)
-                .HasForeignKey(e => e.ContactId)
-                .HasPrincipalKey(e => e.ContactId);
-
-            modelBuilder.Entity<Contact>()
-                .HasMany(e => e.ContactEmails)
-                .WithOne(e => e.Contact)
-                .HasForeignKey(e => e.ContactId)
-                .HasPrincipalKey(e => e.ContactId);
         }
     }
 }

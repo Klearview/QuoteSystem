@@ -33,7 +33,7 @@ namespace KlearviewQuotes.Models.Clients
         public string? EndingEligibleDate { get; set; }
         public string? StartTimePreference { get; set; }
         public string? EndTimePreference { get; set; }
-        public string? PreferredResourceId { get; set; } //
+        public string? PreferredResourceId { get; set; }
         public string? DayOfWeekPreference { get; set; }
         public string? StartedBy { get; set; }
         public string? CompletedBy { get; set; }
@@ -49,14 +49,29 @@ namespace KlearviewQuotes.Models.Clients
         public string? CancelledTime { get; set; } //
         public string? IssueNote { get; set; }
         public string? PerformedByResourceId { get; set; } //
+
+        [Display(Name = "Service Memo")]
         public string? ServiceLocationServiceMemo { get; set; } //
+
+        [Display(Name = "Billing Memo")]
         public string? BillingLocationBillingMemo { get; set; } //
         public string? CampaignId { get; set; } //
         public string? CancelReason { get; set; }
         public string? CancelReasonOther { get; set; }
 
-        public virtual Account Account { get; set; }
-        public virtual ServiceLocation ServiceLocation { get; set; }
-        public virtual BillingLocation BillingLocation { get; set; }
+        public virtual Account? Account { get; set; }
+        public virtual ServiceLocation? ServiceLocation { get; set; }
+        public virtual BillingLocation? BillingLocation { get; set; }
+
+        [Display(Name = "Resource")]
+        public virtual Team? Resource { get; set; }
+
+        [Display(Name = "Committed Resource")]
+        public virtual Team? CommittedResource { get; set; }
+
+        [Display(Name = "Performed by Resource")]
+        public virtual Team? PerformedByResource { get; set; }
+
+        public virtual Campaign? Campaign { get; set; }
     }
 }

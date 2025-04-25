@@ -6,6 +6,7 @@ using KlearviewQuotes.Services;
 using KlearviewQuotes.Services.Interfaces;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +32,6 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityDataContext>();
-builder.Services.AddControllersWithViews();
 
 // Application Insights
 builder.Services.AddApplicationInsightsTelemetry();
@@ -50,6 +50,8 @@ builder.Services.AddScoped<IPDFService, PDFService>();
 // Runtime Compilation
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

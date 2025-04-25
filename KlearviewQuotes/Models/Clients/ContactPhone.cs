@@ -8,6 +8,6 @@
         public string? Number { get; set; }
         public string? Extension { get; set; }
 
-        public virtual Contact? Contact { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }

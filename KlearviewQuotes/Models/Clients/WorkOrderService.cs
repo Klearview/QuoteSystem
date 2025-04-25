@@ -12,6 +12,6 @@
         public string? DoNotChargeForService { get; set; }
         public string? Removed { get; set; }
 
-        public virtual WorkOrder? WorkOrder { get; set; }
+        public virtual WorkOrder WorkOrder { get; set; }
     }
 }

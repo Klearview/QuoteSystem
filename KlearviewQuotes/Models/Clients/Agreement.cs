@@ -40,7 +40,7 @@ namespace KlearviewQuotes.Models.Clients
         public string? RenewalStatus { get; set; }
         public string? InvoiceMode { get; set; }
 
-        public virtual ServiceLocation? ServiceLocation { get; set; }
-        public virtual Account? Account { get; set; }
+        public virtual ServiceLocation ServiceLocation { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

@@ -59,20 +59,20 @@ namespace KlearviewQuotes.Models.Clients
         public string? CancelReason { get; set; }
         public string? CancelReasonOther { get; set; }
 
-        public virtual Account? Account { get; set; }
-        public virtual ServiceLocation? ServiceLocation { get; set; }
-        public virtual BillingLocation? BillingLocation { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual ServiceLocation ServiceLocation { get; set; }
+        public virtual BillingLocation BillingLocation { get; set; }
 
         [Display(Name = "Resource")]
-        public virtual Team? Resource { get; set; }
+        public virtual Team Resource { get; set; }
 
         [Display(Name = "Committed Resource")]
-        public virtual Team? CommittedResource { get; set; }
+        public virtual Team CommittedResource { get; set; }
 
         [Display(Name = "Performed by Resource")]
-        public virtual Team? PerformedByResource { get; set; }
+        public virtual Team PerformedByResource { get; set; }
 
-        public virtual Campaign? Campaign { get; set; }
+        public virtual Campaign Campaign { get; set; }
 
         public virtual IList<WorkOrderService> WorkOrderServices { get; set; }
         public virtual IList<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }

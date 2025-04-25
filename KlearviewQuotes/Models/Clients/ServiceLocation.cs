@@ -21,13 +21,13 @@ namespace KlearviewQuotes.Models.Clients
         [Display(Name = "Memo")]
         public string? ServiceMemo { get; set; }
 
-        public virtual Account? Account { get; set; }
-        public virtual Zone? Zone { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual Zone Zone { get; set; }
         public virtual IList<Agreement> Agreements { get; set; }
         public virtual IList<WorkOrder> WorkOrders { get; set; }
-        public virtual Contact? DefaultContact { get; set; }
+        public virtual Contact DefaultContact { get; set; }
 
-        public virtual Account? DefaultAccount { get; set; }
+        public virtual Account DefaultAccount { get; set; }
         public virtual IList<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
 
     }

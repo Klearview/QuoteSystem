@@ -40,9 +40,24 @@
                         </tbody>
                     </table>
 
-
                     <h6>Location Addreess</h6>
                     <partial name="_LocationPartial" />
+                </div>
+                <hr />
+                <div class="col-sm-12">
+                    @if (Model.UserDefinedFieldValues.Count > 0)
+                    {
+                        <h5>Custom Fields</h5>
+                        <table class="table">
+                            @foreach (var item in Model.UserDefinedFieldValues)
+                            {
+                                <tr>
+                                    <th>@Html.DisplayFor(modelItem => item.UserDefinedField.Label)</th>
+                                    <td>@Html.DisplayFor(modelItem => item.Text)</td>
+                                </tr>
+                            }
+                        </table>
+                    }
                 </div>
             </div>
         </div>

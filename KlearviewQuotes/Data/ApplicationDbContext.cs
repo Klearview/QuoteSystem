@@ -17,6 +17,8 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Campaign> MarketingCampaigns { get; set; }
         public virtual DbSet<WorkOrderService> WorkOrderServices { get; set; }
+        public virtual DbSet<UserDefinedField> UserDefinedFields { get; set; }
+        public virtual DbSet<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -27,6 +29,12 @@ namespace KlearviewQuotes.Data
             PrepareServiceLocations(modelBuilder);
             PrepareBillingLocations(modelBuilder);
             PrepareContacts(modelBuilder);
+
+            modelBuilder.Entity<UserDefinedFieldValue>()
+                .HasOne(e => e.UserDefinedField)
+                .WithMany(e => e.UserDefinedFieldValues)
+                .HasForeignKey(e => e.UserDefinedFieldId)
+                .HasPrincipalKey(e => e.Id);
         }
 
         private static void PrepareWorkOrders(ModelBuilder modelBuilder)
@@ -57,6 +65,12 @@ namespace KlearviewQuotes.Data
 
             modelBuilder.Entity<WorkOrder>()
                 .HasMany(e => e.WorkOrderServices)
+                .WithOne(e => e.WorkOrder)
+                .HasForeignKey(e => e.WorkOrderId)
+                .HasPrincipalKey(e => e.WorkOrderId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasMany(e => e.UserDefinedFieldValues)
                 .WithOne(e => e.WorkOrder)
                 .HasForeignKey(e => e.WorkOrderId)
                 .HasPrincipalKey(e => e.WorkOrderId);
@@ -105,6 +119,12 @@ namespace KlearviewQuotes.Data
 
             modelBuilder.Entity<ServiceLocation>()
                 .HasMany(e => e.WorkOrders)
+                .WithOne(e => e.ServiceLocation)
+                .HasForeignKey(e => e.ServiceLocationId)
+                .HasPrincipalKey(e => e.ServiceLocationId);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasMany(e => e.UserDefinedFieldValues)
                 .WithOne(e => e.ServiceLocation)
                 .HasForeignKey(e => e.ServiceLocationId)
                 .HasPrincipalKey(e => e.ServiceLocationId);

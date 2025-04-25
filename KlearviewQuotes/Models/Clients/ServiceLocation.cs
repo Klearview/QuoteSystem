@@ -28,6 +28,7 @@ namespace KlearviewQuotes.Models.Clients
         public virtual Contact? DefaultContact { get; set; }
 
         public virtual Account? DefaultAccount { get; set; }
+        public virtual IList<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
 
     }
 }

@@ -9,16 +9,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div style="padding: 1rem;" class="d-flex gap-2">
-                <div>
+            <div style="padding: 1rem;" class="row">
+                <div class="col-sm-6 border-end">
                     <h5>Contact</h5>
                     @await Html.PartialAsync("_ContactPartial", Model.DefaultContact)
 
                     <h6>Contact Address</h6>
                     @await Html.PartialAsync("_LocationPartial", Model.DefaultContact)
                 </div>
-                <div style="background-color: grey; width: 1px;"></div>
-                <div>
+                <div class="col-sm-6">
                     <h5>Location</h5>
                     <table class="table">
                         <colgroup>
@@ -40,6 +39,8 @@
                     <h6>Location Addreess</h6>
                     <partial name="_LocationPartial" />
                 </div>
+                <hr />
+                <div class="col-sm-12"></div>
             </div>
         </div>
     </div>

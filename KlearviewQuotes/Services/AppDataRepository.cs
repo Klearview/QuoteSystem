@@ -173,6 +173,8 @@ namespace KlearviewQuotes.Services
                     .Include(a => a.PerformedByResource)
                     .Include(a => a.Campaign)
                     .Include(a => a.WorkOrderServices)
+                    .Include(a => a.UserDefinedFieldValues)
+                        .ThenInclude(a => a.UserDefinedField)
                     .FirstOrDefaultAsync(a => a.WorkOrderId == id);
             }
             catch (Exception ex)
@@ -190,6 +192,8 @@ namespace KlearviewQuotes.Services
                 var location = await _appDbContext.ServiceLocations
                     .Include(e => e.DefaultContact.ContactPhones)
                     .Include(e => e.DefaultContact.ContactEmails)
+                    .Include(e => e.UserDefinedFieldValues)
+                        .ThenInclude(e => e.UserDefinedField)
                     .FirstOrDefaultAsync(e => e.ServiceLocationId == id);
 
                 return location;

@@ -75,5 +75,6 @@ namespace KlearviewQuotes.Models.Clients
         public virtual Campaign? Campaign { get; set; }
 
         public virtual IList<WorkOrderService> WorkOrderServices { get; set; }
+        public virtual IList<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
     }
 }

@@ -1,9 +1,11 @@
 ﻿@model KlearviewQuotes.Models.Clients.BillingLocation
 
-<button class="btn btn-link"
-        data-toggle="ajax-modal"
-        data-target="#locationModal"
-        style="white-space: pre-line; text-align: left; padding: 0;"
-        data-url="@Url.Action("Billing", "Location")/@Model.BillingLocationId"
->@Html.DisplayFor(model => model.Address)
-</button>
+@if (Model != null) {
+    <button class="btn btn-link"
+            data-toggle="ajax-modal"
+            data-target="#locationModal"
+            style="white-space: pre-line; text-align: left; padding: 0;"
+            data-url="@Url.Action("Billing", "Location")/@Model.BillingLocationId"
+    >@Html.DisplayFor(model => model.Address)
+    </button>
+}

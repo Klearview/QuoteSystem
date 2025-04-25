@@ -8,7 +8,7 @@
 <h3>Work Order #@Html.DisplayFor(model => model.Number)</h3>
 <hr />
 
-<table class="table">
+<table class="table info-table">
     <tr>
         <th>@Html.DisplayNameFor(model => model.Number)</th>
         <td>@Html.DisplayFor(model => model.Number)</td>
@@ -44,10 +44,6 @@
     <tr>
         <th>@Html.DisplayNameFor(model => model.BillingLocationBillingMemo)</th>
         <td>@Html.DisplayFor(model => model.BillingLocationBillingMemo)</td>
-    </tr>
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.SubTotal)</th>
-        <td>$@Html.DisplayFor(model => model.SubTotal)</td>
     </tr>
     <tr>
         <th>@Html.DisplayNameFor(model => model.ScheduledDate)</th>
@@ -91,3 +87,34 @@
     }
 </table>
 <hr />
+
+<h4>Service Infromation</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Services</th>
+            <th>Rate</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.WorkOrderServices != null && Model.WorkOrderServices.Count > 0) 
+        {
+            @foreach (var item in Model.WorkOrderServices) 
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Rate) / visit</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Rate)</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <th>Subtotal</th>
+            <th>$@Html.DisplayFor(model => model.SubTotal)</th>
+        </tr>
+    </tfoot>
+</table>

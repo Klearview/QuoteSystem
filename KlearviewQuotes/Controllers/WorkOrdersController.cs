@@ -32,7 +32,7 @@ namespace KlearviewQuotes.Controllers
                 return NotFound();
 
             if (!string.IsNullOrEmpty(accountType))
-                workOrders = workOrders.Where(e => e.Account.AccountType != null && e.Account.AccountType.Contains(accountType)).ToList();
+                workOrders = workOrders.Where(e => e.Account?.AccountType != null && e.Account.AccountType.Contains(accountType)).ToList();
 
             if (!string.IsNullOrEmpty(searchString))
                 workOrders = workOrders.Where(e => e.Account.Contains(searchString)).ToList();

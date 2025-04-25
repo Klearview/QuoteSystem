@@ -16,6 +16,7 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<ContactPhone> ContactPhones { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Campaign> MarketingCampaigns { get; set; }
+        public virtual DbSet<WorkOrderService> WorkOrderServices { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -28,7 +29,7 @@ namespace KlearviewQuotes.Data
             PrepareContacts(modelBuilder);
         }
 
-        private void PrepareWorkOrders(ModelBuilder modelBuilder)
+        private static void PrepareWorkOrders(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WorkOrder>()
                 .HasOne(e => e.Resource)
@@ -53,9 +54,15 @@ namespace KlearviewQuotes.Data
                 .WithMany(e => e.WorkOrders)
                 .HasForeignKey(e => e.CampaignId)
                 .HasPrincipalKey(e => e.CampaignId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasMany(e => e.WorkOrderServices)
+                .WithOne(e => e.WorkOrder)
+                .HasForeignKey(e => e.WorkOrderId)
+                .HasPrincipalKey(e => e.WorkOrderId);
         }
 
-        private void PrepareContacts(ModelBuilder modelBuilder)
+        private static void PrepareContacts(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contact>()
                .HasMany(e => e.ContactPhones)
@@ -82,7 +89,7 @@ namespace KlearviewQuotes.Data
                 .HasPrincipalKey<Contact>(e => e.ContactId);
         }
 
-        private void PrepareServiceLocations(ModelBuilder modelBuilder)
+        private static void PrepareServiceLocations(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(e => e.Zone)
@@ -103,7 +110,7 @@ namespace KlearviewQuotes.Data
                 .HasPrincipalKey(e => e.ServiceLocationId);
         }
 
-        private void PrepareBillingLocations(ModelBuilder modelBuilder)
+        private static void PrepareBillingLocations(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BillingLocation>()
                 .HasMany(e => e.WorkOrders)
@@ -112,7 +119,7 @@ namespace KlearviewQuotes.Data
                 .HasPrincipalKey(e => e.BillingLocationId);
         }
 
-        private void PrepareAccounts(ModelBuilder modelBuilder)
+        private static void PrepareAccounts(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()
                 .HasMany(e => e.ServiceLocations)

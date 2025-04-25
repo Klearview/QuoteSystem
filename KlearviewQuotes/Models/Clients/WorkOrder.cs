@@ -73,5 +73,7 @@ namespace KlearviewQuotes.Models.Clients
         public virtual Team? PerformedByResource { get; set; }
 
         public virtual Campaign? Campaign { get; set; }
+
+        public virtual IList<WorkOrderService> WorkOrderServices { get; set; }
     }
 }

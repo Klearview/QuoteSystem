@@ -172,6 +172,7 @@ namespace KlearviewQuotes.Services
                     .Include(a => a.CommittedResource)
                     .Include(a => a.PerformedByResource)
                     .Include(a => a.Campaign)
+                    .Include(a => a.WorkOrderServices)
                     .FirstOrDefaultAsync(a => a.WorkOrderId == id);
             }
             catch (Exception ex)

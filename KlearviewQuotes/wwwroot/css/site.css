@@ -233,6 +233,10 @@ textarea {
     min-width: 300px;
 }
 
+#locationModal .modal-dialog {
+    max-width: none !important;
+}
+
 .modal-body {
     max-width: 90vw;
     overflow: auto;
@@ -272,13 +276,8 @@ button.close {
     overflow-x: auto;
 }
 
-.info-table {
-    width: fit-content;
-}
-
-
 .info-table th {
-    text-align: right;
+    padding-right: 2rem;
 }
 
 /* Zone */

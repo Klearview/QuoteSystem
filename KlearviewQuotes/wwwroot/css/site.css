@@ -276,6 +276,10 @@ button.close {
     overflow-x: auto;
 }
 
+.info-table {
+    width: fit-content;
+}
+
 .info-table th {
     padding-right: 2rem;
 }

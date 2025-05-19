@@ -20,6 +20,7 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<UserDefinedField> UserDefinedFields { get; set; }
         public virtual DbSet<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<Note> Notes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -72,6 +73,12 @@ namespace KlearviewQuotes.Data
 
             modelBuilder.Entity<WorkOrder>()
                 .HasMany(e => e.UserDefinedFieldValues)
+                .WithOne(e => e.WorkOrder)
+                .HasForeignKey(e => e.WorkOrderId)
+                .HasPrincipalKey(e => e.WorkOrderId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasMany(e => e.Notes)
                 .WithOne(e => e.WorkOrder)
                 .HasForeignKey(e => e.WorkOrderId)
                 .HasPrincipalKey(e => e.WorkOrderId);
@@ -174,6 +181,12 @@ namespace KlearviewQuotes.Data
 
             modelBuilder.Entity<Account>()
                 .HasMany(e => e.Invoices)
+                .WithOne(e => e.Account)
+                .HasForeignKey(e => e.AccountId)
+                .HasPrincipalKey(e => e.AccountId);
+
+            modelBuilder.Entity<Account>()
+                .HasMany(e => e.Notes)
                 .WithOne(e => e.Account)
                 .HasForeignKey(e => e.AccountId)
                 .HasPrincipalKey(e => e.AccountId);

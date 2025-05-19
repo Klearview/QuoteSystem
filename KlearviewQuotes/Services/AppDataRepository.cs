@@ -107,8 +107,8 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 return _appDbContext.Accounts
-                    .Include(a => a.DefaultServiceLocation.DefaultContact.ContactEmails)
-                    .Include(a => a.DefaultServiceLocation.DefaultContact.ContactPhones)
+                    .Include(e => e.DefaultServiceLocation.DefaultContact.ContactEmails)
+                    .Include(e => e.DefaultServiceLocation.DefaultContact.ContactPhones)
                     .ToList();
             }
             catch (Exception ex)
@@ -124,16 +124,17 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 return await _appDbContext.Accounts
-                    .Include(a => a.Agreements)
-                    .Include(a => a.WorkOrders)
-                        .ThenInclude(a => a.ServiceLocation)
-                    .Include(a => a.WorkOrders)
-                        .ThenInclude(a => a.BillingLocation)
-                    .Include(a => a.ServiceLocations)
-                        .ThenInclude(a => a.Zone)
-                    .Include(a => a.DefaultServiceLocation)
-                    .Include(a => a.DefaultServiceLocation)
-                    .FirstOrDefaultAsync(a => a.AccountId == id);
+                    .Include(e => e.Agreements)
+                    .Include(e => e.WorkOrders)
+                        .ThenInclude(e => e.ServiceLocation)
+                    .Include(e => e.WorkOrders)
+                        .ThenInclude(e => e.BillingLocation)
+                    .Include(e => e.ServiceLocations)
+                        .ThenInclude(e => e.Zone)
+                    .Include(e => e.DefaultServiceLocation)
+                    .Include(e => e.DefaultServiceLocation)
+                    .Include(e => e.Notes)
+                    .FirstOrDefaultAsync(e => e.AccountId == id);
             }
             catch (Exception ex)
             {
@@ -148,9 +149,9 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 return _appDbContext.WorkOrders
-                    .Include(a => a.ServiceLocation)
-                    .Include(a => a.BillingLocation)
-                    .Include(a => a.Account)
+                    .Include(e => e.ServiceLocation)
+                    .Include(e => e.BillingLocation)
+                    .Include(e => e.Account)
                     .ToList();
             }
             catch (Exception ex)
@@ -166,16 +167,17 @@ namespace KlearviewQuotes.Services
             {
                 await _appDbContext.SaveChangesAsync();
                 return await _appDbContext.WorkOrders
-                    .Include(a => a.ServiceLocation)
-                    .Include(a => a.BillingLocation)
-                    .Include(a => a.Resource)
-                    .Include(a => a.CommittedResource)
-                    .Include(a => a.PerformedByResource)
-                    .Include(a => a.Campaign)
-                    .Include(a => a.WorkOrderServices)
-                    .Include(a => a.UserDefinedFieldValues)
-                        .ThenInclude(a => a.UserDefinedField)
-                    .FirstOrDefaultAsync(a => a.WorkOrderId == id);
+                    .Include(e => e.ServiceLocation)
+                    .Include(e => e.BillingLocation)
+                    .Include(e => e.Resource)
+                    .Include(e => e.CommittedResource)
+                    .Include(e => e.PerformedByResource)
+                    .Include(e => e.Campaign)
+                    .Include(e => e.WorkOrderServices)
+                    .Include(e => e.Notes)
+                    .Include(e => e.UserDefinedFieldValues)
+                        .ThenInclude(e => e.UserDefinedField)
+                    .FirstOrDefaultAsync(e => e.WorkOrderId == id);
             }
             catch (Exception ex)
             {
@@ -246,7 +248,7 @@ namespace KlearviewQuotes.Services
                 return await _appDbContext.Invoices
                     .Include(e => e.Account)
                     .Include(e => e.Account.DefualtBillingLocation.DefaultContact.ContactPhones)
-                    .FirstOrDefaultAsync(a => a.InvoiceId == id);
+                    .FirstOrDefaultAsync(e => e.InvoiceId == id);
             }
             catch (Exception ex)
             {

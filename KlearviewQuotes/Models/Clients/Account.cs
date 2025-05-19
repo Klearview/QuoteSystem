@@ -34,6 +34,7 @@ namespace KlearviewQuotes.Models.Clients
         public virtual BillingLocation DefualtBillingLocation { get; set; }
 
         public virtual IList<Invoice> Invoices { get; set; }
+        public virtual IList<Note> Notes { get; set; }
 
         public bool Contains(string search)
         {

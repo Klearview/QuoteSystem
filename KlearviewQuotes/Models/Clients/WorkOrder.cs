@@ -76,5 +76,7 @@ namespace KlearviewQuotes.Models.Clients
 
         public virtual IList<WorkOrderService> WorkOrderServices { get; set; }
         public virtual IList<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
+
+        public virtual IList<Note> Notes { get; set; }
     }
 }

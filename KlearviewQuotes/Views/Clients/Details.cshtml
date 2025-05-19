@@ -7,35 +7,55 @@
 <h3>@Html.DisplayFor(model => model.Account.Name) - (#@Html.DisplayFor(model => model.Account.Number))</h3>
 <hr />
 
-<table class="table info-table">
-    <tbody>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Account.Number)</th>
-            <td>@Html.DisplayFor(model => model.Account.Number)</td>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Account.Name)</th>
-            <td>@Html.DisplayFor(model => model.Account.Name)</td>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Account.Active)</th>
-            <td>@Html.DisplayFor(model => model.Account.Active)</td>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Account.AccountType)</th>
-            <td>@Html.DisplayFor(model => model.Account.AccountType)</td>
-        </tr>
-        <tr>
-            <th>Default Service Location</th>
-            <td>@await Html.PartialAsync("../Location/_ServiceLocationLinkPartial", Model.Account.DefaultServiceLocation)</td>
-        </tr>
-        <tr>
-            <th>Default Billing Location</th>
-            <td>@await Html.PartialAsync("../Location/_BillingLocationLinkPartial", Model.Account.DefualtBillingLocation)</td>
-        </tr>
-    </tbody>
-</table>
-
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table info-table">
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Account.Number)</th>
+                    <td>@Html.DisplayFor(model => model.Account.Number)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Account.Name)</th>
+                    <td>@Html.DisplayFor(model => model.Account.Name)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Account.Active)</th>
+                    <td>@Html.DisplayFor(model => model.Account.Active)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Account.AccountType)</th>
+                    <td>@Html.DisplayFor(model => model.Account.AccountType)</td>
+                </tr>
+                <tr>
+                    <th>Default Service Location</th>
+                    <td>@await Html.PartialAsync("../Location/_ServiceLocationLinkPartial", Model.Account.DefaultServiceLocation)</td>
+                </tr>
+                <tr>
+                    <th>Default Billing Location</th>
+                    <td>@await Html.PartialAsync("../Location/_BillingLocationLinkPartial", Model.Account.DefualtBillingLocation)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6 border-start border-1">
+        <h5>Notes</h5>
+        <ul>
+            @if (Model.Account.Notes != null && Model.Account.Notes.Count > 0)
+            {
+                @foreach (var note in Model.Account.Notes) {
+                    if (!string.IsNullOrEmpty(note.WorkOrderId)) {
+                        <li>@Html.DisplayFor(modelItem => note.Body)</li>
+                    }
+                }
+            }
+            else
+            {
+                <li>No Notes For This Account</li>
+            }
+        </ul>
+    </div>
+</div>
 
 <h4>Service Locations</h4>
 <div class="table-responsive table-wrapper">

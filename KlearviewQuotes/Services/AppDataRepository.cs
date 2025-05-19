@@ -223,5 +223,36 @@ namespace KlearviewQuotes.Services
                 return null;
             }
         }
+
+        public async Task<IList<Invoice>?> GetInvoicesAsync()
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return _appDbContext.Invoices.ToList();
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
+
+        public async Task<Invoice?> GetInvoiceAsync(string id)
+        {
+            try
+            {
+                await _appDbContext.SaveChangesAsync();
+                return await _appDbContext.Invoices
+                    .Include(e => e.Account)
+                    .Include(e => e.Account.DefualtBillingLocation.DefaultContact.ContactPhones)
+                    .FirstOrDefaultAsync(a => a.InvoiceId == id);
+            }
+            catch (Exception ex)
+            {
+                _telemetryClient.TrackException(ex);
+                return null;
+            }
+        }
     }
 }

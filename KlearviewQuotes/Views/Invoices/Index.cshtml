@@ -1,0 +1,53 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Clients.Invoice>;
+
+@{
+    ViewData["Title"] = "Invoices";
+}
+
+
+@using (Html.BeginForm())
+{
+    /*
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Search Query</label>
+            @Html.TextBox("SearchString", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-3">
+            <label>Account Type</label>
+            @Html.DropDownList("AccountType", ViewBag.Status as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="d-flex align-items-end mt-2 mb-4">
+        <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+        <a class="btn btn-outline-warning" style="margin-left: 10px;" asp-area="" asp-controller="Clients" asp-action="Index">Reset</a>
+    </div>
+    */
+}
+
+<div class="table-responsive table-wrapper">
+    @await Html.PartialAsync("../Invoices/_InvoiceListPartial", Model)
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, invoicePage => Url.Action("index",
+            new
+            {
+                invoicePage = invoicePage,
+            }) + "#invoices",
+            new PagedListRenderOptions()
+    {
+        ActiveLiElementClass = "active",
+        PageClasses = new[] { "page-link" },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+        LinkToNextPageFormat = "Next",
+        LinkToPreviousPageFormat = "Previous",
+        MaximumPageNumbersToDisplay = 5,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
+</div>

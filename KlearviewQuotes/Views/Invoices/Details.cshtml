@@ -1,0 +1,51 @@
+﻿@model KlearviewQuotes.Models.Clients.Invoice
+@{
+    ViewData["Title"] = "Invoice";
+}
+
+<a asp-action="Details" asp-controller="Clients" asp-route-id="@Model.AccountId" class="btn btn-sm btn-link">&#60; Account</a>
+
+<h3>Invoice #@Html.DisplayFor(model => model.InvoiceNum)</h3>
+<div>Invoice Date: @Html.DisplayFor(model => model.InvoiceDate)</div>
+<div>Account #@Html.DisplayFor(model => model.Account.Number)</div>
+<hr />
+
+<h5 class="text-decoration-underline">Billing Location Infromation</h5>
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table table-borderless">
+            <tr>
+                <th>Billing Address</th>
+                <td>@Html.DisplayFor(model => model.BillingAddress)</td>
+            </tr>
+            <tr>
+                <th>Account Balance</th>
+                <th>Account Balance</th>
+                <td>TODO</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <table class="table table-borderless">
+            <tr>
+                <th>Billing Contact</th>
+                <td>@Html.DisplayFor(model => model.Account.Name)</td>
+            </tr>
+            <tr>
+                <th>Main Number</th>
+                <td>@Html.DisplayFor(model => model.Account.DefualtBillingLocation.DefaultContact.MainPhone)</td>
+            </tr>
+            <tr>
+                <th>Mobile Number</th>
+                <td>@Html.DisplayFor(model => model.Account.DefualtBillingLocation.DefaultContact.MobilePhone)</td>
+            </tr>
+            <tr>
+                <th>Main Number</th>
+                <td>@Html.DisplayFor(model => model.BillingEmailAddress)</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<hr />
+
+<h5 class="text-decoration-underline">Service Infromation</h5>

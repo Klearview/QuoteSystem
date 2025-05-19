@@ -88,20 +88,6 @@
 </table>
 <hr />
 
-@if (Model.UserDefinedFieldValues.Count > 0) {
-    <h4>Custom Fields</h4>
-    <table class="table info-table">
-        @foreach (var item in Model.UserDefinedFieldValues) {
-            <tr>
-                <th>@Html.DisplayFor(modelItem => item.UserDefinedField.Label)</th>
-                <td>@Html.DisplayFor(modelItem => item.Text)</td>
-            </tr>
-        }
-    </table>
-    <hr />
-}
-
-
 <h4>Service Infromation</h4>
 <table class="table table-striped">
     <colgroup>
@@ -137,3 +123,23 @@
         </tr>
     </tfoot>
 </table>
+<hr />
+
+@if (Model.UserDefinedFieldValues.Count > 0)
+{
+    <h4>Custom Fields</h4>
+    <table class="table info-table">
+        @foreach (var item in Model.UserDefinedFieldValues)
+        {
+            <tr>
+                <th>@Html.DisplayFor(modelItem => item.UserDefinedField.Label)</th>
+                <td>@Html.DisplayFor(modelItem => item.Text)</td>
+            </tr>
+        }
+    </table>
+
+}
+else
+{
+    <p>No Custom Fields for this Work Order</p>
+}

@@ -19,6 +19,7 @@ namespace KlearviewQuotes.Data
         public virtual DbSet<WorkOrderService> WorkOrderServices { get; set; }
         public virtual DbSet<UserDefinedField> UserDefinedFields { get; set; }
         public virtual DbSet<UserDefinedFieldValue> UserDefinedFieldValues { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -170,6 +171,12 @@ namespace KlearviewQuotes.Data
                 .WithOne(e => e.DefaultAccount)
                 .HasForeignKey<BillingLocation>(e => e.BillingLocationId)
                 .HasPrincipalKey<Account>(e => e.DefaultBillingLocationId);
+
+            modelBuilder.Entity<Account>()
+                .HasMany(e => e.Invoices)
+                .WithOne(e => e.Account)
+                .HasForeignKey(e => e.AccountId)
+                .HasPrincipalKey(e => e.AccountId);
         }
     }
 }

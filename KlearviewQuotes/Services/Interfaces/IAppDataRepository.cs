@@ -24,6 +24,9 @@ namespace KlearviewQuotes.Services.Interfaces
         Task<IList<WorkOrder>?> GetWorkOrdersAsync();
         Task<WorkOrder?> GetWorkOrderAsync(string id);
 
+        Task<IList<Invoice>?> GetInvoicesAsync();
+        Task<Invoice?> GetInvoiceAsync(string id);
+
         Task<ServiceLocation?> GetServiceLocationAsync(string id);
         Task<BillingLocation?> GetBillingLocationAsync(string id);
 

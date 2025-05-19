@@ -1,0 +1,52 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<KlearviewQuotes.Models.Clients.Invoice>;
+@{
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string actionLink = controller == "Clients" ? "Client" : "Index";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Sub Total</th>
+            <th>Tax</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.InvoiceNum)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LocationStreet) @Html.DisplayFor(modelItem => item.LocationStreet2)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LocationCity)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.SubTotal)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Tax)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Total)</td>
+                    <td>@Html.DisplayFor(modelItem => item.InvoiceDate)</td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            <a asp-action="Details" asp-controller="Clients" asp-route-id="@item.AccountId" class="btn btn-sm btn-primary">Account</a>
+                            <a asp-action="Details" asp-controller="Invoices" asp-route-id="@item.InvoiceId" class="btn btn-sm btn-primary">Details</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        @if (Model == null)
+        {
+            <tr>
+                <td colspan="6"><div class="text-center">No Invoices</div></td>
+            </tr>
+        }
+    </tbody>
+</table>

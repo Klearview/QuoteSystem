@@ -15,5 +15,23 @@
 
         public virtual IList<ContactEmail> ContactEmails { get; set; }
         public virtual IList<ContactPhone> ContactPhones { get; set; }
+
+        public string MainPhone 
+        { 
+            get
+            {
+                if (ContactPhones.Count == 0) return "";
+                return ContactPhones.Where(e => e.Name == "Main").First().Number ?? "";
+            }
+        }
+
+        public string MobilePhone
+        {
+            get
+            {
+                if (ContactPhones.Count == 0) return "";
+                return ContactPhones.Where(e => e.Name == "Mobile").First().Number ?? "";
+            }
+        }
     }
 }

@@ -33,6 +33,8 @@ namespace KlearviewQuotes.Models.Clients
         public virtual ServiceLocation DefaultServiceLocation { get; set; }
         public virtual BillingLocation DefualtBillingLocation { get; set; }
 
+        public virtual IList<Invoice> Invoices { get; set; }
+
         public bool Contains(string search)
         {
             search = FormatString(search);

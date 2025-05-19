@@ -10,23 +10,35 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new 
-            { 
-                woSort = ViewBag.WoNumberParm,
-                accountType = ViewBag.CurrentAccountType ?? ""
-            }, null)</th>
-            @if (controller == "WorkOrders")
-            {
+            @if (controller == "Clients") {
+                <th>Number</th>
+            } else {
+                <th>
+                    @Html.ActionLink("Number", actionLink, null, null, null, "workOrders", new
+                        {
+                            woSort = ViewBag.WoNumberParm,
+                            accountType = ViewBag.CurrentAccountType ?? ""
+                        }, null)
+                </th>
                 <th>Customer Name</th>
             }
             <th>Service Location</th>
             <th>Billing Location</th>
             <th>Scheduled Date</th>
-            <th>@Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new 
-            { 
-                woSort = ViewBag.WoSubTotalParm,
-                accountType = ViewBag.CurrentAccountType ?? ""
-            }, null)</th>
+            @if (controller == "Clients")
+            {
+                <th>Sub Total</th>
+            }
+            else
+            {
+                <th>
+                    @Html.ActionLink("Sub Total", actionLink, null, null, null, "workOrders", new
+                        {
+                            woSort = ViewBag.WoSubTotalParm,
+                            accountType = ViewBag.CurrentAccountType ?? ""
+                        }, null)
+                </th>
+            }
             <th>Status</th>
             @if (controller == "WorkOrders") {
                 <th>Account Type</th>
